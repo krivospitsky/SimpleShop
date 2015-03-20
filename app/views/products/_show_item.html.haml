@@ -17,7 +17,7 @@
           =image_tag('product_list_no_photo.png')
     .price.text-center
       Цена 
-      =product.price_str
+      =raw product.price_str
       -if Settings.hide_count_in_product
         = form_for cart_item do |f|
           = f.hidden_field :product_id
