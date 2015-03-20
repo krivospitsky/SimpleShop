@@ -93,7 +93,7 @@ class Product < ActiveRecord::Base
     discount=get_discount
     if prices.count==0
       "по запросу"
-    elsif discount
+    elsif discount && discount>0
       if prices.min == prices.max
         "<del>#{prices[0]}</del> #{prices[0] * (100-discount)/100} руб."
       else
