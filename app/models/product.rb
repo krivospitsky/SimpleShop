@@ -73,17 +73,19 @@ class Product < ActiveRecord::Base
     max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
-    #
-    if max_discount>0
-      return price * (100 - max_discount) / 100
-      # 
-      #   return prices[0] * (100 - max_discount) / 100
-      # else
-      #   return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
-      # end
-    end
+    max_discount
 
-    false
+    # #
+    # if max_discount>0
+    #   return price * (100 - max_discount) / 100
+    #   # 
+    #   #   return prices[0] * (100 - max_discount) / 100
+    #   # else
+    #   #   return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
+    #   # end
+    # end
+
+    # false
   end
 
   def price_str
@@ -91,11 +93,11 @@ class Product < ActiveRecord::Base
     discount=get_discount
     if prices.count==0
       "по запросу"
-    elsif discount
+    elsif discount && discount>0
       if prices.min == prices.max
-        "<del>#{prices[0]}</del> #{price[0] * (100-discount)} руб."
+        "<del>#{prices[0]}</del> #{prices[0] * (100-discount)/100} руб."
       else
-        "<del>от #{prices.min} до #{prices.max} руб.</del> от #{prices.min * (100-discount)} до #{prices.max * (100-discount)} руб."
+        "<del>от #{prices.min} до #{prices.max} руб.</del> от #{prices.min * (100-discount)/100} до #{prices.max * (100-discount)/100} руб."
       end
     else
       if prices.min == prices.max
