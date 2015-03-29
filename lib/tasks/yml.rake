@@ -65,7 +65,7 @@ namespace :yml do
 
 			product=Product.find_or_initialize_by(sku: sku)
 			if (supplier == 'camp')
-				product.name=node.xpath('typePrefix').first.content.gsub(/\&amp\;quot\;/, '"')
+				product.name=node.xpath('typePrefix').first.content.gsub(/\&amp\;quot\;/, '"').gsub(/\&quot\;/, '"')
 			elsif supplier == 'salmo'
 				product.name=node.xpath('name').first.content				
 			else
