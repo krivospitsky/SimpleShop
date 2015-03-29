@@ -71,7 +71,8 @@ namespace :yml do
 			else
 				product.name=node.xpath('model').first.content
 			end
-			product.name.gsub!('&amp;quot;', '"')
+
+			product.name.gsub!(/\&amp\;quot\;/, '"')
 			
 			puts product.name
 			product.categories.clear
