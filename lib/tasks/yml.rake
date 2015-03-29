@@ -95,9 +95,6 @@ namespace :yml do
 			color=node.xpath("param[@name='Цвет']").first.content if node.xpath("param[@name='Цвет']").first
 			size=node.xpath("param[@name='Размер']").first.content if node.xpath("param[@name='Размер']").first
 
-			puts color
-			puts size
-
 			variant_sku=node.xpath('barcode').first.content if node.xpath('barcode').first
 			if not variant_sku
 				variant_sku=sku
