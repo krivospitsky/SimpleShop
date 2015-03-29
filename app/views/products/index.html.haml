@@ -2,7 +2,8 @@
 .row
 	.col-sm-3
 		=render '/categories/smart_tree'
-		=render '/products/smart_filter'
+		-unless Settings::disable_filters
+			=render '/products/smart_filter'
 	.col-sm-9
 		%h1= @title
 

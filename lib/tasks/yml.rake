@@ -71,20 +71,24 @@ namespace :yml do
 			else
 				product.name=node.xpath('model').first.content
 			end
+			product.name.gsub!('&amp;quot;', '"')
+			
 			puts product.name
 			product.categories.clear
 			product.categories << Category.find_by(external_id: "#{supplier}_#{cat_id}")
 			product.sku=sku
 
-			product.attr=nil
+			product.save!
+
+			product.attrs.delete_all
 			node.xpath("param").each do |param|
 				if param['name'] != 'Цвет' && param['name'] != 'Размер' 
 					if param.content == 'true'
-						product.attr[param['name']]='Да'
+						product.attrs.create(name: param['name'], value: 'Да')
 					elsif param.content == 'false'
-						product.attr[param['name']]='Нет'
+						product.attrs.create(name: param['name'], value: 'Нет')
 					elsif param.content!=''
-						product.attr[param['name']]=param.content
+						product.attrs.create(name: param['name'], value: param.content)
 					end
 				end
 			end

@@ -41,43 +41,7 @@ margin-bottom:20px;
 	padding: 15px;
 }
 
-.shadow .btn2, .shadow .btn2:visited{
-	cursor: pointer;
-	color: #FFFFFF;
-	line-height: 12px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	font-style:italic;
 
-
-	background-image: linear-gradient(bottom, rgb(0,102,153) 0%, rgb(51,122,163) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(0,102,153) 0%, rgb(51,122,163) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(0,102,153) 0%, rgb(51,122,163) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(0,102,153) 0%, rgb(51,122,163) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(0,102,153) 0%, rgb(51,122,163) 100%);
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(0,102,153)), color-stop(1, rgb(51,122,163)));
-
-	/*
-	-webkit-border-radius: 0px 0px 0px 0px;
-	-moz-border-radius: 0px 0px 0px 0px;
-	-khtml-border-radius: 0px 0px 0px 0px;
-	border-radius: 0px 0px 0px 0px;
-	-webkit-box-shadow: 0px 2px 2px #DDDDDD;
-	-moz-box-shadow: 0px 2px 2px #DDDDDD;
-	box-shadow: 0px 2px 2px #DDDDDD;
-*/
-
-	display: inline-block;
-	text-decoration: none;
-	padding: 9px 12px 0px 12px;
-
-	position:absolute;
-	bottom:0px;
-	right:0px;
-	left:0px;
-	height:21px;
-}
 /*
 .prev, .next{
 	font-size: 3em;

@@ -24,6 +24,6 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def permitted_params
-    params.require(:product).permit(:name, :description, :sku, :price, :count, :enabled, :sort_order_position, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[], :linked_category_ids=>[], :linked_product_ids=>[], variants_attributes: [:id, :sku, :enabled, :name, :price, :count, :_destroy] ,seo_attributes: [:title, :description, :keywords])
+    params.require(:product).permit(:name, :description, :sku, :price, :count, :enabled, :sort_order_position, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[], :linked_category_ids=>[], :linked_product_ids=>[], variants_attributes: [:id, :sku, :enabled, :name, :price, :count, :_destroy] ,seo_attributes: [:title, :description, :keywords], attrs_attributes:[:id, :name, :value, :variantable, :_destroy])
   end
 end

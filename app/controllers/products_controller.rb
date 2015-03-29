@@ -51,16 +51,18 @@ class ProductsController < ApplicationController
       @products=Product.enabled.page(params[:page])
     end
 
-    @filters=Hash.new
-    @products.each do |prod|
-      prod.attr.keys.each do |attr|
-        @filters[attr]=[] unless @filters[attr]
-        @filters[attr] << prod.attr[attr] unless @filters[attr].include?(prod.attr[attr])
+    unless Settings::disable_filters
+      @filters=Hash.new
+      @products.each do |prod|
+        prod.attr.keys.each do |attr|
+          @filters[attr]=[] unless @filters[attr]
+          @filters[attr] << prod.attr[attr] unless @filters[attr].include?(prod.attr[attr])
+        end
       end
-    end
 
-    @filters.keys.each do |filter|
-      @filters.delete(filter) if @filters[filter].size<2
+      @filters.keys.each do |filter|
+        @filters.delete(filter) if @filters[filter].size<2
+      end
     end
 
   end

@@ -65,15 +65,15 @@
                 %span.input-group-addon 
                   шт.  
 
-      -if @product.attr
+      -if @product.attrs.count>0
         %table.table.table-condensed.attributes
-          -@product.attr.keys.each do |key|
+          -@product.attrs.all.each do |attr|
             %tr
               %td
-                =key
+                =attr.name
               %td
-                =@product.attr[key]
-        -if @product.attr.keys.count > 5 
+                =attr.value
+        -if @product.attrs.count > 5 
           %a.show-all{href:'#'}
             Показать все
           

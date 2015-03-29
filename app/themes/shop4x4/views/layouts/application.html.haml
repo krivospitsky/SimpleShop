@@ -11,8 +11,7 @@
     /[if lt IE 9]
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
-    = stylesheet_link_tag "#{Settings::theme}/all"
-    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "#{Settings::theme}", :media => "all"
     / For third-generation iPad with high-resolution Retina display:
     / Size should be 144 x 144 pixels
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
@@ -77,34 +76,6 @@
         -Page.in_menu.each do |page|
           =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
 
-          / %ul.nav.navbar-nav
-          /   %li
-
-          / -%li.dropdown
-          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-          /     Статьи
-          /     <b class="caret"></b>
-          /   %ul.dropdown-menu
-          /     %li= link_to "Слинг или рюкзак", "/path3"
-          /     %li= link_to "Эрго-рюкзак против кенгуру", "/path3"
-          /     %li= link_to "Выбрать слинг", "/path3"
-
-          / %li.dropdown
-          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-          /     Производители
-          /     <b class="caret"></b>
-          /   %ul.dropdown-menu
-          /     -Manufacturer.all(order:'name').each do |manufacturer|
-          /       %li
-          /         =link_to manufacturer.name, manufacturer_path(manufacturer.id)
-
-
-        /   %a.navbar-brand{:href => "/"}
-        /     =Settings.site_title
-        / %ul.nav.navbar-nav
-        /   .navbar-text
-        /     =Settings.owner_phone
-
       = yield
 
     %footer.footer
@@ -131,5 +102,5 @@
         %hr
         &copy; Интернет-магазин «Рыболофф» 2001–2015
         .small
-          Сайт Рыболофф разрешает вам просматривать и загружать материалы этого сайта (далее «Сайт») только для личного некоммерческого использования, при условии сохранения вами всей информации об авторском праве и других сведений о праве собственности, содержащихся в исходных материалах и любых их копиях. Запрещается изменять материалы этого Сайта, а также распространять или демонстрировать их в любом виде или использовать их любым другим образом для общественных или коммерческих целей. Любое использование этих материалов на других сайтах или в компьютерных сетях запрещается. 
+          small copy 
     =raw Settings::metrika

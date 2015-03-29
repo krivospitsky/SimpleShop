@@ -2,6 +2,8 @@
   %li.active
     %a(href="#common" data-toggle="tab") Common
   %li
+    %a(href="#attrs" data-toggle="tab") Атрибуты
+  %li
     %a(href="#seo" data-toggle="tab") SEO
 
 = simple_form_for [:admin, @product] do |f|
@@ -41,6 +43,15 @@
             = render 'image_fields', :f => image
           = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
 
+    .tab-pane#attrs
+      %table.table.attrs.pull-left
+        %tr
+          %td Имя
+          %td Значение
+          %td Действие
+        = f.fields_for :attrs do |attr|
+          = render 'attr_fields', :f => attr
+      = link_to_add_association 'Добавить атрибут', f, :attrs, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".attrs", "data-association-insertion-method" => "append"
 
     .tab-pane#seo
       = render partial: 'seo', locals: {f: f}
