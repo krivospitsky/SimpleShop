@@ -9,6 +9,7 @@ Shop::Application.routes.draw do
 #  resources :products
 
   get 'catalog/search' => 'products#search'
+  get 'catalog/product/:id', to: 'products#show', as: :canonical_product
   get 'catalog(/*category_path)/:category_id/product/:id', to: 'products#show', as: :original_product
   #get 'catalog(/*category_path)/:category_id/product/:id', to: 'products#show', as: :original_product
   get 'catalog(/*category_path)/:category_id/', to: 'products#index', as: :category

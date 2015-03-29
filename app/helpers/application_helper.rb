@@ -4,7 +4,11 @@ module ApplicationHelper
 		original_product_path('', product)
   	else
 	  	category ||= product.categories.first 
-	  	original_product_path(category.path, category.id, product)
+	  	if category
+	  		original_product_path(category.path, category.id, product)
+	  	else
+	  		canonical_product_path(product)	  		
+	  	end
 	end
   end
 

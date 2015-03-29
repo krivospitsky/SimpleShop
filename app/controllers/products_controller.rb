@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
     
-    @category = Category.find(params[:category_id])
+    @category = Category.find(params[:category_id]) if params[:category_id]
 
     @breadcrumbs=[]
     @breadcrumbs << @product
