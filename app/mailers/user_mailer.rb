@@ -17,12 +17,12 @@ class UserMailer < ActionMailer::Base
   def delivery_options2
     {
       address:              Settings.smtp_host,
-      port:                 Settings.smtp_port,
+      port:                 25,
       # domain:               Settings.smtp_domain,
       # user_name:            Settings.smtp_user_name,
       # password:             Settings.smtp_password,
       # authentication:       Settings.smtp_authentication,
-      enable_starttls_auto: true
+      # enable_starttls_auto: true
     }
   end
 
