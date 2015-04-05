@@ -1,16 +1,16 @@
 # coding: utf-8
 namespace :ojeep do
 	task :import => :environment do
-		ProcessCategory("http://ojeep.ru/shmurdyak/332/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/347/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/334/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/329/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/330/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/354/", -1, :only_subcat)
-		ProcessCategory("http://ojeep.ru/shmurdyak/331/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/332/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/347/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/334/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/329/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/330/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/354/", -1, :only_subcat)
+		OJProcessCategory("http://ojeep.ru/shmurdyak/331/", -1, :only_subcat)
 	end
 
-	def ProcessCategory(url, id, type)
+	def OJProcessCategory(url, id, type)
 		cat = Nokogiri::HTML(open(url))
 
 		if id==-1
