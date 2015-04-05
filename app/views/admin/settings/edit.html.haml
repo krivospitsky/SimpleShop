@@ -7,9 +7,17 @@
   = settings_form.input :metrika, input_html: { value: Settings.metrika }, as: :text
   = settings_form.input :theme, input_html: { value: Settings.theme }
 
+
+  = settings_form.input :smtp_host, input_html: { value: Settings.smtp_host }
+  = settings_form.input :smtp_port, input_html: { value: Settings.smtp_port }
+  = settings_form.input :smtp_domain, input_html: { value: Settings.smtp_domain }
+  = settings_form.input :smtp_user_name, input_html: { value: Settings.smtp_user_name }
+  = settings_form.input :smtp_password, input_html: { value: Settings.smtp_password }
+  = settings_form.input :smtp_authentication, input_html: { value: Settings.smtp_authentication }
+
   = settings_form.input :disable_categories, as: :boolean, input_html: { checked: Settings.disable_categories }
   = settings_form.input :disable_filters, as: :boolean, input_html: { checked: Settings.disable_filters }
-  
+
   = settings_form.input :hide_count_in_product, as: :boolean, input_html: { checked: Settings.hide_count_in_product }
   = settings_form.input :enable_variants, as: :boolean, input_html: { checked: Settings.enable_variants }
   = settings_form.button :submit

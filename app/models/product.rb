@@ -93,21 +93,33 @@ class Product < ActiveRecord::Base
 
   def price_str
     prices=variants.map {|v| v.price}   
-    discount=get_discount
     if prices.count==0
       "по запросу"
-    elsif discount && discount>0
+    else
+      discount=get_discount
+      c=1
+      if discount && discount>0
+        c=(100-discount)/100.0
+      end
       if prices.min == prices.max
-        "<del>#{prices[0]}</del> #{prices[0] * (100-discount)/100} руб."
+        "#{(prices[0]*c).to_i} <small>руб.</small>"
       else
-        "<del>от #{prices.min} до #{prices.max} руб.</del> от #{prices.min * (100-discount)/100} до #{prices.max * (100-discount)/100} руб."
+        "<small>от</small> #{(prices.min*c).to_i} <small>до</small> #{(prices.max*c).to_i} <small>руб.</small>"
+      end
+    end
+  end
+  
+  def old_price_str
+    prices=variants.map {|v| v.price}   
+    discount=get_discount
+    if discount && discount>0
+      if prices.min == prices.max
+        "#{prices[0]} <small>руб.</small>"
+      else
+        "<small>от</small> #{prices.min} <small>до</small> #{prices.max} <small>руб.</small>"
       end
     else
-      if prices.min == prices.max
-        "#{prices[0]} руб."
-      else
-        "от #{prices.min} до #{prices.max} руб."
-      end
+      ""
     end
   end
 

@@ -13,6 +13,15 @@ class Admin::SettingsController < ApplicationController
     Settings.disable_filters=(params[:settings][:disable_filters] == '1')
     Settings.hide_count_in_product=(params[:settings][:hide_count_in_product] == '1')
     Settings.enable_variants=(params[:settings][:enable_variants] == '1')
+
+    Settings.smtp_host=params[:settings][:smtp_host]
+    Settings.smtp_port=params[:settings][:smtp_port]
+    Settings.smtp_domain=params[:settings][:smtp_domain]
+    Settings.smtp_user_name=params[:settings][:smtp_user_name]
+    Settings.smtp_password=params[:settings][:smtp_password]
+    Settings.smtp_authentication=params[:settings][:smtp_authentication]
+#    smtp_enable_starttls_auto: true  
+
     redirect_to '/admin/settings/edit'
   end
 end

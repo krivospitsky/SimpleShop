@@ -73,10 +73,11 @@
                 =attr.name
               %td
                 =attr.value
-        -if @product.attrs.count > 5 
-          %a.show-all{href:'#'}
-            Показать все
-          
+          -if @product.attrs.count > 5 
+            %tr
+              %td{colspan:2}
+                %a.show-all{href:'#'}
+                  Показать все
 
          
     -if @product.variants.count>1

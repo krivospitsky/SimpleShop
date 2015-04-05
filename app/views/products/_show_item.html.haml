@@ -1,36 +1,23 @@
 -if product.sku['expert']
   -thumb=:expertfisher_product_list
-  -div_class='col-md-4 col-sm-6 col-xs-12'
+  -div_class='col-md-4 col-sm-6 col-xs-12 product_item'
 -else  
   -thumb=:product_list
-  -div_class='col-md-3 col-sm-4 col-xs-12'
+  -div_class='col-md-4 col-sm-6 col-xs-12 product_item'
 
 %div{class: div_class}
-  .thumbnail.shadow
-    .name.text-center
-      =link_to product.name, product_path(product, category)
-    .image.text-center
-      =link_to product_path(product, category) do
-        -if product.images.first
-          =image_tag(product.images.first.image.url(thumb))
-        -else
-          =image_tag('product_list_no_photo.png')
-    .price.text-center
-      Цена 
-      =raw product.price_str
-      -if Settings.hide_count_in_product
-        = form_for cart_item do |f|
-          = f.hidden_field :product_id
-          = f.hidden_field :quantity
-          .btn-group
-            %a.btn.btn-primary.btn-sm{type:'button', href:product_path(product, category)}
-              Подробнее
-            %button.btn.btn-success.btn-sm{type:'submit'}
-              %span.glyphicon.glyphicon-shopping-cart
-              Купить
+  =link_to product_path(product, category) do
+    .thumbnail.product_item_inner
+      .name.text-center
+        =product.name      
+      -if product.images.first
+        =image_tag(product.images.first.image.url(thumb), class: 'image')
       -else
-        %a.btn.btn-primary.btn-sm{type:'button', href:product_path(product, category)}
-          Подробнее
+        =image_tag('product_list_no_photo.png', class: 'image')
+      .old_price.text-center
+        =raw product.old_price_str
+      .price.text-center
+        =raw product.price_str
 
 -#<div class="price" style="margin-top:-7px;margin-bottom:-5px;">
 -#<span class="price-old"><?php echo $product['price']; ?></span><br/><span class="price-new"><?php echo $product['special']; ?></span>
