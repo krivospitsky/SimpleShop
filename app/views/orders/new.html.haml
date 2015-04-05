@@ -30,7 +30,7 @@
 									%span.glyphicon.glyphicon-refresh
 					%td
 						%small
-							= item.variant.price_str(item.quantity)
+							=raw item.variant.price_str(item.quantity)
 				%td
 					=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
 						%span.glyphicon.glyphicon-trash

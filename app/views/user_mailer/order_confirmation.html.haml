@@ -75,10 +75,10 @@
               =item.variant.sku
           %td
             %small
-              = item.variant.price_str
+              =raw item.variant.price_str
           %td
             %small
               = item.quantity
           %td
             %small
-              = item.variant.price_str(item.quantity)
+              =raw item.variant.price_str(item.quantity)
