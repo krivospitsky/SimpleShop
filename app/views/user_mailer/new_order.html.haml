@@ -65,10 +65,17 @@
       -@order.cart.cart_items.all.each do |item|
         %tr
           %td
-            =item.product.name
+            -if item.variant.name && item.variant.name!=''
+              =item.variant.name
+            -else
+              =item.product.name
+            %br
+            %small
+              Артикул:
+              =item.variant.sku
           %td
             %small
-              = item.product.price_str
+              = item.variant.price_str
           %td
             %small
               = item.quantity
