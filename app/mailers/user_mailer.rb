@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     {
       address:              Settings.smtp_host,
       port:                 Settings.smtp_port,
-      domain:               Settings.smtp_domain,
+      # domain:               Settings.smtp_domain,
       # user_name:            Settings.smtp_user_name,
       # password:             Settings.smtp_password,
       # authentication:       Settings.smtp_authentication,
