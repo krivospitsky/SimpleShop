@@ -34,9 +34,9 @@ class UserMailer < ActionMailer::Base
   def new_order(order)
     @order=order
     if order.email.empty?
-    	mail(to: Settings.owner_email, subject:"Новый заказ", from: Settings.owner_email, delivery_method_options: delivery_options)
+    	mail(to: Settings.owner_email, subject:"Новый заказ", from: Settings.owner_email, delivery_method_options: delivery_options2)
     else
-    	mail(to: Settings.owner_email, subject:"Новый заказ", from: order.email, delivery_method_options: delivery_options)
+    	mail(to: Settings.owner_email, subject:"Новый заказ", from: order.email, delivery_method_options: delivery_options2)
     end
   end
 end

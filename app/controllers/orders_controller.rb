@@ -12,8 +12,8 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      UserMailer.new_order(@order).deliver 
       UserMailer.order_confirmation(@order).deliver if ! @order.email.empty?
+      UserMailer.new_order(@order).deliver 
       session[:cart_id]=nil
       flash[:info]='Заказ успешно создан'
       respond_with @order, location: "/orders/#{@order.secure_key}"
