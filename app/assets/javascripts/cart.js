@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#new_cart_item").bind("ajax:success", function(e, data, status, xhr){
+    $(".new_cart_item").bind("ajax:success", function(e, data, status, xhr){
         var cart = $('.shopping-cart');
         var imgtodrag = $(this).closest('.fly-to-cart')
          // $(this).parent('.item').find("img").eq(0);
