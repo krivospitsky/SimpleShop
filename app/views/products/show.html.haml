@@ -6,7 +6,7 @@
 #content{itemscope:'', itemtype:"http://schema.org/Product"}
   %h1{itemprop:"name"}
     =@title
-  #product-info
+  #product-info.fly-to-cart
     / -if @product.images.count >5
     /   .row
     /     .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
@@ -41,7 +41,7 @@
 
       =raw @product.description
       -if @product.variants.count==1
-        = form_for @cart_item do |f|
+        = form_for @cart_item, remote: true do |f|
           .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
             = f.hidden_field :product_id
             %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
@@ -96,8 +96,8 @@
           %th Купить
 
         -@product.variants.enabled.each do |variant|
-          %tr  
-            = form_for @cart_item do |f|
+          %tr.fly-to-cart
+            = form_for @cart_item, remote: true do |f|
               = f.hidden_field :product_id
               %input(type="hidden" value="#{variant.id}" name="cart_item[variant_id]")
                 -if @product.variants.first.image?

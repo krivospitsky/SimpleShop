@@ -50,9 +50,10 @@
               .font_4
                 =Settings.site_title_2
           .col-sm-3
-            %a.btn.btn-default.btn-block{href: new_order_path}
-              .glyphicon.glyphicon-shopping-cart.cart-text
-              =t 'cart.count', count: @current_cart.cart_items.count
+            %a.btn.btn-default.btn-block.shopping-cart{href: new_order_path}
+              .glyphicon.glyphicon-shopping-cart
+              %span.cart-text
+                =t 'cart.count', count: @current_cart.cart_items.count
             %br
             =form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
               .input-group

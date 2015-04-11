@@ -1,11 +1,9 @@
 -if product.sku['expert']
   -thumb=:expertfisher_product_list
-  -div_class='col-md-4 col-sm-6 col-xs-12 product_item'
 -else  
   -thumb=:product_list
-  -div_class='col-md-4 col-sm-6 col-xs-12 product_item'
 
-%div{class: div_class}
+.col-md-4.col-sm-6.col-xs-12.product_item.fly-to-cart
   =link_to product_path(product, category) do
     .thumbnail.product_item_inner
       .name.text-center

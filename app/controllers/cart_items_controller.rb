@@ -4,7 +4,7 @@ class CartItemsController < ApplicationController
     @current_cart.add(params[:cart_item][:product_id], params[:cart_item][:variant_id], params[:cart_item][:quantity].to_i)
     respond_to do |format|
       format.html { redirect_to  new_order_path  }
-      format.js   { render text: (t 'cart.count', count: @current_cart.cart_items.count)}
+      format.js   { render 'cart/add_cart_item' }
       #format.json { render t 'cart.count', count: @current_cart.cart_items.count  }
     end
   end

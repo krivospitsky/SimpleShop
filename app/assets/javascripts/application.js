@@ -15,5 +15,5 @@
 //= require fancybox
 //= require jquery.lightSlider.min
 //= require bootstrap
+//= require cart
 //= require_tree .
-
