@@ -51,7 +51,7 @@
             %strong Цена
             =raw @product.variants.first.price_str
             -if Settings.hide_count_in_product
-              = f.hidden_field :quantity
+              = f.hidden_field :quantity, value:1
               %button.btn.btn-sm.btn-primary{type:'submit'}
                 %span.glyphicon.glyphicon-shopping-cart
                 Купить

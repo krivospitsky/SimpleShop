@@ -17,11 +17,11 @@ class Cart < ActiveRecord::Base
                                 variant_id: variant_id)
   end
 
-  # def add(product_id, variant_id, count)
-  #   item = get_item(product_id, variant_id)
-  #   item.incrase(count)
-  #   item.save
-  # end
+  def add(product_id, variant_id, count)
+    item = get_item(product_id, variant_id)
+    item.incrase(count)
+    item.save
+  end
 
   def concatinate(cart_id)
     return if id == cart_id
