@@ -82,3 +82,9 @@
           %td
             %small
               =raw item.variant.price_str(item.quantity)
+      %tr
+        %td{colspan:4}
+          .pull-right
+            Итог
+        %td
+          =@order.cart.total_price_str

@@ -35,6 +35,14 @@
 					=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
 						%span.glyphicon.glyphicon-trash
 						Удалить
+		%tr
+			%td{colspan:4}
+				.pull-right
+					Итог
+			%td
+				=@current_cart.total_price_str
+			%td
+
 	%hr
 	=link_to 'Оформить заказ', "#", class:'btn btn-primary', 'data-toggle'=>"modal", 'data-target'=>"#order-info"
 	=#link_to 'Продолжить покупки', "", class:'btn btn-primary'

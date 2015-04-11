@@ -13,22 +13,30 @@ class Cart < ActiveRecord::Base
   end
 
   def get_item(product_id, variant_id)
-    items.find_or_initialize_by(product_id: product_id,
+    cart_items.find_or_initialize_by(product_id: product_id,
                                 variant_id: variant_id)
   end
 
-  def add(product_id, variant_id, count)
-    item = get_item(product_id, variant_id)
-    item.incrase(count)
-    item
-  end
+  # def add(product_id, variant_id, count)
+  #   item = get_item(product_id, variant_id)
+  #   item.incrase(count)
+  #   item.save
+  # end
 
   def concatinate(cart_id)
     return if id == cart_id
     cart = Cart.find(cart_id)
-    cart.items.each do |item|
+    cart.cart_items.each do |item|
       item.move_to(id)
     end
     cart.reload.destroy
+  end
+
+  def total_price_str
+    total=0
+    cart_items.each do |item|
+      total+=item.variant.price*item.quantity
+    end
+    "#{total} руб."
   end
 end
