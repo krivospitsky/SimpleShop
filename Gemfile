@@ -41,7 +41,7 @@ gem 'haml-rails' #, :github => 'indirect/haml-rails'
 
 
 gem 'nokogiri'
-gem "ckeditor"
+gem "ckeditor", github: 'galetahub/ckeditor'
 
 gem 'airbrake'
 #gem 'friendly_id', '~> 5.0.0'
