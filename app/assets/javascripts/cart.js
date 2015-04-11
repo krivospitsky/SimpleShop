@@ -24,7 +24,7 @@ $(document).ready(function() {
             }, 1000, 'easeInOutExpo');
 
             $('html, body').animate({
-                scrollTop: $(".shopping-cart").offset().top                
+                scrollTop: 0              
             }, 300);
             
             // setTimeout(function () {
@@ -38,7 +38,11 @@ $(document).ready(function() {
                     'height': 0
             }, function () {
                 $(this).detach()
+                if (cart_text){
+                    $(".cart-text").text(cart_text)
+                }
             });
+
         }
     })
 

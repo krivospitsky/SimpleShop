@@ -39,4 +39,12 @@ class Cart < ActiveRecord::Base
     end
     "#{total} руб."
   end
+
+  def total_count
+    total=0
+    cart_items.each do |item|      
+      total+=item.quantity unless item.new_record?
+    end
+    total
+  end
 end

@@ -53,7 +53,7 @@
             %a.btn.btn-default.btn-block.shopping-cart{href: new_order_path}
               .glyphicon.glyphicon-shopping-cart
               %span.cart-text
-                =t 'cart.count', count: @current_cart.cart_items.count
+                =t 'cart.count', count: @current_cart.total_count
             %br
             =form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
               .input-group
