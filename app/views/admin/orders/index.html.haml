@@ -1,0 +1,19 @@
+= paginate @orders
+%table.table.table-striped
+  / %thead
+  /   %tr
+  /     %th= Page.human_attribute_name(:name)
+  /     %th= Page.human_attribute_name(:enabled)
+  /     %th=t '.actions', :default => t("helpers.actions")
+  %tbody#orders_list
+    - @orders.each do |order|
+      %tr
+        %td= order.name
+        %td= order.email
+        %td= order.phone
+        %td= order.created_at
+        %td= order.state
+        %td
+          = link_to t('.view', :default => t("helpers.links.view")), "/orders/#{order.secure_key}", :class => 'btn btn-xs btn-default'
+= paginate @orders
+

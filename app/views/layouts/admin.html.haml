@@ -43,14 +43,16 @@
             %li
               =link_to 'Settings', '/admin/settings/edit'
             %li
-              =link_to Product.model_name.human(count: 1) , admin_products_path
+              =link_to 'Товары' , admin_products_path
             -if !Settings.disable_categories
               %li
-                =link_to Category.model_name.human(count: 2), admin_categories_path
+                =link_to 'Категории', admin_categories_path
             %li
-              =link_to Page.model_name.human(count: 2) , admin_pages_path
+              =link_to 'Страницы' , admin_pages_path
             %li
-              =link_to Promotion.model_name.human(count: 2), admin_promotions_path
+              =link_to 'Акции', admin_promotions_path
+            %li
+              =link_to 'Заказы', admin_orders_path
             %li
               =link_to 'Импорт Moscanella', '/admin/moscanella/new'
         .col-sm-9

@@ -89,6 +89,7 @@ Shop::Application.routes.draw do
       get :autocomplete, :on => :collection
     end
     resources :pages
+    resources :orders
     resources :promotions
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
