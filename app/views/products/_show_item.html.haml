@@ -19,7 +19,7 @@
       .text-center
         -if product.variants.count>1
           =link_to product_path(product, category) do
-            .btn.btn-primary
+            .btn.btn-primary.btn-sm
               %span.glyphicon.glyphicon-shopping-cart
               Купить
         -else
