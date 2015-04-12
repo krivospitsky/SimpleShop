@@ -38,7 +38,7 @@
           %a.navbar-brand{:href => "/"}
             Admin area
       .row
-        .col-sm-3
+        .col-sm-2
           %ul.nav.nav-pills.nav-stacked
             %li
               =link_to 'Settings', '/admin/settings/edit'
@@ -55,7 +55,7 @@
               =link_to 'Заказы', admin_orders_path
             %li
               =link_to 'Импорт Moscanella', '/admin/moscanella/new'
-        .col-sm-9
+        .col-sm-10
           .page-header
             %h1=@title
           = yield

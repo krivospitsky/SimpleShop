@@ -1,6 +1,8 @@
 %ul.nav.nav-tabs
   %li.active
-    %a(href="#common" data-toggle="tab") Common
+    %a(href="#common" data-toggle="tab") Общее
+  %li
+    %a(href="#variants" data-toggle="tab") Варианты
   %li
     %a(href="#attrs" data-toggle="tab") Атрибуты
   %li
@@ -15,6 +17,28 @@
       / = f.input :count
       = f.input :enabled
 
+
+
+      -if !Settings.disable_categories
+        = f.association :categories
+        = f.association :linked_categories
+      = f.association :linked_products
+
+      #images.clearfix.form-group
+        = f.label :images, class: 'col-sm-3 control-label'
+        .col-sm-9
+          %ul#image_list.sortable
+            = f.simple_fields_for :images do |image|
+              = render 'image_fields', :f => image
+            = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
+
+      %label.optional.control-label.col-sm-3
+        Описание
+      .label_clear
+        = f.input_field :description, as: :ckeditor
+      / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
+
+    .tab-pane#variants
       .variants
         -if Settings.enable_variants
           %table.table.variants.pull-left
@@ -30,23 +54,6 @@
             = f.fields_for :variants do |variant|
               = render 'variant_fields', :f => variant
           = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants", "data-association-insertion-method" => "append"
-
-      %label.optional.control-label
-        Описание
-      = f.input_field :description, as: :ckeditor
-      / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
-
-      -if !Settings.disable_categories
-        = f.association :categories
-        = f.association :linked_categories
-      = f.association :linked_products
-
-      #images.clearfix.form-group
-        = f.label :images, class: 'col-sm-3 control-label'
-        %ul#image_list.sortable.col-sm-9
-          = f.simple_fields_for :images do |image|
-            = render 'image_fields', :f => image
-          = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
 
     .tab-pane#attrs
       %table.table.attrs.pull-left
