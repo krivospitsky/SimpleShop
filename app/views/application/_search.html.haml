@@ -1,0 +1,6 @@
+=form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search', class: "navbar-form.navbar-left" do
+  .input-group
+    %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
+    %span.input-group-btn.input-group-sm
+      %button.btn.btn-default.btn.xs{type: 'submit'}
+        %span.glyphicon.glyphicon-search

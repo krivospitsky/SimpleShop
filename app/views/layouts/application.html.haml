@@ -49,25 +49,15 @@
             -if Settings.site_title_2
               .font_4
                 =Settings.site_title_2
-          .col-sm-3
-            %a.btn.btn-default.btn-block.shopping-cart{href: new_order_path}
-              .glyphicon.glyphicon-shopping-cart
-              %span.cart-text
-                =t 'cart.count', count: @current_cart.total_count
-            %br
-            =form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
-              .input-group
-                %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
-                %span.input-group-btn.input-group-sm
-                  %button.btn.btn-default.btn.xs{type: 'submit'}
-                    %span.glyphicon.glyphicon-search
+          .col-sm-3= render 'search'
 
-    .container-fixed
-      %nav.navbar.text-center
-        %a.btn.btn-primary.navbar-btn{href: root_path}
+    .scroller_anchor
+    .scroller
+      %nav.text-center.header
+        %a.btn.btn-default.navbar-btn{href: root_path}
           Главная
         .btn-group
-          %a.btn.btn-primary.navbar-btn.dropdown-toggle{'data-toggle'=>'dropdown'}
+          %a.btn.btn-default.navbar-btn.dropdown-toggle{'data-toggle'=>'dropdown'}
             Каталог
             %span.caret
           %ul.dropdown-menu
@@ -76,37 +66,10 @@
                 =link_to cat.name, category_path(cat.path, cat.id)
 
         -Page.in_menu.each do |page|
-          =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
+          =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'          
+        = render 'cart'
 
-          / %ul.nav.navbar-nav
-          /   %li
-
-          / -%li.dropdown
-          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-          /     Статьи
-          /     <b class="caret"></b>
-          /   %ul.dropdown-menu
-          /     %li= link_to "Слинг или рюкзак", "/path3"
-          /     %li= link_to "Эрго-рюкзак против кенгуру", "/path3"
-          /     %li= link_to "Выбрать слинг", "/path3"
-
-          / %li.dropdown
-          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-          /     Производители
-          /     <b class="caret"></b>
-          /   %ul.dropdown-menu
-          /     -Manufacturer.all(order:'name').each do |manufacturer|
-          /       %li
-          /         =link_to manufacturer.name, manufacturer_path(manufacturer.id)
-
-
-        /   %a.navbar-brand{:href => "/"}
-        /     =Settings.site_title
-        / %ul.nav.navbar-nav
-        /   .navbar-text
-        /     =Settings.owner_phone
-
-      = yield
+    .container-fixed= yield
 
     %footer.footer
       .container-fixed

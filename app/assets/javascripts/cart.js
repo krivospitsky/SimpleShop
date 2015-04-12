@@ -23,9 +23,9 @@ $(document).ready(function() {
                     'height': 75
             }, 1000, 'easeInOutExpo');
 
-            $('html, body').animate({
-                scrollTop: 0              
-            }, 300);
+            // $('html, body').animate({
+            //     scrollTop: 0              
+            // }, 300);
             
             // setTimeout(function () {
             //     cart.effect("shake", {
