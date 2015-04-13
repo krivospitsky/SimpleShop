@@ -11,7 +11,7 @@
     /   .row
     /     .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
     -if @product.sku['expertfisher_']
-      %ul#lightSlider
+      %ul#lightSlider.text-center
         -@product.images.each do |img|
           %li
             =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})

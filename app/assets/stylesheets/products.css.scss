@@ -160,3 +160,16 @@ span.new-price{
  .shadow .name{
 	 height:35px;
  }
+
+ #lightSlider{
+ 	max-width: 100%;
+ 	height: auto;
+ 	li{
+ 		max-width: 100%;
+	 	height: auto;
+ 		img{
+	 		max-width: 100%;
+	 	 	height: auto;
+		}
+ 	}
+ }
