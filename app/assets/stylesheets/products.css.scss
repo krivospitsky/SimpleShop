@@ -163,13 +163,10 @@ span.new-price{
 
  #lightSlider{
  	max-width: 100%;
- 	height: auto;
- 	li{
+		li img{
  		max-width: 100%;
-	 	height: auto;
- 		img{
-	 		max-width: 100%;
-	 	 	height: auto;
-		}
- 	}
+	}
+		li a img{
+ 		max-width: 100%;
+	}
  }
