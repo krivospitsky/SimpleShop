@@ -9,7 +9,7 @@
 
 		-if @category
 			.row
-				.col-md-9= @category.description
+				.col-md-9= raw @category.description
 
 		-if @category && !@category.parent && !(@products && ! @products.empty?)
 			.categories_list
