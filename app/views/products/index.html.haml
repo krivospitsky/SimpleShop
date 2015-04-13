@@ -8,8 +8,12 @@
 		%h1= @title
 
 		-if @category
-			.row
-				.col-md-9= raw @category.description
+			-if @category.image.present?
+				.row
+					.col-md-3= image_tag(@category.image.url(:product_list))
+					.col-md-9= raw @category.description
+			-else
+				= raw @category.description
 
 		-if @category && !@category.parent && !(@products && ! @products.empty?)
 			.categories_list
