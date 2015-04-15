@@ -6,6 +6,14 @@ class Variant < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  after_save :recalc_min_max_prices
+
+  def recalc_min_max_prices
+      prices=product.variants.map {|v| v.price}   
+      product.min_price=prices.min
+      product.max_price=prices.max
+      product.save!
+  end
 
   def discount_price
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', product.id).maximum(:discount) || 0

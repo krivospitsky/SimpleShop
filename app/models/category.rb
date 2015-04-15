@@ -58,9 +58,9 @@ class Category < ActiveRecord::Base
     sub_cats << self
   end
 
-  def products_in_all_sub_cats
-    Product.enabled.joins(:categories).where('category_id in (?)', all_sub_cats().map{|a| a.id})
-  end
+  # def products_in_all_sub_cats
+  #   Product.enabled.joins(:categories).where('category_id in (?)', all_sub_cats().map{|a| a.id})
+  # end
 
 # def products_in_all_sub_cats
 #     all_products = products.enabled.to_a

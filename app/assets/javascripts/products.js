@@ -19,4 +19,13 @@ $(document).ready(function() {
   
    $("#lightSlider").lightSlider({autoWidth: false, item: 1}); 
 
+   $("#sort_order").change(function(){   	
+   	order=$("#sort_order").val()
+   	if (order !=  'default'){
+   		window.location.href=location.protocol + '//' + location.host + location.pathname + '?sort_order=' + $("#sort_order").val()   		
+   	}else{
+   		window.location.href=location.protocol + '//' + location.host + location.pathname
+   	}
+   });
+
 });

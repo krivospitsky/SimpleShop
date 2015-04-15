@@ -38,13 +38,13 @@
 					= paginate @products 
 				.col-sm-6
 					.pull-right
-						-# Сортировка
-						-# %select
-						-# 	%option{value: 'default'} По умолчанию
-						-# 	%option{value: 'name'} По названию
-						-# 	%option{value: 'price'} По возрастанию цены
-						-# 	%option{value: 'price'} По уменьшению цены
-						-# 	/ %option По дате поступления
+						Сортировка
+						%select#sort_order
+							%option{value: 'default', selected: @sort_order=='devault'} По умолчанию
+							%option{value: 'name', selected: @sort_order=='name'} По названию
+							%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
+							%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
+							-# %option По дате поступления
 			.row
 				- @products.each do |product|
 					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)

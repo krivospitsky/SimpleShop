@@ -14,11 +14,13 @@ class Product < ActiveRecord::Base
 
   include  Seoable
 
-  serialize :attr, Hash
+  # serialize :attr, Hash
 
-  default_scope -> {order(sort_order: :asc)}
+  # default_scope -> {order(sort_order: :asc)}
   scope :enabled, -> { where(enabled: 't') }
   #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
+
+  scope :in_categories, ->(cats) {enabled.joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
 
   has_and_belongs_to_many(:categories,
     :join_table => "categories_products")
@@ -92,8 +94,7 @@ class Product < ActiveRecord::Base
   end
 
   def price_str
-    prices=variants.map {|v| v.price}   
-    if prices.count==0
+    if variants.count==0
       "по запросу"
     else
       discount=get_discount
@@ -101,22 +102,21 @@ class Product < ActiveRecord::Base
       if discount && discount>0
         c=(100-discount)/100.0
       end
-      if prices.min == prices.max
-        "#{(prices[0]*c).to_i} <small>руб.</small>"
+      if min_price == max_price
+        "#{(min_price*c).to_i} <small>руб.</small>"
       else
-        "<small>от</small> #{(prices.min*c).to_i} <small>до</small> #{(prices.max*c).to_i} <small>руб.</small>"
+        "<small>от</small> #{(min_price*c).to_i} <small>до</small> #{(max_price*c).to_i} <small>руб.</small>"
       end
     end
   end
   
   def old_price_str
-    prices=variants.map {|v| v.price}   
     discount=get_discount
     if discount && discount>0
-      if prices.min == prices.max
-        "#{prices[0]} <small>руб.</small>"
+      if min_price == max_price
+        "#{min_price} <small>руб.</small>"
       else
-        "<small>от</small> #{prices.min} <small>до</small> #{prices.max} <small>руб.</small>"
+        "<small>от</small> #{min_price} <small>до</small> #{max_price} <small>руб.</small>"
       end
     else
       ""
