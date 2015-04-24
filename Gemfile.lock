@@ -274,7 +274,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
-  fancybox2-rails (~> 0.2.4)
+  fancybox2-rails (~> 0.2.8)
   ffaker
   haml-rails
   jbuilder (~> 1.2)
