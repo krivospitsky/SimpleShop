@@ -76,10 +76,11 @@
               %a.btn.btn-default.navbar-btn.dropdown-toggle{'data-toggle'=>'dropdown'}
                 Каталог
                 %span.caret
-              %ul.dropdown-menu
+              %ul.dropdown-menu{role: :menu}
                 -Category.root.enabled.each do |cat|        
                   %li
                     =link_to cat.name, category_path(cat.path, cat.id)
+              
             -Page.in_menu.each do |page|
               =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'                      
 

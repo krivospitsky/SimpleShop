@@ -17,7 +17,9 @@
             =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})
     -else
       .main-img.pull-left
-        =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
+        - if @product.images.present?
+          =link_to @product.images.first.image.url, class:"fancybox" do 
+            =image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name})
         -if @product.images.count >1
           .col-sm-2.col-md-2.images_thumbs
             %ul
