@@ -1,6 +1,6 @@
 # coding: utf-8
-namespace :expertfisher do
-	task :import => :environment do
+namespace :import do
+	task :expertfisher => :environment do
 		ProcessCategory("http://expertfisher.ru/CatalogCategoryRl.aspx")
 #		ProcessCategory("http://expertfisher.ru/category-r/13-0-0-primanki.aspx")
 

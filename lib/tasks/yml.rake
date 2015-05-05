@@ -1,6 +1,6 @@
 # coding: utf-8
-namespace :yml do
-	task :import, [:supplier]=> :environment do |task, args|
+namespace :import do
+	task :yml, [:supplier]=> :environment do |task, args|
 
 		supplier=args.supplier
 		skip_cats=[246] if supplier == 'camp'
