@@ -1,18 +1,11 @@
 # coding: utf-8
 namespace :import do
-	task :all => [
-		:yml['nova'],
-		:yml['camp'],
-		:yml['salmo'],
-		:expertfisher,
-		:finalize]
-
 	task :finalize => :environment do
 		c=Variant.where("updated_at < ?", 2.month.ago).update_all(availability: 'Недоступно', enabled: false)
 		puts "Недоступно #{c}"
 		c=Variant.where("updated_at < ?", 2.week.ago).update_all(availability: 'Нет на складе')
 		puts "Нет на складе #{c}"
-		c=Variant.where("updated_at < ?", 1.hour.ago).update_all(availability: 'Уточнить у менеджера')
+		c=Variant.where("updated_at < ?", 1.day.ago).update_all(availability: 'Уточнить у менеджера')
 		puts "Уточнить у менеджера #{c}"
 		# Variant.all.each do |variant|
 		# 	if variant.updated_at < 2.month.ago

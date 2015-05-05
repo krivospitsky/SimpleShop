@@ -91,3 +91,4 @@ group :development do
 end
 
 gem 'roo'
+gem 'roo-xls'
