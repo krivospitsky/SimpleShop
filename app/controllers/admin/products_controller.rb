@@ -11,7 +11,7 @@ class Admin::ProductsController < Admin::BaseController
     if cat_id && cat_id!=''
       @category=Category.find(cat_id)
       session[:admin_current_category]=cat_id
-      @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
+      @products = Product.in_categories(@category.all_sub_cats).page(params[:page])
     else
       session[:admin_current_category]=nil
       @products=Product.all.page(params[:page]).per(50)
