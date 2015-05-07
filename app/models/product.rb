@@ -9,19 +9,6 @@ class Product < ActiveRecord::Base
   has_many :variants, :dependent => :destroy
   accepts_nested_attributes_for :variants, allow_destroy:true
 
-  include RankedModel
-    ranks :sort_order
-
-  include  Seoable
-
-  # serialize :attr, Hash
-
-  # default_scope -> {order(sort_order: :asc)}
-  scope :enabled, -> { where(enabled: 't') }
-  #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
-
-  scope :in_categories, ->(cats) {enabled.joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
-
   has_and_belongs_to_many(:categories,
     :join_table => "categories_products")
 
@@ -33,6 +20,29 @@ class Product < ActiveRecord::Base
     class_name: 'Product',
     :join_table => "products_linked_products",
     :association_foreign_key=> 'linked_product_id' )
+
+  include RankedModel
+    ranks :sort_order
+
+  include  Seoable
+
+  # serialize :attr, Hash
+
+  amoeba do
+    enable
+      prepend :name => "КОПИЯ "
+      set enabled: false
+      exclude_association :images
+      customize(lambda { |original_item,new_item|
+        original_item.images.each{|p| new_item.images.new :image => p.image.file}
+      })
+  end
+
+  # default_scope -> {order(sort_order: :asc)}
+  scope :enabled, -> { where(enabled: 't') }
+  #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
+
+  scope :in_categories, ->(cats) {enabled.joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
 
   def self.search(search)
     where('lower(name) LIKE lower(:search)', search: "%#{search}%")

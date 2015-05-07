@@ -20,6 +20,12 @@ class Admin::ProductsController < Admin::BaseController
     respond_with @products
   end
 
+  def copy
+    prod=Product.find(params[:id])
+    prod_copy=prod.amoeba_dup
+    prod_copy.save
+    redirect_to [:admin, controller_name]
+  end
 
   private
 

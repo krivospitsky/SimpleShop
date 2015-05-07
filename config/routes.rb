@@ -83,7 +83,7 @@ Shop::Application.routes.draw do
 
   namespace :admin do
     resources :products do
-      get :autocomplete, :on => :collection
+      get :copy, on: :member
     end
     resources :categories do
       get :autocomplete, :on => :collection
