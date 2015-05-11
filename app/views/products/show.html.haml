@@ -5,7 +5,7 @@
 
 #content{itemscope:'', itemtype:"http://schema.org/Product"}
   %h1{itemprop:"name"}
-    =@title
+    =@product.name
   #product-info.fly-to-cart
     / -if @product.images.count >5
     /   .row

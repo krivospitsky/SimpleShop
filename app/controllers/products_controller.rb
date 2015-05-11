@@ -4,14 +4,14 @@ class ProductsController < ApplicationController
   def search
     @text=params[:text]
     @products=Product.search(params[:text]).page(params[:page])
-    @title="Результаты поиска"
+    @title=get_seo_title(nil)
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
-    @title=@product.title
+    set_seo_variables(@product)
     @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
     
@@ -52,10 +52,9 @@ class ProductsController < ApplicationController
       @category = Category.find(params[:category_id])
       if @category.parent || @category.products.count>0
         @products = Product.in_categories(@category.all_sub_cats).page(params[:page]).order(sort_key => sort_dir)
-
-        # @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
       end
-      @title = @category.name
+      set_seo_variables(@category)
+
 
       @breadcrumbs=[]
       tmp=@category
