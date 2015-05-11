@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_seo_title(obj)
-    return obj.seo.title if obj && obj.seo && obj.seo.title
+    return obj.seo.title if obj && obj.seo && obj.seo.title && obj.seo.title!=''
     return "#{obj.name} - купить в Калуге, #{Settings.site_title}" if controller_name =='products' && (action_name=='index' || action_name=='show') 
     return "Результаты поиска - #{Settings.site_title}" if controller_name =='products' && action_name=='search'
     return "#{obj.name} - #{Settings.site_title_2} #{Settings.site_title}" if controller_name =='pages'
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_meta_keywords(obj)
-    return obj.seo.keywords if obj && obj.seo && obj.seo.keywords
+    return obj.seo.keywords if obj && obj.seo && obj.seo.keywords && obj.seo.keywords!=''
     if obj.attribute_names.include?("name")
       ret=obj.name 
     elsif obj.attribute_names.include?("title")
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_meta_description(obj)
-    return obj.seo.description if obj && obj.seo && obj.seo.description
+    return obj.seo.description if obj && obj.seo && obj.seo.description && obj.seo.description!=''
     if obj.attribute_names.include?("description")
       ret=obj.description 
     elsif obj.attribute_names.include?("text")
