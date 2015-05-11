@@ -5,7 +5,7 @@
 		-unless Settings::disable_filters
 			=render '/products/smart_filter'
 	.col-sm-9
-		%h1= @title
+		%h1= @category.name
 
 		-if @category
 			-if @category.image.present? || @category.description.present?
