@@ -39,21 +39,21 @@
       / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
 
     .tab-pane#variants
-      .variants
-        -if Settings.enable_variants
-          %table.table.variants.pull-left
-            %tr
-              %td Имя
-              %td Артикул
-              %td Цена
-              %td Количество
-              %td Наличие
-              %td Вкл.
-              %td Действия
-            -#f.object.variants.build unless f.object.variants.first
-            = f.fields_for :variants do |variant|
-              = render 'variant_fields', :f => variant
-          = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants", "data-association-insertion-method" => "append"
+      -# .variants
+      -if Settings.enable_variants
+        %table.table.variants.pull-left
+          %tr
+            %td Имя
+            %td Артикул
+            %td Цена
+            %td Количество
+            %td Наличие
+            %td Вкл.
+            %td Действия
+          -#f.object.variants.build unless f.object.variants.first
+          = f.fields_for :variants do |variant|
+            = render 'variant_fields', :f => variant
+        = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants", "data-association-insertion-method" => "append"
 
     .tab-pane#attrs
       %table.table.attrs.pull-left
