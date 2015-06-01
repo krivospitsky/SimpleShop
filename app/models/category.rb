@@ -50,6 +50,12 @@ class Category < ActiveRecord::Base
     id.to_s
   end
 
+  def parent_ids
+    parent_cats=[]
+    parent_cats+=parent.parent_ids if parent
+    parent_cats << id
+  end
+
   def all_sub_cats
     sub_cats=[]
     children.enabled.each do |sub|

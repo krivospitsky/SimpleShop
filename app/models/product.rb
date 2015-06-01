@@ -85,7 +85,8 @@ class Product < ActiveRecord::Base
 
   def get_discount
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
-    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
+
+    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
     max_discount
