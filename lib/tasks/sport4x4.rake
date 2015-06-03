@@ -55,7 +55,7 @@ namespace :import do
 						url=img.attr('src')
 						unless image=DescriptionImage.find_by(original_url: url)
 							image=DescriptionImage.new
-							url=url[/\.\.(.*)$/,1]
+							url=url[/^\.\.(.*)$/,1] if url.start_with?('..')
 							url = "http://www.4x4sport.ru#{url}" unless url.start_with?('http://www.4x4sport.ru')
 							image.remote_image_url=url
 							image.save
