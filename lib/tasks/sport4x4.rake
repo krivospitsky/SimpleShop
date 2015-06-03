@@ -2,6 +2,11 @@
 namespace :import do
 	task :sport4x4 => :environment do
 		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=128", -1, :only_subcat)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=2", -1, :only_subcat)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=8", -1, :only_subcat)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=793", -1, :only_subcat)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=456", -1, :only_subcat)
+		
 	end
 
 	def Sport4x4ProcessCategory(url, id, type)
