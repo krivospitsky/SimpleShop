@@ -55,12 +55,15 @@ namespace :import do
 						url=img.attr('src')
 						unless image=DescriptionImage.find_by(original_url: url)
 							image=DescriptionImage.new
-							url = "http://www.4x4sport.ru/#{url}" unless url.start_with?('http://www.4x4sport.ru')
+							url=url[/\.\.(.*)$/,1]
+							url = "http://www.4x4sport.ru#{url}" unless url.start_with?('http://www.4x4sport.ru')
 							image.remote_image_url=url
 							image.save
 						end
 						img.attributes['src'].value=image.image.url					
 					end
+					prod.xpath("//h1").each { |div|  div.name= "p" }
+
 					product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 				else
 					product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
