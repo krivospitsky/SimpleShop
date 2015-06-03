@@ -8,6 +8,8 @@ class Variant < ActiveRecord::Base
 
   after_save :recalc_min_max_prices
 
+  validates :price, presence: true
+
   def recalc_min_max_prices
       if product
         prices=product.variants.map {|v| v.price}   
@@ -19,7 +21,7 @@ class Variant < ActiveRecord::Base
 
   def discount_price
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', product.id).maximum(:discount) || 0
-    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', product.categories.pluck(:id)).maximum(:discount) || 0
+    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', product.categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
     #prices=variants.map {|v| v.price}   
