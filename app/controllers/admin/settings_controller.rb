@@ -20,6 +20,10 @@ class Admin::SettingsController < ApplicationController
     Settings.smtp_user_name=params[:settings][:smtp_user_name]
     Settings.smtp_password=params[:settings][:smtp_password]
     Settings.smtp_authentication=params[:settings][:smtp_authentication]
+
+    Settings.contacts=params[:settings][:contacts]
+    Settings.copy1=params[:settings][:copy1]
+    Settings.copy2=params[:settings][:copy2]
 #    smtp_enable_starttls_auto: true  
 
     redirect_to '/admin/settings/edit'

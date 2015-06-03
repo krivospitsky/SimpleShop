@@ -15,6 +15,11 @@
   = settings_form.input :smtp_password, input_html: { value: Settings.smtp_password }
   = settings_form.input :smtp_authentication, input_html: { value: Settings.smtp_authentication }
 
+  = settings_form.input :contacts, as: :text, input_html: { value: Settings.contacts }
+  = settings_form.input :copy1, input_html: { value: Settings.copy1 }
+  = settings_form.input :copy2, input_html: { value: Settings.copy2 }
+
+
   = settings_form.input :disable_categories, as: :boolean, input_html: { checked: Settings.disable_categories }
   = settings_form.input :disable_filters, as: :boolean, input_html: { checked: Settings.disable_filters }
 

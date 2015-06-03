@@ -21,8 +21,8 @@
     = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = javascript_include_tag "application"
     -# <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
-    = stylesheet_link_tag "#{Settings::theme}/all"
-    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "#{Settings::theme}", :media => "all"
+    -# = stylesheet_link_tag "application", :media => "all"
 
 
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
@@ -38,15 +38,9 @@
             =link_to root_path do
               =image_tag 'logo.png', class: 'logo'
             .phone.visible-sm-block.small
-              8 (920) 618-00-50
+              =Settings.owner_phone
           .col-sm-2.contacts.hidden-sm.hidden-xs
-            Г.&nbsp;Калуга, ул.&nbsp;Рылеева,&nbsp;д.&nbsp;2
-            %br
-            Будни: 8:00 - 19:00
-            %br
-            Выходные: 08:00 - 17:00
-            .phone
-              8 (920) 618-00-50
+            =raw Settings.contacts
           .col-md-5.col-sm-7
             .font_0
               =Settings.site_title
@@ -54,7 +48,7 @@
               .font_4
                 =Settings.site_title_2
           .phone.visible-xs-block
-            8 (920) 618-00-50
+            =Settings.owner_phone
           .col-sm-3= render 'search'
 
     .scroller_anchor
@@ -100,18 +94,12 @@
         -#     -Page.in_footer.each do |page|
         -#       %li
         -#         =link_to page.name, page_path(page)
-        &copy; Интернет-магазин «Рыболофф» 2001–2015
+        =raw Settings.copy1
         .row.hidden-sm.hidden-xs
           %hr
           .col-sm-3.contacts
-            Г.&nbsp;Калуга, ул.&nbsp;Рылеева,&nbsp;д.&nbsp;2
-            %br
-            Будни: 8:00 - 19:00
-            %br
-            Выходные: 08:00 - 17:00
-            .phone
-              8 (920) 618-00-50
+            =raw Settings.contacts
           .col-sm-9
             .small
-              Сайт Рыболофф разрешает вам просматривать и загружать материалы этого сайта (далее «Сайт») только для личного некоммерческого использования, при условии сохранения вами всей информации об авторском праве и других сведений о праве собственности, содержащихся в исходных материалах и любых их копиях. Запрещается изменять материалы этого Сайта, а также распространять или демонстрировать их в любом виде или использовать их любым другим образом для общественных или коммерческих целей. Любое использование этих материалов на других сайтах или в компьютерных сетях запрещается. 
+              =raw Settings.copy2
     =raw Settings::metrika 
