@@ -50,31 +50,44 @@ namespace :import do
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
 			 	product.sku=sku				
-			 # 	if descr=prod.xpath('//div[@id="divdesc"]').first
-				# 	descr.css('img').each do |img|
-				# 		url=img.attr('src')
-				# 		unless image=DescriptionImage.find_by(original_url: url)
-				# 			image=DescriptionImage.new
-				# 			url = "http://www.4x4sport.ru/#{url}" unless url.start_with?('http://www.4x4sport.ru')
-				# 			image.remote_image_url=url
-				# 			image.save
-				# 		end
-				# 		img.attributes['src'].value=image.image.url					
-				# 	end
-				# 	product.description=descr.to_s
-				# else
-				# 	product.description=prod.xpath('//div[@class="//desc/p"]').first.to_s
-				# end
+			 	if descr=prod.xpath('//div[@id="divdesc"]').first
+					descr.css('img').each do |img|
+						url=img.attr('src')
+						unless image=DescriptionImage.find_by(original_url: url)
+							image=DescriptionImage.new
+							url = "http://www.4x4sport.ru/#{url}" unless url.start_with?('http://www.4x4sport.ru')
+							image.remote_image_url=url
+							image.save
+						end
+						img.attributes['src'].value=image.image.url					
+					end
+					product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+				else
+					product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+				end
 				product.enabled=true
+				product.save
 
 				variant=product.variants.find_or_initialize_by(sku: sku)
 				variant.sku=sku
 				variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
 				variant.enabled = true
 				variant.availability='Доставка 2-3 дня'
-				# variant.attr={}
 				variant.save
-				product.save
+
+				if product.images.count == 0 
+					prod.xpath("//div[@class='goodpage']/div[@class='photo']/@style").each do |pic|
+						pic_url=pic.content[/\((.+)\)/,1]
+						begin
+							image=product.images.new
+							image.remote_image_url='http://www.4x4sport.ru'+pic_url
+							image.save
+						rescue
+							image.delete
+						end
+					end
+				end
+
 			end
 		end
 	end
