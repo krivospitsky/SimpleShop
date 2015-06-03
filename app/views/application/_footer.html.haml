@@ -1,0 +1,20 @@
+%footer.footer
+  .container-fixed
+    -# .col-sm-4
+    -#   Принимаем к оплате
+    -#   =image_tag('payment_methods.png')
+    -# .col-sm-4
+    -#   %ul
+    -#     %li
+    -#       =link_to 'Главная', root_path
+    -#     -Page.in_footer.each do |page|
+    -#       %li
+    -#         =link_to page.name, page_path(page)
+    =raw Settings.copy1
+    .row.hidden-sm.hidden-xs
+      %hr
+      .col-sm-3.contacts
+        =raw Settings.contacts
+      .col-sm-9
+        .small
+          =raw Settings.copy2

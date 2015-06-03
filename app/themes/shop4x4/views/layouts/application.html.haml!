@@ -1,0 +1,94 @@
+!!!
+= javascript_include_tag "application"
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= defined?(@title) ? "#{@title} - " + Settings.site_title : Settings.site_title
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
+    = stylesheet_link_tag "#{Settings::theme}", :media => "all"
+    / For third-generation iPad with high-resolution Retina display:
+    / Size should be 144 x 144 pixels
+    = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
+    / For iPhone with high-resolution Retina display:
+    / Size should be 114 x 114 pixels
+    = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
+    / For first- and second-generation iPad:
+    / Size should be 72 x 72 pixels
+    = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
+    / For non-Retina iPhone, iPod Touch, and Android 2.1+ devices:
+    / Size should be 57 x 57 pixels
+    = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
+    / For all other devices
+    / Size should be 32 x 32 pixels
+    = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
+  %body
+    %header.header
+      .container-fixed
+        .row
+          .col-sm-2
+            =link_to root_path do
+              =image_tag 'logo.png', class: 'logo'
+          .col-sm-2.contacts
+            =Settings.contacts
+          .col-sm-5
+            .font_0
+              =Settings.site_title
+            -if Settings.site_title_2
+              .font_4
+                =Settings.site_title_2
+          .col-sm-3
+            %a.btn.btn-default.btn-block{href: new_order_path}
+              .glyphicon.glyphicon-shopping-cart
+              =t 'cart.count', count: @current_cart.cart_items.count
+            %br
+            =form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
+              .input-group
+                %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
+                %span.input-group-btn.input-group-sm
+                  %button.btn.btn-default.btn.xs{type: 'submit'}
+                    %span.glyphicon.glyphicon-search
+
+    .container-fixed
+      %nav.navbar.text-center
+        %a.btn.btn-primary.navbar-btn{href: root_path}
+          Главная
+        .btn-group
+          %a.btn.btn-primary.navbar-btn.dropdown-toggle{'data-toggle'=>'dropdown'}
+            Каталог
+            %span.caret
+          %ul.dropdown-menu
+            -Category.root.enabled.each do |cat|        
+              %li
+                =link_to cat.name, category_path(cat.path, cat.id)
+
+        -Page.in_menu.each do |page|
+          =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
+
+      = yield
+
+    %footer.footer
+      .container-fixed
+        .row
+          .col-sm-4.contacts
+            =Settings.contacts
+          .col-sm-4
+            Принимаем к оплате
+            =image_tag('payment_methods.png')
+          .col-sm-4
+            %ul
+              %li
+                =link_to 'Главная', root_path
+              -Page.in_footer.each do |page|
+                %li
+                  =link_to page.name, page_path(page)
+        %hr
+        &copy; Интернет-магазин «Рыболофф» 2001–2015
+        .small
+          small copy 
+    =raw Settings::metrika

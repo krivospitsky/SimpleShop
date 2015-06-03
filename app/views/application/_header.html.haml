@@ -1,0 +1,19 @@
+%header.header
+  .container-fixed
+    .row
+      .col-sm-2.hidden-xs
+        =link_to root_path do
+          =image_tag 'logo.png', class: 'logo'
+        .phone.visible-sm-block.small
+          =Settings.owner_phone
+      .col-sm-2.contacts.hidden-sm.hidden-xs
+        =raw Settings.contacts
+      .col-md-5.col-sm-7
+        .font_0
+          =Settings.site_title
+        -if Settings.site_title_2
+          .font_4
+            =Settings.site_title_2
+      .phone.visible-xs-block
+        =Settings.owner_phone
+      .col-sm-3= render 'search'
