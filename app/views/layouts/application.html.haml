@@ -31,26 +31,7 @@
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
-    %header.header
-      .container-fixed
-        .row
-          .col-sm-2.hidden-xs
-            =link_to root_path do
-              =image_tag 'logo.png', class: 'logo'
-            .phone.visible-sm-block.small
-              =Settings.owner_phone
-          .col-sm-2.contacts.hidden-sm.hidden-xs
-            =raw Settings.contacts
-          .col-md-5.col-sm-7
-            .font_0
-              =Settings.site_title
-            -if Settings.site_title_2
-              .font_4
-                =Settings.site_title_2
-          .phone.visible-xs-block
-            =Settings.owner_phone
-          .col-sm-3= render 'search'
-
+    = render 'header'
     .scroller_anchor
     .scroller
       %nav.navbar-default.text-center.header
@@ -82,24 +63,5 @@
 
     .container-fixed= yield
 
-    %footer.footer
-      .container-fixed
-        -# .col-sm-4
-        -#   Принимаем к оплате
-        -#   =image_tag('payment_methods.png')
-        -# .col-sm-4
-        -#   %ul
-        -#     %li
-        -#       =link_to 'Главная', root_path
-        -#     -Page.in_footer.each do |page|
-        -#       %li
-        -#         =link_to page.name, page_path(page)
-        =raw Settings.copy1
-        .row.hidden-sm.hidden-xs
-          %hr
-          .col-sm-3.contacts
-            =raw Settings.contacts
-          .col-sm-9
-            .small
-              =raw Settings.copy2
+    =render 'footer'
     =raw Settings::metrika 
