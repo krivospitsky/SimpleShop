@@ -1,16 +1,10 @@
 %header.header
   .container-fixed
     .row
-      .col-sm-2.hidden-xs
+      .col-sm-9
         =link_to root_path do
           =image_tag 'logo_4x4.png', class: 'logo'
-      .col-sm-7
-        .font_0
-          =Settings.site_title
-        -if Settings.site_title_2
-          .font_4
-            =Settings.site_title_2
       .col-sm-3
         = render 'search'
-        .phone
-          =Settings.owner_phone
+        .contacts
+          =raw Settings.contacts
