@@ -2,7 +2,10 @@ class Variant < ActiveRecord::Base
   belongs_to :product
   scope :enabled, -> { where(enabled: 't') }
 
-  # serialize :attr, Hash
+  serialize :attr, Hash
+
+  has_many :attrs, dependent: :destroy, class_name: :VariantAttr
+  accepts_nested_attributes_for :attrs, allow_destroy:true
 
   mount_uploader :image, ImageUploader
 

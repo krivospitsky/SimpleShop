@@ -91,8 +91,8 @@
             %th Имя
           -else
             %th Артикул
-          -@product.variants.first.attr.keys.each do |attr|
-            %th= attr
+          -@product.variants.first.attrs.each do |attr|
+            %th= attr.name
           %th Наличие
           %th Цена
           %th Купить
@@ -115,8 +115,8 @@
                       =variant.sku                   
                   -else
                     =variant.sku                   
-                -variant.attr.keys.each do |attr|
-                  %td= variant.attr[attr]
+                -variant.attrs.each do |attr|
+                  %td= attr.value
                 %td 
                   =variant.availability
                 %td 
