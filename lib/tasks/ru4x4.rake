@@ -10,8 +10,8 @@ namespace :import do
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
 
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
+#		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, :only_subcat)
+#		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/deflyatory/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tayrloki/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/prostavki_kolyesnye_/", -1, :only_subcat)
@@ -155,7 +155,7 @@ namespace :import do
 						end
 					end
 				end
-				sleep 2
+				sleep 5
 			end
 		# end
 	end
