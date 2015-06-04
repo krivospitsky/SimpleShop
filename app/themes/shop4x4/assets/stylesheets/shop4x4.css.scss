@@ -12,6 +12,7 @@
 
 
 $brand-primary: #419641;
+@import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:700);
 
 @import "application";
 
@@ -20,3 +21,12 @@ $brand-primary: #419641;
     height: 70px;
   }
 }
+
+.site_title {
+  font: 50px/1.1em "Stardos Stencil";
+  color: white;
+  .small {
+    font: 29px/1.3em "Stardos Stencil";
+  }
+}
+

@@ -24,14 +24,6 @@
 @import "jquery.fancybox-thumbs";
 @import "lightSlider";
 
-@font-face {
-  font-family: 'Kelly Slab';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Kelly Slab'), local('KellySlab-Regular'), url(http://fonts.gstatic.com/s/kellyslab/v6/gKqKZ8BbpAcxgFwZImcomxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
-}
-
-
  /* Custom container */
 .container-fixed {
   margin: 0 auto;
@@ -51,13 +43,6 @@
         float: none;	
 }
 
-.font_0 {
-    font: 50px/1.1em "kelly slab",fantasy;
-}
-
-.font_4 {
-    font: 29px/1.3em "kelly slab",fantasy;
-}
 
 .header,.footer{
   background-color: $brand-primary;

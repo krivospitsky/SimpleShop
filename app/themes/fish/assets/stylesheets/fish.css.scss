@@ -1,3 +1,11 @@
 $brand-primary: #31464C;
 
+@import url(http://fonts.googleapis.com/css?family=Kelly+Slab&subset=latin,cyrillic);
+.font_0 {
+    font: 50px/1.1em "kelly slab",fantasy;
+}
+.font_4 {
+    font: 29px/1.3em "kelly slab",fantasy;
+}
+
 @import "application";
