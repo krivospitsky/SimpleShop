@@ -7,8 +7,8 @@ namespace :import do
 
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bagazhniki/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_i_farkopy/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
 
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
