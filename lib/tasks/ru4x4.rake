@@ -96,7 +96,7 @@ namespace :import do
 				next if prod_link == '/shop/farkopy/'
 				prod = Nokogiri::HTML(open($base_url+prod_link), nil)
 				puts prod_link
-				next if prox.xpath('//table[@class="offers_table"]').first
+				next if prod.xpath('//table[@class="offers_table"]').first
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
