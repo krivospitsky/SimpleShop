@@ -14,3 +14,9 @@
 $brand-primary: #419641;
 
 @import "application";
+
+.product_item_inner {
+  .name{
+    height: 70px;
+  }
+}

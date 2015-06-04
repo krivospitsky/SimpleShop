@@ -67,8 +67,7 @@
           %a.strong{:'aria-controls'=>:attrs, role: :tab, href: '#attrs'} Характеристики
     .tab-content
       .tab-pane.active#description{role: :tabpanel}
-        .panel
-          .description{itemprop:"description"}= raw @product.description
+        .description{itemprop:"description"}= raw @product.description
       .tab-pane#attrs{role: :tabpanel}
         -if @product.attrs.count>0
           %table.table.table-condensed.attributes

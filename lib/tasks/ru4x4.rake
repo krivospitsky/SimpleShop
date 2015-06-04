@@ -6,7 +6,7 @@ namespace :import do
 		$sku_prefix='ru_'
 
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bagazhniki/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_i_farkopy/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_i_farkopy/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
 
@@ -92,7 +92,8 @@ namespace :import do
 		end
 
 		# if has_subcat==false
-			cat.xpath('////div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each do |prod_link|
+			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each do |prod_link|
+				next if prod_link == '/shop/farkopy/'
 				prod = Nokogiri::HTML(open($base_url+prod_link), nil)
 				puts prod_link
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
