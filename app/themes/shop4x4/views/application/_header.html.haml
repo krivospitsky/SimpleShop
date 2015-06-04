@@ -3,11 +3,7 @@
     .row
       .col-sm-9
         =link_to root_path do
-          -# =image_tag 'logo_4x4.png', class: 'logo'
-          .site_title
-            = Settings.site_title
-            .small
-              = Settings.site_title_2
+          =image_tag 'logo_4x4.png', class: 'logo'
       .col-sm-3
         = render 'search'
         .contacts
