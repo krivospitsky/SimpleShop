@@ -5,7 +5,7 @@ namespace :import do
 		$base_url='http://www.4x4ru.ru'
 		$sku_prefix='ru_'
 
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bagazhniki/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bagazhniki/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_i_farkopy/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
@@ -153,7 +153,7 @@ namespace :import do
 						end
 					end
 				end
-
+				sleep 2
 			end
 		# end
 	end
