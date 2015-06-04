@@ -58,21 +58,31 @@
                   %span.input-group-addon 
                     шт.  
 
-  .description{itemprop:"description"}= raw @product.description
-
-  -if @product.attrs.count>0
-    %table.table.table-condensed.attributes
-      -@product.attrs.all.each do |attr|
-        %tr
-          %td
-            =attr.name
-          %td
-            =attr.value
-      -if @product.attrs.count > 5 
-        %tr
-          %td{colspan:2}
-            %a.show-all{href:'#'}
-              Показать все
+  %div{role: :tabpanel}
+    %ul.nav.nav-tabs{role: :tablist}
+      %li.active{role: :presentation}
+        %a.strong{:'aria-controls'=>:description, role: :tab, href: '#description'} Описание
+      -if @product.attrs.count>0
+        %li{role: :presentation}
+          %a.strong{:'aria-controls'=>:attrs, role: :tab, href: '#attrs'} Характеристики
+    .tab-content
+      .tab-pane.active#description{role: :tabpanel}
+        .panel
+          .description{itemprop:"description"}= raw @product.description
+      .tab-pane#attrs{role: :tabpanel}
+        -if @product.attrs.count>0
+          %table.table.table-condensed.attributes
+            -@product.attrs.all.each do |attr|
+              %tr
+                %td
+                  =attr.name
+                %td
+                  =attr.value
+            -if @product.attrs.count > 5 
+              %tr
+                %td{colspan:2}
+                  %a.show-all{href:'#'}
+                    Показать все
 
        
   -if @product.variants.count>1
