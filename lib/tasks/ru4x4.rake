@@ -12,10 +12,10 @@ namespace :import do
 
 #		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, :only_subcat)
 #		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/deflyatory/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tayrloki/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/prostavki_kolyesnye_/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tsepi_i_braslety_protivoskolzheniya/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/deflyatory/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tayrloki/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/prostavki_kolyesnye_/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tsepi_i_braslety_protivoskolzheniya/", -1, :only_subcat)
 
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebyedki_avtomobilnye/", -1, :only_subcat)
 		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebyedki_dlya_atv_i_snegokhodov/", -1, :only_subcat)
@@ -130,6 +130,7 @@ namespace :import do
 
 				variant=product.variants.find_or_initialize_by(sku: sku)
 				variant.sku=sku
+				next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first
 				variant.price=prod.xpath('//span[@class="catalog_element_price_value"]/b').first.content.delete(' ').delete("руб").to_i
 				variant.enabled = true
 				variant.availability='Доставка 2-3 дня'
