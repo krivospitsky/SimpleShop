@@ -72,7 +72,8 @@ class Product < ActiveRecord::Base
       result += cat.products.enabled
     end
 
-    categories.each do |cat|
+
+    Category.where('id in (?)', categories.flat_map{|c| c.parent_ids}).each do |cat|
       result += cat.linked_products.enabled
 
       cat.linked_categories.each do |cat|
