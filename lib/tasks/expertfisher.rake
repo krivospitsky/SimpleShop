@@ -81,9 +81,9 @@ namespace :import do
 						variant.enabled = true
 						variant.availability='Доставка 2-3 дня'
 						i=0
-						variant.attr={}
+						variant.attrs.delete_all
 						var.xpath('td')[3..-4].each do |attrib|
-							variant.attr[attr_names[i]]=attrib.content.strip
+							variant.attrs.find_or_initialize_by(name: attr_names[i]).update(value: attrib.content.strip) 
 							i+=1
 						end
 

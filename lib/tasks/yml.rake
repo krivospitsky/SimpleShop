@@ -117,8 +117,8 @@ namespace :import do
 			variant.availability='Доставка 7 дней' if supplier=='camp'
 			variant.availability='Доставка 14 дней' if supplier=='salmo'
 
-			variant.attr['Цвет']=color if color
-			variant.attr['Размер']=size if size
+			variant.attrs.find_or_initialize_by(name: 'Цвет').update(value: color) if color
+			variant.attrs.find_or_initialize_by(name: 'Размер').update(value: size) if size
 
 			variant.save!
 
