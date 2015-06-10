@@ -1,14 +1,16 @@
 .row
-  .col-sm-4
+  .col-lg-4.col-md-12
     = paginate @products
-  .col-sm-8
-    =form_tag '/admin/products', method: :get, class: 'form-inline filter-form' do
-      .form-group
-        -if @category
-          =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id), include_blank: true, class: 'form-control'
-        -else
-          =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path), include_blank: true, class: 'form-control'
-        =submit_tag 'Отфильтровать', class: 'btn btn-default'
+  =form_tag '/admin/products', method: :get, class: 'filter-form' do
+    .col-lg-8.col-md-12
+      .row
+        .col-sm-8
+          -if @category
+            =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id), include_blank: true, class: 'form-control'
+          -else
+            =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path), include_blank: true, class: 'form-control'
+        .col-sm-4
+          =submit_tag 'Отфильтровать', class: 'btn btn-default'
 
 %table.table.table-striped
   %thead
