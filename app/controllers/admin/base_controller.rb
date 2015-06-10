@@ -49,7 +49,7 @@ class Admin::BaseController < ActionController::Base
 	private
 
 	def set_title
-		@title = t("title.#{controller_name}.#{action_name}")
+		@h1 = @title = t("title.#{controller_name}.#{action_name}")
 	end
 
 	protected

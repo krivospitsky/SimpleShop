@@ -10,6 +10,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories=Category.root
+    @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_category_path, :class => 'btn btn-primary')
+
     respond_with @categories
   end
 

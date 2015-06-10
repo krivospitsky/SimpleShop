@@ -9,6 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  */
+
+$body-bg: #F8F8F8;
+
 @import "bootstrap";
 @import "pages";
 @import "products";
@@ -27,3 +30,41 @@
 .navbar{
   margin-bottom:0px;
 }
+
+.contenet{
+	background-color: #fff;	
+}
+
+.filter-form{
+	margin: 20px 0px;
+}
+
+
+.sidebar {
+	padding: 0px;
+	li {
+	    border-bottom: 1px solid #E7E7E7;
+	}
+}
+
+.names{
+	.actions{
+		min-width: 220px;
+	}
+
+	.price{
+		min-width: 170px;
+	}
+}
+// html,body {
+//     margin:0;
+//     padding:0;
+//     height:100%; /* needed for container min-height */
+// }
+
+// .container-fluid{
+//     height:auto !important; /* real browsers */
+//     height:100%; /* IE6: treaded as min-height*/
+
+//     min-height:100%; /* real browsers */
+// }

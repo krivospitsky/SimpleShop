@@ -39,9 +39,11 @@ ru:
           footer: 'футере'
           menu_and_footer: 'меню и футере'
   helpers:
+    actions: Действия
     links:
       new: Добавить
       edit: Правка
+      copy: Копировать
       destroy: Удалить
   activerecord:
     models:
@@ -50,7 +52,7 @@ ru:
         few: Страницы
         many: Страниц
         other: Страницы
-      product: 
+      product:
         one: Товар
         few: Товара
         many: Товаров
@@ -71,10 +73,24 @@ ru:
         many: Заказов
         other: Заказа
     attributes:
+      product:
+        name: Название
+        price: Цена
+        sku: Артикул
+        categories: Категории
+        linked_categories: Связанные категории
+        linked_products: Связанные товары
+        images: Изображения
       page:
         name: Название
+        enabled: Вкл.
         text: Текст
         position: Показывать в
+      promotion:
+        name: Название
+        enabled: Вкл.
+        start_at: Начало
+        end_at: Окончание
       order:
         phone: Номер телефона
     errors:

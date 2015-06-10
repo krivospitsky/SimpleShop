@@ -17,6 +17,7 @@ class Admin::ProductsController < Admin::BaseController
       @products=Product.all.page(params[:page]).per(50)
     end
     @categories=Category.all
+    @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_product_path, :class => 'btn btn-primary')
     respond_with @products
   end
 

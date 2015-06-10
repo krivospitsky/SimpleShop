@@ -28,8 +28,8 @@
     / Size should be 32 x 32 pixels
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
-    .container-fixed
-      %nav.navbar.navbar-default{role:'navigation'}
+    .container-fluid
+      %nav.navbar.navbar-default.navbar-static-top{role:'navigation'}
         .navbar-header
           %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse"}
             %span.sr-only Toggle navigation
@@ -40,30 +40,56 @@
             Admin area
       .row
         .col-sm-2
-          %ul.nav.nav-pills.nav-stacked
-            %li
-              =link_to 'Settings', '/admin/settings/edit'
-            %li
-              =link_to 'Товары' , admin_products_path
+          %ul.nav.nav-pills.nav-stacked.sidebar
+            %li{class: controller_name=='settings' ? 'active' : ''}
+              =link_to '/admin/settings/edit' do
+                %i.glyphicon.glyphicon-cog
+                &nbsp;
+                Настройки           
+              
+            %li{class: controller_name=='products' ? 'active' : ''}
+              =link_to admin_products_path do
+                %i.glyphicon.glyphicon-list
+                &nbsp;
+                Товары
+
             -if !Settings.disable_categories
-              %li
-                =link_to 'Категории', admin_categories_path
-            %li
-              =link_to 'Страницы' , admin_pages_path
-            %li
-              =link_to 'Акции', admin_promotions_path
-            %li
-              =link_to 'Заказы', admin_orders_path
-            %li
-              =link_to 'Импорт Moscanella', '/admin/moscanella/new'
-        .col-sm-10
+              %li{class: controller_name=='categories' ? 'active' : ''}
+                =link_to admin_categories_path do
+                  %i.glyphicon.glyphicon-folder-open
+                  &nbsp;
+                  Категории
+
+            %li{class: controller_name=='pages' ? 'active' : ''}
+              =link_to admin_pages_path do 
+                %i.glyphicon.glyphicon-file
+                &nbsp;
+                Страницы
+
+            %li{class: controller_name=='promotions' ? 'active' : ''}
+              =link_to admin_promotions_path do
+                %i.glyphicon.glyphicon-pushpin
+                &nbsp;
+                Акции и баннеры
+            
+            %li{class: controller_name=='orders' ? 'active' : ''}
+              =link_to admin_orders_path do
+                %i.glyphicon.glyphicon-shopping-cart
+                &nbsp;
+                Заказы
+
+            -if Settings.theme == 'fish'
+              %li{class: controller_name=='moscanella' ? 'active' : ''}
+                =link_to 'Импорт Moscanella', '/admin/moscanella/new'
+
+        .col-sm-10.contenet
           .page-header
-            %h1=@title
+            %h1= raw @h1
           = yield
 
       %footer
         .nav.navbar.navbar-default
           .navbar-text.pull-right
             &copy;  2013
-    <!-- Yandex.Metrika counter -->
-    <!-- RedHelper -->
+  <!-- Yandex.Metrika counter -->
+  <!-- RedHelper -->

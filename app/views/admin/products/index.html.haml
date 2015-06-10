@@ -1,26 +1,30 @@
-=form_tag '/admin/products', method: :get do
-  -if @category
-    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id), include_blank: true
-  -else
-    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path), include_blank: true
-  =submit_tag 'Отфильтровать'
+.row
+  .col-sm-4
+    = paginate @products
+  .col-sm-8
+    =form_tag '/admin/products', method: :get, class: 'form-inline filter-form' do
+      .form-group
+        -if @category
+          =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id), include_blank: true, class: 'form-control'
+        -else
+          =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path), include_blank: true, class: 'form-control'
+        =submit_tag 'Отфильтровать', class: 'btn btn-default'
 
-= paginate @products
 %table.table.table-striped
   %thead
-    %tr
+    %tr.names
       %th= Product.human_attribute_name(:name)
-      %th= Product.human_attribute_name(:price)
-      %th.col-sm-3=t '.actions', :default => t("helpers.actions")
+      %th.price= Product.human_attribute_name(:price)
+      %th.actions=t '.actions', :default => t("helpers.actions")
   %tbody#products_list.sortable
     - @products.each do |product|
       %tr{id: product.id}
         %td= product.name
-        %td= product.price
+        %td= raw product.price_str
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-xs btn-default'
           = link_to t('.copy', :default => t("helpers.links.copy")), copy_admin_product_path(product), :class => 'btn btn-xs btn-default'
           = link_to t('.destroy', :default => t("helpers.links.destroy")), admin_product_path(product), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger btn-xs'
 = paginate @products
 
-= link_to t('.new', :default => t("helpers.links.new")), new_admin_product_path, :class => 'btn btn-primary'
+-# = link_to t('.new', :default => t("helpers.links.new")), new_admin_product_path, :class => 'btn btn-primary'
