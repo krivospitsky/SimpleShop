@@ -28,6 +28,7 @@ $(document).ready(function() {
    	}
   });
 
-  $(".product_item_inner").matchHeight({byRow: true});
+  $(".name").matchHeight({byRow: true});
+  $(".product_item").matchHeight({byRow: true});
 
 });

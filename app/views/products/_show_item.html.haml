@@ -4,14 +4,16 @@
   -thumb=:product_list
 
 .col-md-4.col-sm-6.col-xs-12.product_item.fly-to-cart
-  =link_to product_path(product, category) do
-    .thumbnail.product_item_inner
-      .name.text-center
-        =product.name      
-      -if product.images.first
+  .thumbnail
+    .name.text-center
+      =link_to product.name, product_path(product, category)
+    -if product.images.first
+      =link_to product_path(product, category) do
         =image_tag(product.images.first.image.url(thumb), class: 'image')
-      -else
+    -else
+      =link_to product_path(product, category) do
         =image_tag("product_list_no_photo_#{Settings.theme}.png", class: 'image')
+    .price_block
       .old_price.text-center
         =raw product.old_price_str
       .price.text-center

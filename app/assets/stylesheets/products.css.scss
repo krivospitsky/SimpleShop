@@ -2,9 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.product_item_inner {
-	//height: 300px;
+.product_item:not(:first-child),.product_item:not(:last-child) {
+  padding-right:10px;
+  padding-left:10px;
+}
 
+.product_item {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	.thumbnail{
+		height:100%;
+		position: relative;
+		padding-bottom: 86px;
+	    margin-bottom: 0px;
+	}
+	//height: 300px;
 	a{
 		text-decoration: none;
 		:hover{
@@ -28,7 +40,7 @@
 		color: #38B0E3;
 		font-weight: bold;
 		font-size: 0.9em;
-		height: 55px;
+		// height: 55px;
 		
 		//  margin-bottom: 4px;
 		//    vertical-align:middle;
@@ -42,8 +54,15 @@
 		//width: 150px;
 	}
 
+	.price_block{
+  		position: absolute;
+  		bottom: 5px;
+  		width: 100%;
+
+	}
+
 	.old_price{
-		height: 20px;
+		// height: 20px;
 		//padding-bottom: 10px;
 		font-weight: bold;
 		font-size: 1.2em;
@@ -52,7 +71,7 @@
 	}
 
 	.price{
-		height: 20px;
+		// height: 20px;
 		//padding-bottom: 10px;
 		font-weight: bold;
 		font-size: 1.2em;
@@ -69,8 +88,6 @@
 			font-size: 0.8em;
 		}
 	}
-
-
 }
 
 
@@ -155,10 +172,6 @@ span.new-price{
 		page-break-inside: avoid; /* Firefox */
 		break-inside: avoid; /* IE 10+ */
     }
- }
-
- .shadow .name{
-	 height:35px;
  }
 
  #lightSlider{

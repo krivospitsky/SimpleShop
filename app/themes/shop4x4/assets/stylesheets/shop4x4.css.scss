@@ -16,19 +16,18 @@ $brand-primary: #419641;
 
 @import "application";
 
+
 .product_item {
-  .product_item_inner {
-    // min-height: 151px;
+  .thumbnail{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
     .name{
       height: auto;
       padding-bottom: 5px;
     }
-    .right{
-      display: table-cell;
-      vertical-align: bottom;
-    }
   }
 }
+
 // .site_title {
 //   font: 50px/1.1em "Stardos Stencil";
 //   color: white;
