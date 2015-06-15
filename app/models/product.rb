@@ -115,9 +115,10 @@ class Product < ActiveRecord::Base
         c=(100-discount)/100.0
       end
       if min_price == max_price
-        "#{(min_price*c).to_i} <small>руб.</small>"
+        "#{(min_price*c).to_i}&nbsp;<small>руб.</small>"
       else
-        "<small>от</small> #{(min_price*c).to_i} <small>до</small> #{(max_price*c).to_i} <small>руб.</small>"
+        # "<small>от</small> #{(min_price*c).to_i} <small>до</small> #{(max_price*c).to_i} <small>руб.</small>"
+        "#{(min_price*c).to_i}&nbsp;-&nbsp;#{(max_price*c).to_i}&nbsp;<small>руб.</small>"
       end
     end
   end
@@ -126,9 +127,10 @@ class Product < ActiveRecord::Base
     discount=get_discount
     if discount && discount>0
       if min_price == max_price
-        "#{min_price} <small>руб.</small>"
+        "#{min_price}&nbsp;<small>руб.</small>"
       else
-        "<small>от</small> #{min_price} <small>до</small> #{max_price} <small>руб.</small>"
+        # "<small>от</small> #{min_price} <small>до</small> #{max_price} <small>руб.</small>"
+        "#{min_price}&nbsp;-&nbsp;#{max_price}&nbsp;<small>руб.</small>"
       end
     else
       ""

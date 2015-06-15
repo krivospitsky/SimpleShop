@@ -8,7 +8,7 @@
   %li
     %a(href="#seo" data-toggle="tab") SEO
 
-= simple_form_for [:admin, @product] do |f|
+= simple_form_for [:admin, @product], html: { class: 'form-horizontal' } do |f|
   .tab-content
     .tab-pane.active#common
       = f.input :name
@@ -32,10 +32,11 @@
               = render 'image_fields', :f => image
             = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
 
-      %label.optional.control-label.col-sm-3
-        Описание
-      .label_clear
-        = f.input_field :description, as: :ckeditor
+      = f.input :description, as: :ckeditor
+      -# %label.optional.control-label.col-sm-3
+      -#   Описание
+      -# .label_clear
+      -#   = f.input_field :description, as: :ckeditor
       / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
 
     .tab-pane#variants

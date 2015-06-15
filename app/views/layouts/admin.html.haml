@@ -43,38 +43,38 @@
           %ul.nav.nav-pills.nav-stacked.sidebar
             %li{class: controller_name=='settings' ? 'active' : ''}
               =link_to '/admin/settings/edit' do
-                %i.glyphicon.glyphicon-cog
+                %span.glyphicon.glyphicon-cog
                 &nbsp;
                 Настройки           
               
             %li{class: controller_name=='products' ? 'active' : ''}
               =link_to admin_products_path do
-                %i.glyphicon.glyphicon-list
+                %span.glyphicon.glyphicon-list
                 &nbsp;
                 Товары
 
             -if !Settings.disable_categories
               %li{class: controller_name=='categories' ? 'active' : ''}
                 =link_to admin_categories_path do
-                  %i.glyphicon.glyphicon-folder-open
+                  %span.glyphicon.glyphicon-folder-open
                   &nbsp;
                   Категории
 
             %li{class: controller_name=='pages' ? 'active' : ''}
               =link_to admin_pages_path do 
-                %i.glyphicon.glyphicon-file
+                %span.glyphicon.glyphicon-file
                 &nbsp;
                 Страницы
 
             %li{class: controller_name=='promotions' ? 'active' : ''}
               =link_to admin_promotions_path do
-                %i.glyphicon.glyphicon-pushpin
+                %span.glyphicon.glyphicon-pushpin
                 &nbsp;
                 Акции и баннеры
             
             %li{class: controller_name=='orders' ? 'active' : ''}
               =link_to admin_orders_path do
-                %i.glyphicon.glyphicon-shopping-cart
+                %span.glyphicon.glyphicon-shopping-cart
                 &nbsp;
                 Заказы
 

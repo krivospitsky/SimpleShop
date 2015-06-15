@@ -26,6 +26,8 @@ $(document).ready(function() {
    	}else{
    		window.location.href=location.protocol + '//' + location.host + location.pathname
    	}
-   });
+  });
+
+  $(".product_item_inner").matchHeight({byRow: true});
 
 });

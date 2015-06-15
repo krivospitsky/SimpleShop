@@ -144,9 +144,9 @@ config.wrappers :horizontal_form_2_column, tag: 'div', error_class: 'has-error' 
   # buttons and other elements.
   config.default_wrapper = :horizontal_form
   config.wrapper_mappings = {
-    check_boxes: :horizontal_radio_and_checkboxes,
+    # check_boxes: :horizontal_radio_and_checkboxes,
     radio_buttons: :horizontal_radio_and_checkboxes,
     file: :horizontal_file_input,
-    boolean: :horizontal_boolean,
+    # boolean: :horizontal_boolean,
   }
 end

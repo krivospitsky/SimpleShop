@@ -1,0 +1,33 @@
+.col-sm-6.col-xs-12.product_item.fly-to-cart
+  .thumbnail.product_item_inner
+    .name.text-center
+      =link_to product_path(product, category) do
+        =product.name      
+    .row
+      .col-sm-6
+        -if product.images.first
+          =link_to product_path(product, category) do
+            =image_tag(product.images.first.image.url(:product_list), class: 'image')
+        -else
+          =link_to product_path(product, category) do
+            =image_tag("product_list_no_photo_#{Settings.theme}.png", class: 'image')
+      .col-sm-6
+        .old_price.text-center
+          =raw product.old_price_str
+        .price.text-center
+          =raw product.price_str
+        .text-center
+          -if product.variants.count>1
+            =link_to product_path(product, category) do
+              .btn.btn-primary.btn-sm
+                %span.glyphicon.glyphicon-shopping-cart
+                Купить
+          -else
+            -cart_item=@current_cart.cart_items.new(product_id: product.id, quantity:1)
+            = form_for cart_item, remote: true do |f|
+              = f.hidden_field :product_id
+              %input(type="hidden" value="#{product.variants.first.id}" name="cart_item[variant_id]")
+                = f.hidden_field :quantity, value:1
+                %button.btn.btn-sm.btn-primary{type:'submit'}
+                  %span.glyphicon.glyphicon-shopping-cart
+                  Купить

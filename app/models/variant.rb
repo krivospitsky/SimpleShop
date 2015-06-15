@@ -37,9 +37,9 @@ class Variant < ActiveRecord::Base
     if !price
       "по запросу"
     elsif discount_price
-      "<del>#{price*quantity}</del> #{discount_price*quantity} руб."
+      "<del>#{price*quantity}</del>&nbsp;#{discount_price*quantity} руб."
     else
-      "#{price*quantity} руб."
+      "#{price*quantity}&nbsp;руб."
     end
   end
 end

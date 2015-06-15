@@ -81,6 +81,8 @@ ru:
         linked_categories: Связанные категории
         linked_products: Связанные товары
         images: Изображения
+        description: Описание
+        enabled: Вкл.
       page:
         name: Название
         enabled: Вкл.
