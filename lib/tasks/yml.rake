@@ -3,7 +3,6 @@ namespace :import do
 	task :yml, [:supplier]=> :environment do |task, args|
 
 		supplier=args.supplier
-		skip_cats=[]
 		skip_cats=[246] if supplier == 'camp'
 		skip_cats=[300] if supplier == 'nova'
 		skip_cats=[752,567,783,983,1055,573,1716,681,678,575,1442,1155,985,1362,1361,1676,691,690,794,607,610,608,613,619,626,1563,560,647,552,527,998,801,803,809,811,1386,1065,838,1032,910,845,862,858,1118,868,998,868] if supplier == 'salmo'
@@ -15,8 +14,6 @@ namespace :import do
 			url='http://www.novatour.ru/Services/ShopService/YMLGet?region=1608' if supplier == 'nova'
 			url='http://www.camping.ru/prices/yandex.php' if supplier == 'camp'
 			url='http://www.salmoru.com/yandexshop.xml' if supplier == 'salmo'
-			url='http://www.220-volt.ru/xml/hw.xml' if supplier == '220'
-
 			yml = Nokogiri::XML(open(url))
 		else
 			yml = Nokogiri::XML(open("tmp/yml/#{supplier}.yml"))
@@ -134,7 +131,6 @@ namespace :import do
 #				product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
 				node.xpath('picture').each do |pic|
 					pic_url=pic.content
-					pic_url.gsub!('http://www.220-volt.ru', '') if supplier == '220'
 					if not loaded_images.include?(pic_url)
 						begin
 							puts pic_url
