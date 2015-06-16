@@ -1,7 +1,6 @@
 # coding: utf-8
 namespace :sitemap do
 	task :generate => :environment do 
-		include RenderAnywhere
 		 include Rails.application.routes.url_helpers # brings ActionDispatch::Routing::UrlFor
 		# include ActionView::Helpers::TagHelper
 		 include ActionView::Helpers
