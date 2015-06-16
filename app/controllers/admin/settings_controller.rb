@@ -7,7 +7,6 @@ class Admin::SettingsController < ApplicationController
     Settings.site_url=params[:settings][:site_url]
     Settings.owner_phone=params[:settings][:owner_phone]
     Settings.owner_email=params[:settings][:owner_email]
-    Settings.metrika=params[:settings][:metrika]
     Settings.theme=params[:settings][:theme]
     Settings.disable_categories=(params[:settings][:disable_categories] == '1')
     Settings.disable_filters=(params[:settings][:disable_filters] == '1')
@@ -24,7 +23,18 @@ class Admin::SettingsController < ApplicationController
     Settings.contacts=params[:settings][:contacts]
     Settings.copy1=params[:settings][:copy1]
     Settings.copy2=params[:settings][:copy2]
+
+    Settings.metrika=params[:settings][:metrika]
+    Settings.google_verification=params[:settings][:google_verification]
+
+
 #    smtp_enable_starttls_auto: true  
+    
+    Rails.application.reload_routes!
+    Dir.glob("#{Rails.root}/app/themes/#{Settings.theme}/assets/*").each do |dir|
+      Rails.application.config.assets.paths << dir
+    end
+
 
     redirect_to '/admin/settings/edit'
   end

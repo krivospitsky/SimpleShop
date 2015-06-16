@@ -4,7 +4,10 @@
   = settings_form.input :site_url, input_html: { value: Settings.site_url }
   = settings_form.input :owner_phone, input_html: { value: Settings.owner_phone }
   = settings_form.input :owner_email, input_html: { value: Settings.owner_email }
+
   = settings_form.input :metrika, input_html: { value: Settings.metrika }, as: :text
+  = settings_form.input :google_verification, input_html: { value: Settings.google_verification }
+
   = settings_form.input :theme, input_html: { value: Settings.theme }
 
 
