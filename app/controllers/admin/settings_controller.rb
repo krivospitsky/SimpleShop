@@ -31,9 +31,9 @@ class Admin::SettingsController < ApplicationController
 #    smtp_enable_starttls_auto: true  
     
     Rails.application.reload_routes!
-    Dir.glob("#{Rails.root}/app/themes/#{Settings.theme}/assets/*").each do |dir|
-      Rails.application.config.assets.paths << dir
-    end
+    # Dir.glob("#{Rails.root}/app/themes/#{Settings.theme}/assets/*").each do |dir|
+    #   Rails.application.config.assets.paths << dir
+    # end
 
 
     redirect_to '/admin/settings/edit'
