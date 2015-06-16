@@ -24,11 +24,11 @@ namespace :import do
 		end
 
 		yml.xpath('//categories/category').each do |node|
-			parent_id=node.attr('parentId')
-			id=node.attr('id')
+			parent_id=node.attr('parentId').to_i
+			id=node.attr('id').to_i
 
-			skip_cats << id if skip_cats.include?(parent_id.to_i)
-			if skip_cats.include?(id.to_i)
+			skip_cats << id if skip_cats.include?(parent_id)
+			if skip_cats.include?(id)
 				if category=Category.find_by(external_id: "#{supplier}_#{id}")
 					category.products.delete_all
 					category.delete
