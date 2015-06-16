@@ -134,7 +134,6 @@ namespace :import do
 
 				if prod.xpath('//table[@class="offers_table"]').first
 					prod.xpath('//table[@class="offers_table"]//tr[position() mod 2 = 0]').each do |var|
-						puts 'var'
 						sku=$sku_prefix + var.xpath('td[2]').first.content.strip
 						variant=product.variants.find_or_initialize_by(sku: sku)
 						variant.name=var.xpath('td[1]').first.content.strip

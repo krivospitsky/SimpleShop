@@ -94,5 +94,3 @@ gem 'roo'
 gem 'roo-xls'
 
 gem 'amoeba'
-
-gem 'render_anywhere'

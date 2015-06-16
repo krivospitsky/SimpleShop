@@ -61,10 +61,10 @@
   %div{role: :tabpanel}
     %ul.nav.nav-tabs{role: :tablist}
       %li.active{role: :presentation}
-        %a.strong{:'aria-controls'=>:description, role: :tab, href: '#description'} Описание
+        %a.strong{:'aria-controls'=>:description, role: :tab, :'data-toggle'=>:tab, href: '#description'} Описание
       -if @product.attrs.count>0
         %li{role: :presentation}
-          %a.strong{:'aria-controls'=>:attrs, role: :tab, href: '#attrs'} Характеристики
+          %a.strong{:'aria-controls'=>:attrs, role: :tab, :'data-toggle'=>:tab, href: '#attrs'} Характеристики
     .tab-content
       .tab-pane.active#description{role: :tabpanel}
         .description{itemprop:"description"}= raw @product.description
@@ -77,11 +77,11 @@
                   =attr.name
                 %td
                   =attr.value
-            -if @product.attrs.count > 5 
-              %tr
-                %td{colspan:2}
-                  %a.show-all{href:'#'}
-                    Показать все
+            -# -if @product.attrs.count > 5 
+            -#   %tr
+            -#     %td{colspan:2}
+            -#       %a.show-all{href:'#'}
+            -#         Показать все
 
        
   -if @product.variants.count>1
