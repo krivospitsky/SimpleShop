@@ -1,6 +1,6 @@
 RailsSettings::Settings.create!([
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost/", thing_id: nil, thing_type: nil},
+  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
@@ -26,7 +26,7 @@ Image.create!([
 ])
 RailsSettings::ScopedSettings.create!([
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost/", thing_id: nil, thing_type: nil},
+  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
@@ -35,7 +35,7 @@ RailsSettings::ScopedSettings.create!([
 ])
 RailsSettings::CachedSettings.create!([
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost/", thing_id: nil, thing_type: nil},
+  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
@@ -44,7 +44,7 @@ RailsSettings::CachedSettings.create!([
 ])
 Settings.create!([
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost/", thing_id: nil, thing_type: nil},
+  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},

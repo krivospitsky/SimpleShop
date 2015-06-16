@@ -11,7 +11,7 @@ namespace :import do
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, :only_subcat)
 
 #		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, :only_subcat)
-#		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
+		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/deflyatory/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tayrloki/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/prostavki_kolyesnye_/", -1, :only_subcat)
@@ -35,20 +35,22 @@ namespace :import do
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_uaz_1/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/domkraty_i_aksessuary/", -1, :only_subcat)
 		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dopolnitelnyy_svet/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kanistry_ekspeditsionnye/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kompressory/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/konsoli_potolochnye/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/aksessuary-dlya-pikapov/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/benzobaki_uvelichennoy_yemkosti/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/blokirovki/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/podogrevateli_dvigatelya_dizelnogo_topliva/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/rasshiriteli_arok/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/stropy_i_takelazh/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/send_traki/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tovary_dlya_turizma/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/universalnye_krepleniya_quick_fist_samokhvat/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/khaby_kolyesnye_/", -1, :only_subcat)
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shnorkeli/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kanistry_ekspeditsionnye/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kompressory/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/konsoli_potolochnye/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/aksessuary-dlya-pikapov/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/benzobaki_uvelichennoy_yemkosti/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/blokirovki/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/podogrevateli_dvigatelya_dizelnogo_topliva/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/rasshiriteli_arok/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/stropy_i_takelazh/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/send_traki/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tovary_dlya_turizma/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/universalnye_krepleniya_quick_fist_samokhvat/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/khaby_kolyesnye_/", -1, :only_subcat)
+		# Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shnorkeli/", -1, :only_subcat)
+
+
 
 		# http://www.4x4ru.ru/shop/shturmanskoe_oborudovanie/
 		# http://www.autoventuri.ru/catalog-bodi_lift/brand-rif/
@@ -95,8 +97,10 @@ namespace :import do
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each do |prod_link|
 				next if prod_link == '/shop/farkopy/'
 				prod = Nokogiri::HTML(open($base_url+prod_link), nil)
+
+				next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first || prod.xpath('//table[@class="offers_table"]').first
+
 				puts prod_link
-				next if prod.xpath('//table[@class="offers_table"]').first
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
@@ -128,13 +132,27 @@ namespace :import do
 				product.enabled=true
 				product.save
 
-				variant=product.variants.find_or_initialize_by(sku: sku)
-				variant.sku=sku
-				next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first
-				variant.price=prod.xpath('//span[@class="catalog_element_price_value"]/b').first.content.delete(' ').delete("руб").to_i
-				variant.enabled = true
-				variant.availability='Доставка 2-3 дня'
-				variant.save
+				if prod.xpath('//table[@class="offers_table"]').first
+					prod.xpath('//table[@class="offers_table"]//tr[position() mod 2 = 0]').each do |var|
+						puts 'var'
+						sku=$sku_prefix + var.xpath('td[2]').first.content.strip
+						variant=product.variants.find_or_initialize_by(sku: sku)
+						variant.name=var.xpath('td[1]').first.content.strip
+						variant.enabled=true
+						variant.availability='Доставка 2-3 дня'
+						variant.price=var.xpath('td[4]').first.content.strip.delete(' ').delete("руб").to_i
+						variant.save
+					end
+				else
+					variant=product.variants.find_or_initialize_by(sku: sku)
+					variant.sku=sku
+					# next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first
+					variant.price=prod.xpath('//span[@class="catalog_element_price_value"]/b').first.content.delete(' ').delete("руб").to_i
+					variant.enabled = true
+					variant.availability='Доставка 2-3 дня'
+					variant.save
+				end
+
 
 				if product.images.count == 0 
 					prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
