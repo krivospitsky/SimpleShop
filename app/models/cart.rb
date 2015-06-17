@@ -35,7 +35,11 @@ class Cart < ActiveRecord::Base
   def total_price_str
     total=0
     cart_items.each do |item|
-      total+=item.variant.discount_price*item.quantity
+      if item.variant.discount_price
+        total+=item.variant.discount_price*item.quantity
+      else
+        total+=item.variant.price*item.quantity
+      end
     end
     "#{total} руб."
   end
