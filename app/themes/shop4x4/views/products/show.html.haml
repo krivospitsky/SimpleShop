@@ -1,0 +1,139 @@
+=render '/categories/breadcrumbs'
+
+#content{itemscope:'', itemtype:"http://schema.org/Product"} 
+  %h1{itemprop:"name"}= @product.name
+
+  .row
+    .col-sm-4.fly-to-cart
+      .thumbnail
+        - if @product.images.present?
+          =link_to @product.images.first.image.url, class:"fancybox", rel:'imgs' do 
+            =image_tag @product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name, class: 'img-responsive'}
+          -if @product.images.count >1            
+            .row
+              -@product.images[1..-1].each do |img|
+                .col-sm-2.col-md-3.image_thumb
+                  =link_to img.image.url, class:"fancybox", rel:'imgs' do
+                    =image_tag img.image.url(:thumb), {itemprop:"image", title:@product.name, alt: @product.name, class: 'img-responsive'}
+        -else
+          =image_tag "product_list_no_photo_#{Settings.theme}.png"
+
+      -if @product.variants.count==1
+        %strong Артикул:
+        =@product.variants.first.sku
+        = form_for @cart_item, remote: true do |f|
+          .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
+            = f.hidden_field :product_id
+            %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
+            %strong Наличие:
+            =@product.variants.first.availability
+            %br
+            %strong Цена:
+            =raw @product.variants.first.price_str
+            -if Settings.hide_count_in_product
+              = f.hidden_field :quantity, value:1
+              %button.btn.btn-sm.btn-primary{type:'submit'}
+                %span.glyphicon.glyphicon-shopping-cart
+                Купить
+            -else
+              .input-group.buy_button
+                %span.input-group-btn
+                  %button.btn.btn-primary{type:'submit'}
+                    %span.glyphicon.glyphicon-shopping-cart
+                    Купить
+                = f.text_field :quantity, class: 'form-control'
+                %span.input-group-addon 
+                  шт.  
+      -else
+        %strong Артикул:
+        =@product.sku
+
+    .col-sm-8
+      .panel.panel-default.with-nav-tabs{role: :tabpanel}
+        .panel-heading
+          %ul.nav.nav-tabs{role: :tablist}
+            %li.active{role: :presentation}
+              %a.strong{:'aria-controls'=>:description, role: :tab, :'data-toggle'=>:tab, href: '#description'} Описание
+            -if @product.attrs.count>0
+              %li{role: :presentation}
+                %a.strong{:'aria-controls'=>:attrs, role: :tab, :'data-toggle'=>:tab, href: '#attrs'} Характеристики
+        .panel-body
+          .tab-content
+            .tab-pane.active#description{role: :tabpanel}
+              .description{itemprop:"description"}= raw @product.description
+            .tab-pane#attrs{role: :tabpanel}
+              -if @product.attrs.count>0
+                %table.table.table-condensed.attributes
+                  -@product.attrs.all.each do |attr|
+                    %tr
+                      %td
+                        =attr.name
+                      %td
+                        =attr.value
+                  -# -if @product.attrs.count > 5 
+                  -#   %tr
+                  -#     %td{colspan:2}
+                  -#       %a.show-all{href:'#'}
+                  -#         Показать все
+
+       
+  -if @product.variants.count>1
+    %table.table.table-striped
+      %tr
+        -if @product.variants.first.image?
+          %th
+        -if @product.variants.first.name
+          %th Имя
+        -else
+          %th Артикул
+        -@product.variants.first.attrs.each do |attr|
+          %th= attr.name
+        %th Наличие
+        %th Цена
+        %th Купить
+
+      -@product.variants.enabled.each do |variant|
+        %tr.fly-to-cart
+          = form_for @cart_item, remote: true do |f|
+            = f.hidden_field :product_id
+            %input(type="hidden" value="#{variant.id}" name="cart_item[variant_id]")
+              -if @product.variants.first.image?
+                %td
+                  -if variant.image?
+                    =image_tag(variant.image.url(:thumb))
+              %td
+                -if variant.name 
+                  =variant.name
+                  %br
+                  %small
+                    Артикул:
+                    =variant.sku                   
+                -else
+                  =variant.sku                   
+              -variant.attrs.each do |attr|
+                %td= attr.value
+              %td 
+                =variant.availability
+              %td 
+                =raw variant.price_str
+              %td
+                -if Settings.hide_count_in_product
+                  = f.hidden_field :quantity
+                  %button.btn.btn-sm.btn-primary{type:'submit'}
+                    %span.glyphicon.glyphicon-shopping-cart
+                    Купить
+                -else
+                  .input-group.buy_button.input-group-sm
+                    %span.input-group-btn
+                      %button.btn.btn-primary{type:'submit'}
+                        %span.glyphicon.glyphicon-shopping-cart
+                        Купить
+                    = f.text_field :quantity, class: 'form-control'
+                    %span.input-group-addon 
+                      шт.  
+
+  -if @linked.present?
+    #related.row
+      %h2 Связанные товары
+      - @linked.each do |product|
+        =render "/products/show_item", product: product, category: nil, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
