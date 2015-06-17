@@ -12,6 +12,12 @@
 
 
 $brand-primary: #419641;
+$navbar-default-bg: darken($brand-primary, 10%);
+$navbar-default-link-hover-bg: $brand-primary;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-link-active-color: #fff;
+
 // @import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:700);
 
 @import "application";
@@ -39,4 +45,13 @@ $brand-primary: #419641;
 .header .contacts{
   font-size: 13pt;
   font-weight: 600;
+}
+
+nav.navbar-default{
+//   background-color: 
+  a{
+//     color: #fff;
+    font-weight: 600;
+    font-size: 1.2em;
+  }
 }

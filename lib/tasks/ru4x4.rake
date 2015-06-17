@@ -110,31 +110,33 @@ namespace :import do
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
-
-			 	product.name=prod.xpath('//h1').first.content.strip
-			 	puts product.name
-			 	product.categories.clear
-			 	product.categories << Category.find(id)
-			 	product.sku=sku				
-			 	if descr=prod.xpath('//div[@class="catalog_element_text_description"]').first
-					descr.css('img').each do |img|
-						url=img.attr('src')
-						unless image=DescriptionImage.find_by(original_url: url)
-							image=DescriptionImage.new
-							image.original_url=url
-							# url=url[/^\.\.(.*)$/,1] if url.start_with?('..')
-							url = "#{$base_url}#{url}" unless url.start_with?($base_url)
-							image.remote_image_url=url
-							image.save
+				if product.new_record?
+				 	product.name=prod.xpath('//h1').first.content.strip
+				 	puts product.name
+				 	product.categories.clear
+				 	product.categories << Category.find(id)
+				 	product.sku=sku				
+				 	if descr=prod.xpath('//div[@class="catalog_element_text_description"]').first
+						descr.css('img').each do |img|
+							url=img.attr('src')
+							unless image=DescriptionImage.find_by(original_url: url)
+								image=DescriptionImage.new
+								image.original_url=url
+								# url=url[/^\.\.(.*)$/,1] if url.start_with?('..')
+								url = "#{$base_url}#{url}" unless url.start_with?($base_url)
+								image.remote_image_url=url
+								image.save
+							end
+							img.attributes['src'].value=image.image.url					
 						end
-						img.attributes['src'].value=image.image.url					
-					end
-					# prod.xpath("//h1").each { |div|  div.name= "p" }
+						# prod.xpath("//h1").each { |div|  div.name= "p" }
 
-					product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
-				# else
-					# product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+						product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+					# else
+						# product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+					end
 				end
+	
 				product.enabled=true
 				product.save
 
