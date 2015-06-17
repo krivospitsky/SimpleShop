@@ -45,6 +45,11 @@ $navbar-default-link-active-color: #fff;
 .header .contacts{
   font-size: 13pt;
   font-weight: 600;
+  a{
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
 }
 
 nav.navbar-default{
