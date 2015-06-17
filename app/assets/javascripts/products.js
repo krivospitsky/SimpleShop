@@ -1,6 +1,13 @@
 $(document).ready(function() {
   $("a.fancybox").fancybox();
 
+  if (  $('.tab-content').height()>300){
+    $('.tab-content').height(300)
+    $('.show-more').show().on('click', (function(){
+      $('.tab-content').height('auto');
+      $('.show-more').hide()
+    }));
+  }
   // $(".attributes tr:gt(4)").hide();
   // $(".attributes tr:last()").show();
 

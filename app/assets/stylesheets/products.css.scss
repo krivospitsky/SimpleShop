@@ -188,3 +188,17 @@ span.new-price{
  	margin-top: 5px;
 	margin-bottom: 5px;
  }
+
+
+ .tab-content{
+ 	overflow: hidden;
+}
+
+.show-more{
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-style: dashed;
+	text-align: center;
+	cursor: pointer;
+	display: none;
+}
