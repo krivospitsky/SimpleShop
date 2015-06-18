@@ -130,7 +130,9 @@ namespace :import do
 
 
 				if product.images.count == 0 
-					prod.xpath('//a[@class="cm-thumbnails-mini  cloud-zoom-gallery cm-previewer"]/@href').each do |pic_url|
+					prod_images=prod.xpath('//a[@class="cm-thumbnails-mini  cloud-zoom-gallery cm-previewer"]/@href')
+					prod_images=prod.xpath('//a[@class="cloud-zoom cm-image-previewer cm-previewer"]/@href') if prod_images.empty?
+					prod_images.each do |pic_url|
 						# sleep 3
 						begin
 							image=product.images.new
