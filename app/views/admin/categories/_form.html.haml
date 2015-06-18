@@ -4,13 +4,11 @@
   %li
     %a(href="#seo" data-toggle="tab") SEO
 
-= simple_form_for [:admin, @category] do |f|
+= simple_form_for [:admin, @category], html: { class: 'form-horizontal' } do |f|
   .tab-content
     .tab-pane.active(id="common")
       = f.input :name
-      %label.optional.control-label
-        Описание
-      = f.input_field :description, as: :ckeditor
+      = f.input :description, as: :ckeditor
 
       / = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
       = f.input :enabled
@@ -19,7 +17,21 @@
       = f.association :linked_categories
       = f.association :linked_products
 
-      = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
+
+      #image.form-group
+        = f.label :image, class: 'col-sm-3 control-label'
+        .col-sm-9
+          = f.input_field :image, as: :image_preview, preview_version: :thumb
+          = f.hidden_field :remove_image, class: 'remove_image'
+          %img.preview
+          -if @category.image.present?
+            %btn.btn.btn-success.btn-xs.add-category-image.hide-ni Добавить
+            %btn.btn.btn-success.btn-xs.replace-category-image Заменить
+            %btn.btn.btn-danger.btn-xs.remove-category-image Удалить
+          -else
+            %btn.btn.btn-success.btn-xs.add-category-image Добавить
+            %btn.btn.btn-success.btn-xs.replace-category-image.hide-ni Заменить
+            %btn.btn.btn-danger.btn-xs.remove-category-image.hide-ni Удалить
     .tab-pane(id="seo")
       = render partial: 'seo', locals: {f: f}
 

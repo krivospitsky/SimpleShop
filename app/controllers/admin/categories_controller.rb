@@ -18,6 +18,6 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def permitted_params
-    params.require(:category).permit(:name, :description, :enabled, :parent_id, :image, :sort_order_position, :linked_category_ids=>[], :linked_product_ids=>[], seo_attributes: [:title, :description, :keywords])
+    params.require(:category).permit(:name, :description, :enabled, :parent_id, :image, :remove_image, :sort_order_position, :linked_category_ids=>[], :linked_product_ids=>[], seo_attributes: [:title, :description, :keywords])
   end
 end
