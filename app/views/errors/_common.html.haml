@@ -1,0 +1,13 @@
+%h4 Попробуйте выбрать что-то еще
+=form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
+	.input-group
+		%input.form-control{type:"text", placeholder:"Поиск", name: "text", value: @text}
+		%span.input-group-btn.input-group-sm
+			%button.btn.btn-default.btn.xs{type: 'submit'}
+				%span.glyphicon.glyphicon-search
+
+.categories_list
+	%ul
+		- Category.root.enabled.each do |child|					
+			%li
+				= link_to child.name, category_path(child.path, child.id)

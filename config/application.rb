@@ -25,5 +25,7 @@ module Shop
     config.assets.precompile += Ckeditor.assets
     config.assets.precompile += %w(ckeditor/*)
     config.assets.precompile += ['admin/admin.css', 'admin/admin.js']
+
+    config.exceptions_app = self.routes
   end
 end

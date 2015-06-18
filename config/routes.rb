@@ -35,6 +35,10 @@ Shop::Application.routes.draw do
   get "/#{Settings.google_verification}.html",
     to: proc { |env| [200, {}, ["google-site-verification: #{Settings.google_verification}.html"]] }
 
+  %w( 404 500 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
