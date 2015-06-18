@@ -1,6 +1,6 @@
 # coding: utf-8
 namespace :import do
-	task :ellevil => :environment do
+	task :ellevill => :environment do
 
 		$base_url='http://www.ellevill.org'
 		$sku_prefix=''
@@ -89,12 +89,10 @@ namespace :import do
 
 				base_price=prod.xpath('//p[@class="actual-price"]//span[@class="price-num"]').first.content.strip
 
-# //label[@class="option-items"]
 				prod.xpath('//select/option | //label[@class="option-items"]').each do |var|
 					var_string=var.content.strip
-					puts var_string
 					long_size=var_string[/^(.*?\))/, 1]
-					var_sku=x"#{sku}_" + var_string[/\(([MSXL]+)\)/, 1]
+					var_sku="#{sku}_" + var_string[/\(([MSXL]+)\)/, 1]
 					variant=product.variants.find_or_initialize_by(sku: var_sku)
 					variant.name="#{product.name} " + long_size
 					variant.enabled=true
