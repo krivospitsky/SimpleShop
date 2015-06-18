@@ -87,7 +87,7 @@ namespace :import do
 				product.enabled=true
 				product.save
 
-				base_price=prod.xpath('//p[@class="actual-price"]//span[@class="price-num"]').first.content.strip
+				base_price=prod.xpath('//p[@class="actual-price"]//span[@class="price-num"]').first.content.strip.to_i
 
 				variants=prod.xpath('//select/option | //label[@class="option-items"]')
 				if variants.empty? 
@@ -95,24 +95,32 @@ namespace :import do
 					variant.name=product.name
 					variant.enabled=true
 					variant.availability='Доставка 3-4 дня'
-					variant.price=base_price.to_i
+					variant.price=base_price
 					variant.save					
 				else
 					variants.each do |var|
 						var_string=var.content.strip.gsub("\u00A0", "")
-						puts "'#{var_string}'"
 						var_string='4.7m (M)' if var_string == '4.7m'
 						var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300р.)'
 						var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300р.)'
+						if var_string[/\(([MSXL]+)\)/, 1]
+							long_size=var_string[/^(.*?\))/, 1]
+							short_size=var_string[/\(([MSXL]+)\)/, 1]
+							price_delta=var_string[/\(([+-]\d+).*\)/, 1].to_i 
+						elsif var_string[/^([МMSXL]+\s+\(.+?\))$/, 1]
+							long_size=short_size=var_string
+							price_delta=0
+						else
+							raise "strange size '#{var_string}'"
+						end
 						puts var_string
 	 					
-						long_size=var_string[/^(.*?\))/, 1]
-						var_sku="#{sku}_" + var_string[/\(([MSXL]+)\)/, 1]
+						var_sku="#{sku}_" + short_size
 						variant=product.variants.find_or_initialize_by(sku: var_sku)
 						variant.name="#{product.name} " + long_size
 						variant.enabled=true
 						variant.availability='Доставка 3-4 дня'
-						variant.price=base_price.to_i + var_string[/\(([+-]\d+).*\)/, 1].to_i 
+						variant.price=base_price + price_delta
 						as=variant.attrs.find_or_initialize_by(name: 'Размер')
 						as.value=long_size
 						as.save
