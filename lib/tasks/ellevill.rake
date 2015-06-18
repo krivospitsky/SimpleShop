@@ -89,32 +89,35 @@ namespace :import do
 
 				base_price=prod.xpath('//p[@class="actual-price"]//span[@class="price-num"]').first.content.strip
 
-				prod.xpath('//select/option | //label[@class="option-items"]').each do |var|
-					var_string=var.content.strip.gsub("\u00A0", "")
-					puts "'#{var_string}'"
-					var_string='4.7m (M)' if var_string == '4.7m'
-					var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300р.)'
-					var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300р.)'
-					puts var_string
- 					
-					long_size=var_string[/^(.*?\))/, 1]
-					var_sku="#{sku}_" + var_string[/\(([MSXL]+)\)/, 1]
-					variant=product.variants.find_or_initialize_by(sku: var_sku)
-					variant.name="#{product.name} " + long_size
-					variant.enabled=true
-					variant.availability='Доставка 3-4 дня'
-					variant.price=base_price.to_i + var_string[/\(([+-]\d+).*\)/, 1].to_i 
-					as=variant.attrs.find_or_initialize_by(name: 'Размер')
-					as.value=long_size
-					as.save
-					variant.save
-				end.empty? and begin
+				variants=prod.xpath('//select/option | //label[@class="option-items"]')
+				if variants.empty? 
 					variant=product.variants.find_or_initialize_by(sku: sku)
 					variant.name=product.name
 					variant.enabled=true
 					variant.availability='Доставка 3-4 дня'
 					variant.price=base_price.to_i
 					variant.save					
+				else
+					variants.each do |var|
+						var_string=var.content.strip.gsub("\u00A0", "")
+						puts "'#{var_string}'"
+						var_string='4.7m (M)' if var_string == '4.7m'
+						var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300р.)'
+						var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300р.)'
+						puts var_string
+	 					
+						long_size=var_string[/^(.*?\))/, 1]
+						var_sku="#{sku}_" + var_string[/\(([MSXL]+)\)/, 1]
+						variant=product.variants.find_or_initialize_by(sku: var_sku)
+						variant.name="#{product.name} " + long_size
+						variant.enabled=true
+						variant.availability='Доставка 3-4 дня'
+						variant.price=base_price.to_i + var_string[/\(([+-]\d+).*\)/, 1].to_i 
+						as=variant.attrs.find_or_initialize_by(name: 'Размер')
+						as.value=long_size
+						as.save
+						variant.save
+					end
 				end
 
 
