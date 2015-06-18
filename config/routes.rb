@@ -31,9 +31,10 @@ Shop::Application.routes.draw do
 #  root 'products#index'
   root 'main#show'
 
-
-  get "/#{Settings.google_verification}.html",
-    to: proc { |env| [200, {}, ["google-site-verification: #{Settings.google_verification}.html"]] }
+  if ActiveRecord::Base.connected? 
+    get "/#{Settings.google_verification}.html",
+      to: proc { |env| [200, {}, ["google-site-verification: #{Settings.google_verification}.html"]] }
+  end
 
   %w( 404 500 ).each do |code|
     get code, :to => "errors#show", :code => code

@@ -11,8 +11,9 @@
  */
 
 
-$brand-primary: #419641;
-$navbar-default-bg: darken($brand-primary, 10%);
+$brand-primary: #ea651a;
+$navbar-default-bg: $brand-primary;
+// $navbar-default-bg: darken($brand-primary, 10%);
 $navbar-default-link-hover-bg: $brand-primary;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
@@ -42,13 +43,17 @@ $navbar-default-link-active-color: #fff;
 //   }
 // }
 
-.header .contacts{
-  font-size: 13pt;
-  font-weight: 600;
-  a{
-    font-size: inherit;
-    font-weight: inherit;
-    color: inherit;
+.header{
+  background-color: white;
+ .contacts{
+    color: $brand-primary;
+    font-size: 13pt;
+    font-weight: 600;
+    a{
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
   }
 }
 
@@ -57,6 +62,7 @@ nav.navbar-default{
   a{
 //     color: #fff;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }
+

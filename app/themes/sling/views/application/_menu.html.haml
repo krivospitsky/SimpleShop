@@ -1,0 +1,33 @@
+.scroller_anchor
+.scroller
+  %nav.navbar-default.text-center
+    .container-fixed
+      .navbar-header.navbar-right
+        = render 'cart'
+        %button.navbar-toggle.collapsed{data: {toggle:"collapse", target:"#bs-example-navbar-collapse-1"}, type: "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
+      .collapse.navbar-collapse#bs-example-navbar-collapse-1
+        %ul.nav.navbar-nav
+          %li
+            %a{href: root_path}
+              .glyphicon.glyphicon-home
+              %span &nbsp;
+              %span.hidden-sm.shown-xs Главная
+
+          -# %li.nav-divider{role: :separator}
+          %li.dropdown.hidden-sm.hidden-xs
+            %a.dropdown-toggle{'data-toggle'=>'dropdown'}
+              Каталог
+              %span.caret
+            %ul.dropdown-menu{role: :menu}
+              -Category.root.enabled.each do |cat|        
+                %li
+                  =link_to cat.name, category_path(cat.path, cat.id)
+          
+          -Page.in_menu.each do |page|
+            %li
+              =link_to page.name, page_path(page)
