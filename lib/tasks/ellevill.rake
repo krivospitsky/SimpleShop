@@ -7,8 +7,8 @@ namespace :import do
 
 		EllevillProcessCategory("http://www.ellevill.org/category/cotton/", -1, :only_subcat)
 		EllevillProcessCategory("http://www.ellevill.org/category/ringsling/", -1, :only_subcat)
-		EllevillProcessCategory("http://www.ellevill.org/category/maysling/", -1, :only_subcat)
-		EllevillProcessCategory("http://www.ellevill.org/category/ergorukzak/", -1, :only_subcat)
+		EllevillProcessCategory("http://www.ellevill.org/category/maysling/", -1, :only_products)
+		EllevillProcessCategory("http://www.ellevill.org/category/ergorukzak/", -1, :only_products)
 	end
 
 	def EllevillProcessCategory(url, id, type)
