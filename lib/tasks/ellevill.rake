@@ -93,8 +93,8 @@ namespace :import do
 					var_string=var.content.strip.gsub("\u00A0", "")
 					puts "'#{var_string}'"
 					var_string='4.7m (M)' if var_string == '4.7m'
-					var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300 р.)'
-					var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300 р.)'
+					var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300р.)'
+					var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300р.)'
 					puts var_string
  					
 					long_size=var_string[/^(.*?\))/, 1]
