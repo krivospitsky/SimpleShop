@@ -14,7 +14,7 @@
 $brand-primary: #ea651a;
 $navbar-default-bg: $brand-primary;
 // $navbar-default-bg: darken($brand-primary, 10%);
-$navbar-default-link-hover-bg: $brand-primary;
+$navbar-default-link-hover-bg: darken($brand-primary, 10%);
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-active-color: #fff;

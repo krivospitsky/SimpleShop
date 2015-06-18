@@ -108,6 +108,13 @@ namespace :import do
 					as.value=long_size
 					as.save
 					variant.save
+				end.empty? and begin
+					variant=product.variants.find_or_initialize_by(sku: sku)
+					variant.name=product.name
+					variant.enabled=true
+					variant.availability='Доставка 3-4 дня'
+					variant.price=base_price.to_i
+					variant.save					
 				end
 
 
