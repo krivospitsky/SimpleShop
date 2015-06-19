@@ -17,7 +17,7 @@
 					-else
 						= raw @category.description
 
-		-if @category && !@category.parent
+		-if @category && !@category.parent && !(@products && ! @products.empty?)
 			.categories_list
 				%ul
 					- @category.children.enabled.each do |child|					
@@ -28,7 +28,11 @@
 									- child.children.enabled.each do |sub_child|					
 										%li
 											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
-		-elsif @products && ! @products.empty?
+
+
+
+
+		-if @products && ! @products.empty?
 			.row
 				.col-sm-6
 					#paginator= paginate @products 
