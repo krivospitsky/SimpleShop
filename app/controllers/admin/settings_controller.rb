@@ -26,6 +26,7 @@ class Admin::SettingsController < ApplicationController
 
     Settings.metrika=params[:settings][:metrika]
     Settings.google_verification=params[:settings][:google_verification]
+    Settings.yandex_verification=params[:settings][:yandex_verification]
 
 
 #    smtp_enable_starttls_auto: true  

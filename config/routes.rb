@@ -34,6 +34,8 @@ Shop::Application.routes.draw do
   if ActiveRecord::Base.connected? 
     get "/#{Settings.google_verification}.html",
       to: proc { |env| [200, {}, ["google-site-verification: #{Settings.google_verification}.html"]] }
+    get "/yandex_#{Settings.yandex_verification}.txt",
+      to: proc { |env| [200, {}, ["yandex_verification"]] }
   end
 
   %w( 404 500 ).each do |code|
