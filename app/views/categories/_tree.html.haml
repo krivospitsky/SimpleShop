@@ -2,6 +2,6 @@
   .panel-heading
     Категории
   .panel-body
-    %ul
+    %ul.category_tree.nav.nav-pills.nav-stacked
       - Category.where({parent_id: nil}).each do |cat|
         = render 'categories/tree_item', :tree_item => cat

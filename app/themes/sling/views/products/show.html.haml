@@ -5,16 +5,17 @@
 
   .row
     .col-sm-4.fly-to-cart
-      .thumbnail
+      .thumbnail.clearfix
         - if @product.images.present?
           =link_to @product.images.first.image.url, class:"fancybox", rel:'imgs' do 
             =image_tag @product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name, class: 'img-responsive'}
           -if @product.images.count >1            
-            .row
-              -@product.images[1..-1].each do |img|
-                .col-sm-2.col-md-3.image_thumb
-                  =link_to img.image.url, class:"fancybox", rel:'imgs' do
-                    =image_tag img.image.url(:thumb), {itemprop:"image", title:@product.name, alt: @product.name, class: 'img-responsive'}
+            .thumbs
+              .text-center
+                -@product.images[1..-1].each do |img|
+                  .image_thumb.pull-left.thumbnail
+                    =link_to img.image.url, class:"fancybox", rel:'imgs' do
+                      =image_tag img.image.url(:thumb), {itemprop:"image", title:@product.name, alt: @product.name, class: 'img-responsive'}
         -else
           =image_tag "product_list_no_photo_#{Settings.theme}.png"
 

@@ -1,7 +1,7 @@
-%li
+%li{class: (@category==tree_item) ? 'active' : ''}
 	= link_to tree_item.name, category_path(tree_item.path, tree_item)
 	- tmp=Category.where({:parent_id=>tree_item.id})
 	- if tmp.first
-		%ul
+		%ul.nav.nav-pills.nav-stacked
 			- tmp.each do |cat|
 				= render 'categories/tree_item', :tree_item => cat
