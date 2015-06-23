@@ -1,51 +1,34 @@
 =render '/categories/breadcrumbs'
-.row
-	.col-sm-3
-		=render '/categories/smart_tree'
-		-unless Settings::disable_filters
-			=render '/products/smart_filter'
-	.col-sm-9
-		%h1= @category.name
+=render '/categories/smart_tree'
+-unless Settings::disable_filters
+	=render '/products/smart_filter'
 
-		-if @category
-			-if @category.image.present? || @category.description.present?
-				.panel.panel-default
-					-if @category.image.present?
-						.row
-							.col-md-3= image_tag(@category.image.url(:product_list))
-							.col-md-9= raw @category.description
-					-else
-						= raw @category.description
+%h1= @category.name
 
-		-if @category && !@category.parent && !(@products && ! @products.empty?)
-			.categories_list
-				%ul
-					- @category.children.enabled.each do |child|					
-						%li
-							= link_to child.name, category_path(child.path, child.id)
-							-if child.children.count>0
-								%ul
-									- child.children.enabled.each do |sub_child|					
-										%li
-											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
+-if @category
+	-if @category.image.present? || @category.description.present?
+		.panel.panel-default
+			-if @category.image.present?
+				.row
+					.col-md-3= image_tag(@category.image.url(:product_list))
+					.col-md-9= raw @category.description
+			-else
+				= raw @category.description
 
-
-
-
-		-if @products && ! @products.empty?
-			.row
-				.col-sm-6
-					#paginator= paginate @products 
-				.col-sm-6
-					.pull-right
-						Сортировка
-						%select#sort_order
-							%option{value: 'default', selected: @sort_order=='default'} По умолчанию
-							%option{value: 'name', selected: @sort_order=='name'} По названию
-							%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
-							%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
-							-# %option По дате поступления
-			.row
-				- @products.each do |product|
-					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+-if @products && ! @products.empty?
+	.row
+		.col-sm-6
 			#paginator= paginate @products 
+		.col-sm-6
+			.pull-right
+				Сортировка
+				%select#sort_order
+					%option{value: 'default', selected: @sort_order=='default'} По умолчанию
+					%option{value: 'name', selected: @sort_order=='name'} По названию
+					%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
+					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
+					-# %option По дате поступления
+	.row
+		- @products.each do |product|
+			=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+	#paginator= paginate @products 

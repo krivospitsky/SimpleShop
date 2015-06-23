@@ -1,0 +1,17 @@
+.btn-group.btn-group-justified
+	-if controller.controller_name == 'products' && (controller.action_name == 'index' || controller.action_name == 'show') && @category
+		-if @category.children.enabled.size>0
+			-@category.children.enabled.each do |cat|
+				= link_to cat.name, category_path(cat.path, cat), class: 'btn btn-primary'
+		-else
+			-if @category.parent
+				-@category.parent.children.enabled.each do |cat|
+					-if @category == cat
+						= link_to category_path(cat.path, cat), class: 'btn btn-primary disabled' do
+							%strong= cat.name
+					-else
+						= link_to cat.name, category_path(cat.path, cat), class: 'btn btn-primary'
+	-else
+		- Category.enabled.where({parent_id: nil}).each do |cat|
+			= link_to cat.name, category_path(cat.path, cat), class: 'btn btn-primary'
+
