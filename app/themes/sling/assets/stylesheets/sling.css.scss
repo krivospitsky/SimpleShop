@@ -58,9 +58,9 @@ $navbar-default-link-active-color: #fff;
 }
 
 nav.navbar-default{
-//   background-color: 
+  background-color: $brand-primary;
   a{
-//     color: #fff;
+    // color: #fff;
     font-weight: 600;
     font-size: 1.1em;
   }
