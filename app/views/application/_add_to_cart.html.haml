@@ -1,0 +1,18 @@
+-if Settings.disable_cart
+  .order_text
+    Для заказа звоните по телефону или приходите в наш магазин
+-else
+  -if Settings.hide_count_in_product
+    = f.hidden_field :quantity, value:1
+    %button.btn.btn-sm.btn-primary{type:'submit'}
+      %span.glyphicon.glyphicon-shopping-cart
+      Купить
+  -else
+    .input-group.buy_button
+      %span.input-group-btn
+        %button.btn.btn-primary{type:'submit'}
+          %span.glyphicon.glyphicon-shopping-cart
+          Купить
+      = f.text_field :quantity, class: 'form-control'
+      %span.input-group-addon 
+        шт.  

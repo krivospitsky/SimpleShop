@@ -26,6 +26,8 @@
 
   = settings_form.input :disable_categories, as: :boolean, input_html: { checked: Settings.disable_categories }
   = settings_form.input :disable_filters, as: :boolean, input_html: { checked: Settings.disable_filters }
+  = settings_form.input :disable_cart, as: :boolean, input_html: { checked: Settings.disable_cart }
+  
 
   = settings_form.input :hide_count_in_product, as: :boolean, input_html: { checked: Settings.hide_count_in_product }
   = settings_form.input :enable_variants, as: :boolean, input_html: { checked: Settings.enable_variants }

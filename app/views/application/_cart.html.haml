@@ -1,4 +1,5 @@
-%a.btn.btn-default.shopping-cart.navbar-btn{href: new_order_path}
-  .glyphicon.glyphicon-shopping-cart
-  %span.cart-text
-    =t 'cart.count', count: @current_cart.total_count
+-unless Settings.disable_cart
+	%a.btn.btn-default.shopping-cart.navbar-btn{href: new_order_path}
+		.glyphicon.glyphicon-shopping-cart
+		%span.cart-text
+			=t 'cart.count', count: @current_cart.total_count

@@ -10,6 +10,7 @@ class Admin::SettingsController < ApplicationController
     Settings.theme=params[:settings][:theme]
     Settings.disable_categories=(params[:settings][:disable_categories] == '1')
     Settings.disable_filters=(params[:settings][:disable_filters] == '1')
+    Settings.disable_cart=(params[:settings][:disable_cart] == '1')
     Settings.hide_count_in_product=(params[:settings][:hide_count_in_product] == '1')
     Settings.enable_variants=(params[:settings][:enable_variants] == '1')
 

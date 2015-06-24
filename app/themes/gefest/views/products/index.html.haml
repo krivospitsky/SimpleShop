@@ -1,0 +1,37 @@
+=render '/categories/breadcrumbs'
+.row
+	.col-sm-4.col-md-3
+		=render '/categories/tree'
+		-unless Settings::disable_filters
+			=render '/products/smart_filter'
+	.col-sm-8.col-md-9
+		%h1= @category.name
+
+		-if @category
+			-if @category.image.present? || @category.description.present?
+				.panel.panel-default
+					-if @category.image.present?
+						.row
+							.col-md-3= image_tag(@category.image.url(:product_list))
+							.col-md-9= raw @category.description
+					-else
+						= raw @category.description
+
+		-if @products && ! @products.empty?
+			.clearfix
+				.pull-left
+					#paginator= paginate @products 
+				.pull-right
+					%form.form-inline
+						.form-group
+							%label Сортировка
+							%select#sort_order.form-control
+								%option{value: 'default', selected: @sort_order=='default'} По умолчанию
+								%option{value: 'name', selected: @sort_order=='name'} По названию
+								%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
+								%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
+								-# %option По дате поступления
+			.row
+				- @products.each do |product|
+					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+			#paginator= paginate @products 

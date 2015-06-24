@@ -1,0 +1,11 @@
+%header.header
+  .container-fixed
+    .row
+      .col-sm-3
+        =link_to root_path do
+          =image_tag 'logo_gefest.gif', class: 'logo'
+      .col-sm-6
+      .col-sm-3
+        = render 'search'
+        .contacts
+          =raw Settings.contacts

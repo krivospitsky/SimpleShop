@@ -43,20 +43,7 @@
               %br
               %strong Цена
               =raw @product.variants.first.price_str
-              -if Settings.hide_count_in_product
-                = f.hidden_field :quantity, value:1
-                %button.btn.btn-sm.btn-primary{type:'submit'}
-                  %span.glyphicon.glyphicon-shopping-cart
-                  Купить
-              -else
-                .input-group.buy_button
-                  %span.input-group-btn
-                    %button.btn.btn-primary{type:'submit'}
-                      %span.glyphicon.glyphicon-shopping-cart
-                      Купить
-                  = f.text_field :quantity, class: 'form-control'
-                  %span.input-group-addon 
-                    шт.  
+              =render 'add_to_cart'
 
   %div{role: :tabpanel}
     %ul.nav.nav-tabs{role: :tablist}
