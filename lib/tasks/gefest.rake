@@ -7,10 +7,8 @@ namespace :import do
 
 		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/60x060/", -1, :only_subcat, 'Размер стола 60х60')
 		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/50x57/", -1, :only_subcat, 'Размер стола 50х57-58.5')
-		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/60x60/", -1, :only_subcat, 'Размер стола 60х60')
-		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/50x57/", -1, :only_subcat, 'Размер стола 50х57-58,5')
-		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/50x53/", -1, :only_subcat, 'Размер стола 50х57-58,5')
-		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/60x60/", -1, :only_subcat, 'Размер стола 60х60')
+		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/", -1, :only_subcat, 'Электрические плиты')
+		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/", -1, :only_subcat, 'Газоэлектрические плиты')
 		GefestProcessCategory("http://gefest.by/catalogue/embedded/gaspanel/", -1, :only_subcat, 'Газовые панели')
 		GefestProcessCategory("http://gefest.by/catalogue/embedded/electropanel/", -1, :only_subcat, 'Электрические панели')
 		GefestProcessCategory("http://gefest.by/catalogue/embedded/electrooven//", -1, :only_subcat, 'Электрические духовки')
