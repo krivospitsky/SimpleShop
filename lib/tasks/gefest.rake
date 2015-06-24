@@ -5,25 +5,25 @@ namespace :import do
 		$base_url='http://gefest.by'
 		$sku_prefix=''
 
-		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/60x060/", -1, :only_subcat, 'Размер стола 60х60')
-		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/50x57/", -1, :only_subcat, 'Размер стола 50х57-58.5')
-		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/60x60/", -1, :only_products, 'Размер стола 60х60')
-		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/50x57/", -1, :only_products, 'Размер стола 50х57-58,5')
-		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/50x53/", -1, :only_products, 'Размер стола 50х57-58,5')
-		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/60x60/", -1, :only_products, 'Размер стола 60х60')
-		GefestProcessCategory("http://gefest.by/catalogue/embedded/gaspanel/", -1, :only_subcat, 'Газовые панели')
-		GefestProcessCategory("http://gefest.by/catalogue/embedded/electropanel/", -1, :only_subcat, 'Электрические панели')
-		GefestProcessCategory("http://gefest.by/catalogue/embedded/electrooven//", -1, :only_subcat, 'Электрические духовки')
+		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/60x060/", -1, :only_subcat, 'Размер стола 60х60', 'Газовая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/gas-ovens/50x57/", -1, :only_subcat, 'Размер стола 50х57-58.5', 'Газовая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/60x60/", -1, :only_products, 'Размер стола 60х60', 'Электрическая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/electrical-ovens/50x57/", -1, :only_products, 'Размер стола 50х57-58,5', 'Электрическая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/50x53/", -1, :only_products, 'Размер стола 50х57-58,5', 'Газоэлектрическая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/gas-electric-ovens/60x60/", -1, :only_products, 'Размер стола 60х60', 'Газоэлектрическая плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/embedded/gaspanel/", -1, :only_subcat, 'Газовые панели', 'Встраиваемая газовая панель Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/embedded/electropanel/", -1, :only_subcat, 'Электрические панели', 'Встраиваемая электрическая панель Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/embedded/electrooven//", -1, :only_subcat, 'Электрические духовки', 'Встраиваемая электрическая духовка Gefest ')
 
-		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/900/", -1, :only_products, 'Четырехгорелочные плиты')
-		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/two/", -1, :only_products, 'Двухгорелочные плиты')
-		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/pgt/", -1, :only_products, 'Туристические плиты')
-		
-		GefestProcessCategory("http://gefest.by/catalogue/air-cleaners/60/", -1, :only_subcat, 'Ширина 60')
-		GefestProcessCategory("http://gefest.by/catalogue/air-cleaners/50/", -1, :only_subcat, 'Ширина 50')
+		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/900/", -1, :only_products, 'Четырехгорелочные плиты', 'Настольная четырехгорелочная плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/two/", -1, :only_products, 'Двухгорелочные плиты', 'Настольная двухгорелочная плита Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/table-ovens/pgt/", -1, :only_products, 'Туристические плиты', 'Туристическая плита Gefest ')
+
+		GefestProcessCategory("http://gefest.by/catalogue/air-cleaners/60/", -1, :only_subcat, 'Ширина 60', 'Воздухоочиститель Gefest ')
+		GefestProcessCategory("http://gefest.by/catalogue/air-cleaners/50/", -1, :only_subcat, 'Ширина 50', 'Воздухоочиститель Gefest ')
 	end
 
-	def GefestProcessCategory(url, id, type, name='')
+	def GefestProcessCategory(url, id, type, name='', name_prefix)
 		cat = Nokogiri::HTML(open(url))
 
 		if id==-1
@@ -55,7 +55,7 @@ namespace :import do
 					category.save!
 				end
 
-				GefestProcessCategory(sub_url, category.id, :only_products)
+				GefestProcessCategory(sub_url, category.id, :only_products, name_prefix)
 			end
 		end
 
@@ -78,8 +78,6 @@ namespace :import do
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
 				if product.new_record?
-				 	product.name=name
-				 	puts product.name
 				 	product.categories.clear
 				 	product.categories << Category.find(id)
 				 	product.sku=sku				
@@ -99,6 +97,8 @@ namespace :import do
 						product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 					end
 				end
+			 	product.name=name_prefix+name
+			 	puts product.name
 	
 				product.enabled=true
 				product.save
