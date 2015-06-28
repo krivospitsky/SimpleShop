@@ -45,6 +45,7 @@ ru:
       edit: Правка
       copy: Копировать
       destroy: Удалить
+      confirm: Удалить %{name}?
   activerecord:
     models:
       page: 

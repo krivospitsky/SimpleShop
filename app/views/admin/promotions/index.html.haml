@@ -18,6 +18,6 @@
         %td= l(promotion.end_at, format: "%d.%m.%Y") if promotion.end_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_promotion_path(promotion), :class => 'btn btn-xs btn-default'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), admin_promotion_path(promotion), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), admin_promotion_path(promotion), :method => :delete, :data => { :confirm => t('.confirm', name: promotion.name, :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
 = paginate @promotions
 
