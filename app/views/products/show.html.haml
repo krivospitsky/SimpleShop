@@ -12,21 +12,7 @@
     -else
       .main-img.col-sm-5
         = render 'products/images'
-      .col-sm-7    
-        -if @product.variants.count==1
-          %h1{itemprop:"name"}= @product.name
-          %strong Артикул:
-          =@product.variants.first.sku
-          = form_for @cart_item, remote: true do |f|
-            .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
-              = f.hidden_field :product_id
-              %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
-              %strong Наличие
-              =@product.variants.first.availability
-              %br
-              %strong Цена
-              =raw @product.variants.first.price_str
-              =render 'add_to_cart'
+      .col-sm-7= render 'products/single_variant_properties', product: @product
 
   =render 'products/tabs'
        

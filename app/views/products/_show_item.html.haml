@@ -10,5 +10,5 @@
       =image_tag(product.main_image_url(thumb), class: 'image')
     .price_block
       .old_price.text-center= raw product.old_price_str
-      .price.text-center=aw product.price_str
+      .price.text-center= raw product.price_str
       .text-center= render 'product_list_add_to_cart', product: product, category: category
