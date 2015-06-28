@@ -17,7 +17,7 @@
 					-else
 						= raw @category.description
 
-		-if @category && !@category.parent
+		-if @category && !@category.parent && @category.children.enabled.present?
 			.categories_list
 				%ul
 					- @category.children.enabled.each do |child|					
