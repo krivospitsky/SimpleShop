@@ -33,6 +33,7 @@ class Product < ActiveRecord::Base
       prepend :name => "КОПИЯ "
       set enabled: false
       exclude_association :images
+      clone [:categories, :linked_categories, :linked_products]
       customize(lambda { |original_item,new_item|
         original_item.images.each{|p| new_item.images.new :image => p.image.file}
       })
