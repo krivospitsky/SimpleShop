@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
         
       @category = Category.find(params[:category_id])
       # if @category.parent || @category.products.count>0
-        @products = Product.in_categories(@category.all_sub_cats).page(params[:page]).order(sort_key => sort_dir)
+        @products = Product.in_categories(@category.all_sub_cats).enabled.page(params[:page]).order(sort_key => sort_dir)
       # end
       set_seo_variables(@category)
 

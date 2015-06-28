@@ -33,7 +33,7 @@ class Product < ActiveRecord::Base
       prepend :name => "КОПИЯ "
       set enabled: false
       exclude_association :images
-      clone [:categories, :linked_categories, :linked_products]
+      # clone [:categories, :linked_categories, :linked_products]
       customize(lambda { |original_item,new_item|
         original_item.images.each{|p| new_item.images.new :image => p.image.file}
       })
@@ -43,7 +43,7 @@ class Product < ActiveRecord::Base
   scope :enabled, -> { where(enabled: 't') }
   #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
 
-  scope :in_categories, ->(cats) {enabled.joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
+  scope :in_categories, ->(cats) {joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
 
   def self.search(search)
     where('lower(name) LIKE lower(:search)', search: "%#{search}%")
