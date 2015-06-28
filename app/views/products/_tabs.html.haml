@@ -1,0 +1,20 @@
+.panel.panel-default.with-nav-tabs{role: :tabpanel}
+  .panel-heading
+    %ul.nav.nav-tabs{role: :tablist}
+      %li.active{role: :presentation}
+        %a.strong{:'aria-controls'=>:description, role: :tab, :'data-toggle'=>:tab, href: '#description'} Описание
+      -if @product.attrs.present?
+        %li{role: :presentation}
+          %a.strong{:'aria-controls'=>:attrs, role: :tab, :'data-toggle'=>:tab, href: '#attrs'} Характеристики
+  .panel-body
+    .tab-content
+      .tab-pane.active#description{role: :tabpanel}
+        .description{itemprop:"description"}= raw @product.description
+      .tab-pane#attrs{role: :tabpanel}
+        -if @product.attrs.present?
+          %table.table.table-condensed.attributes
+            -@product.attrs.all.each do |attr|
+              %tr
+                %td= attr.name
+                %td= attr.value
+  .panel-footer.show-more Показать полностью

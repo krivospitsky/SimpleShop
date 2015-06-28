@@ -137,4 +137,8 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def main_image_url(version=:product_list)
+    images.present? ? images.first.image.url(version) : "product_list_no_photo_#{Settings.theme}.png"
+  end
+
 end

@@ -5,20 +5,7 @@
 
   .row
     .col-sm-4.fly-to-cart
-      .thumbnail.clearfix
-        - if @product.images.present?
-          =link_to @product.images.first.image.url, class:"fancybox", rel:'imgs' do 
-            =image_tag @product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name, class: 'img-responsive'}
-          -if @product.images.count >1            
-            .thumbs
-              .text-center
-                -@product.images[1..-1].each do |img|
-                  .image_thumb.pull-left.thumbnail
-                    =link_to img.image.url, class:"fancybox", rel:'imgs' do
-                      =image_tag img.image.url(:thumb), {itemprop:"image", title:@product.name, alt: @product.name, class: 'img-responsive'}
-        -else
-          =image_tag "product_list_no_photo_#{Settings.theme}.png"
-
+      = render 'products/images'
       -if @product.variants.count==1
         %strong Артикул:
         =@product.variants.first.sku
@@ -36,36 +23,8 @@
         %strong Артикул:
         =@product.sku
 
-    .col-sm-8
-      .panel.panel-default.with-nav-tabs{role: :tabpanel}
-        .panel-heading
-          %ul.nav.nav-tabs{role: :tablist}
-            %li.active{role: :presentation}
-              %a.strong{:'aria-controls'=>:description, role: :tab, :'data-toggle'=>:tab, href: '#description'} Описание
-            -if @product.attrs.count>0
-              %li{role: :presentation}
-                %a.strong{:'aria-controls'=>:attrs, role: :tab, :'data-toggle'=>:tab, href: '#attrs'} Характеристики
-        .panel-body
-          .tab-content
-            .tab-pane.active#description{role: :tabpanel}
-              .description{itemprop:"description"}= raw @product.description
-            .tab-pane#attrs{role: :tabpanel}
-              -if @product.attrs.count>0
-                %table.table.table-condensed.attributes
-                  -@product.attrs.all.each do |attr|
-                    %tr
-                      %td
-                        =attr.name
-                      %td
-                        =attr.value
-                  -# -if @product.attrs.count > 5 
-                  -#   %tr
-                  -#     %td{colspan:2}
-                  -#       %a.show-all{href:'#'}
-                  -#         Показать все
-        .panel-footer.show-more
-          Показать полностью
-       
+    .col-sm-8= render 'products/tabs'       
+
   -if @product.variants.count>1
     %table.table.table-striped
       %tr
