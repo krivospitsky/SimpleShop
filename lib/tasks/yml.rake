@@ -122,7 +122,13 @@ namespace :import do
 			variant.enabled=true
 
 			variant.availability='Доставка 2-7 дней' if supplier=='nova'
-			variant.availability='Доставка 7 дней' if supplier=='camp'
+			if supplier=='camp'
+				if node.attr('available') == 'false'
+					variant.availability='Нет в наличии'
+				else
+					variant.availability='Доставка 7 дней'
+				end
+			end
 			variant.availability='Доставка 14 дней' if supplier=='salmo'
 
 			variant.attrs.find_or_initialize_by(name: 'Цвет').update(value: color) if color

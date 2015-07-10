@@ -1,8 +1,9 @@
 %ul.nav.nav-tabs
   %li.active
     %a(href="#common" data-toggle="tab") Общее
-  %li
-    %a(href="#variants" data-toggle="tab") Варианты
+  -if Settings.enable_variants
+    %li
+      %a(href="#variants" data-toggle="tab") Варианты
   %li
     %a(href="#attrs" data-toggle="tab") Атрибуты
   %li
@@ -39,9 +40,9 @@
       -#   = f.input_field :description, as: :ckeditor
       / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
 
-    .tab-pane#variants
       -# .variants
-      -if Settings.enable_variants
+    -if Settings.enable_variants
+      .tab-pane#variants
         %table.table.variants.pull-left
           %tr
             %td Имя

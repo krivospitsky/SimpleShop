@@ -11,10 +11,10 @@ class Admin::ProductsController < Admin::BaseController
     if cat_id && cat_id!=''
       @category=Category.find(cat_id)
       session[:admin_current_category]=cat_id
-      @products = Product.in_categories(@category.all_sub_cats).page(params[:page])
+      @products = Product.in_categories(@category.all_sub_cats).rank(:sort_order).page(params[:page])
     else
       session[:admin_current_category]=nil
-      @products=Product.all.page(params[:page]).per(50)
+      @products=Product.rank(:sort_order).all.page(params[:page]).per(50)
     end
     @categories=Category.all
     @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_product_path, :class => 'btn btn-primary')

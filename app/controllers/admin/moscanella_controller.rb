@@ -13,7 +13,7 @@ class Admin::MoscanellaController < ApplicationController
 			count=xls.cell(line,'E')
 			if variant=Variant.find_by(sku: sku)
 				variant.price=price*1.5
-				if count.to_i>0 || count == '>50'
+				if count.to_i>3 || count == '>50'
 					variant.availability='Доставка 2-3 дня'
 				else
 					variant.availability='Нет в наличии'

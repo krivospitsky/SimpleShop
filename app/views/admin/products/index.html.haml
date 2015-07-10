@@ -20,7 +20,7 @@
       %th.actions=t '.actions', :default => t("helpers.actions")
   %tbody#products_list.sortable
     - @products.each do |product|
-      %tr{id: product.id}
+      %tr{id: product.id, :'data-sort-order' => product.sort_order}
         %td= product.name
         %td= raw product.price_str
         %td

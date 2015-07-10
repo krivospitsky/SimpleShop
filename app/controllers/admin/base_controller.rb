@@ -11,7 +11,7 @@ class Admin::BaseController < ActionController::Base
 
 
 	def index
-		objects = controller_name.classify.constantize.page(params[:page]).per(50)
+		objects = controller_name.classify.constantize.rank(:sort_order).page(params[:page]).per(50)
     	instance_variable_set("@#{controller_name}", objects)
 		respond_with objects
 	end

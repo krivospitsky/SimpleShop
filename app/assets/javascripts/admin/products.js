@@ -35,7 +35,7 @@ $(window).load(function(){
         type: 'PATCH',
         url: '/admin/products/'+id,
         dataType: 'json',
-        data: { product: { sort_order_position: ui.item.index() } },  // or whatever your new position is
+        data: { product: { sort_order_position: $(ui.item[0].nextElementSibling).attr('data-sort-order') } },  // or whatever your new position is
       });
     }
     }
