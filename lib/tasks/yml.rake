@@ -133,6 +133,7 @@ namespace :import do
 
 			variant.attrs.find_or_initialize_by(name: 'Цвет').update(value: color) if color
 			variant.attrs.find_or_initialize_by(name: 'Размер').update(value: size) if size
+			variant.touch
 
 			variant.save!
 

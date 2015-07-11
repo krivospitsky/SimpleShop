@@ -18,6 +18,7 @@ class Admin::MoscanellaController < ApplicationController
 				else
 					variant.availability='Нет в наличии'
 				end
+				variant.touch
 				variant.save
 			end
 		end
