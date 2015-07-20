@@ -1,0 +1,23 @@
+%ul.nav.nav-tabs
+  %li.active
+    %a(href="#common" data-toggle="tab") Common
+  %li
+    %a(href="#seo" data-toggle="tab") SEO
+
+= simple_form_for [:admin, @page] do |f|
+  .tab-content
+    .tab-pane.active(id="common")
+      = f.input :name
+      %label.optional.control-label
+        Текст
+      = f.input_field :text, as: :ckeditor
+
+      / = f.input :text, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
+      = f.input :position, collection: Page::POSITIONS
+      = f.input :enabled
+
+    .tab-pane(id="seo")
+      = render partial: 'seo', locals: {f: f}
+
+  = f.button :submit
+  = link_to 'Cancel', admin_pages_path, class: 'btn btn-default'

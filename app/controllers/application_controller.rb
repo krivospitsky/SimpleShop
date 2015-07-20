@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :get_current_cart
   before_filter :add_theme_path
+
+  before_filter :check_301_redirect
   # before_filter :set_controller_and_action_names
 
 
@@ -67,4 +69,7 @@ class ApplicationController < ActionController::Base
     @meta_description=get_meta_description(obj)
   end
 
+  def check_301_redirect
+    redirect_to "http://xn----7sbababs6ccgf5c8b6f.xn--p1ai#{request.fullpath}", :status => 301  if request.host == 'fish-kaluga.ru' || request.host == 'www.fish-kaluga.ru'
+  end
 end
