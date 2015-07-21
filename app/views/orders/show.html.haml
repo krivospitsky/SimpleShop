@@ -1,7 +1,7 @@
 -if flash[:info]
   .alert.alert-success= flash[:info]
   %script
-    $(document).ready(function() {
+    $(window).load(function() {
     =Settings.metrika_order_goal_full
     })
 =render 'order'
