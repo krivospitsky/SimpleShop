@@ -32,4 +32,10 @@ $(document).ready(function() {
   $(".name").matchHeight({byRow: true});
   $(".product_item").matchHeight({byRow: true});
 
+  $('.add-to-cart').on('click', function(){
+    if (goal=$( this ).attr('data-yandex-goal')){
+      eval(goal);
+    }
+  })
+
 });

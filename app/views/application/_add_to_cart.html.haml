@@ -10,7 +10,7 @@
   -else
     .input-group.buy_button
       %span.input-group-btn
-        %button.btn.btn-primary{type:'submit'}
+        %button.btn.btn-primary.add-to-cart{type:'submit', :'data-yandex-goal' => Settings.metrika_cart_goal_full}
           %span.glyphicon.glyphicon-shopping-cart
           Купить
       = f.text_field :quantity, class: 'form-control'
