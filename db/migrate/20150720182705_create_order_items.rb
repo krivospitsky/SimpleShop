@@ -16,7 +16,11 @@ class CreateOrderItems < ActiveRecord::Migration
       next if order.cart.blank?
       order.cart.cart_items.all.each do |cart_item|
         order_item=order.order_items.new
-        order_item.product_name=cart_item.variant.name || cart_item.product.name 
+        
+        order_item.product_name=cart_item.variant.name if cart_item.variant
+        order_item.product_name=cart_item.product.name if cart_item.product && !order_item.product_name
+        next if !order_item.product_name
+        
         order_item.product_sku=cart_item.variant.sku
         order_item.product=cart_item.product
         order_item.price=cart_item.variant.price
