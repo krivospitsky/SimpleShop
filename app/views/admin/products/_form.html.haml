@@ -9,7 +9,7 @@
   %li
     %a(href="#seo" data-toggle="tab") SEO
 
-= simple_form_for [:admin, @product], html: { class: 'form-horizontal' } do |f|
+= simple_nested_form_for [:admin, @product], html: { class: 'form-horizontal' } do |f|
   .tab-content
     .tab-pane.active#common
       = f.input :name
@@ -17,8 +17,6 @@
       / = f.input :price
       / = f.input :count
       = f.input :enabled
-
-
 
       -if !Settings.disable_categories
         = f.association :categories
@@ -29,18 +27,16 @@
         = f.label :images, class: 'col-sm-3 control-label'
         .col-sm-9
           %ul#image_list.sortable
-            = f.simple_fields_for :images do |image|
-              = render 'image_fields', :f => image
-            = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
-
+            = f.simple_fields_for :images, :wrapper => false do |image|
+              %li.nested-fields.pull-left.fields
+                .img-thumbnail.preview_wrap
+                  = image.input_field :image, as: :image_preview, preview_version: :thumb, class: 'file_upload', label: false 
+                  =# f.input_field :position, as: :hidden
+                  %img.preview
+                = image.link_to_remove "Remove", {class: 'clearfix btn btn-danger btn-xs'}
+            = f.link_to_add raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), :images
       = f.input :description, as: :ckeditor
-      -# %label.optional.control-label.col-sm-3
-      -#   Описание
-      -# .label_clear
-      -#   = f.input_field :description, as: :ckeditor
-      / , input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
 
-      -# .variants
     -if Settings.enable_variants
       .tab-pane#variants
         %table.table.variants.pull-left
@@ -53,9 +49,16 @@
             %td Вкл.
             %td Действия
           -#f.object.variants.build unless f.object.variants.first
-          = f.fields_for :variants do |variant|
-            = render 'variant_fields', :f => variant
-        = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants", "data-association-insertion-method" => "append"
+          = f.fields_for  :variants, :wrapper => false do |variant|
+            %tr.fields
+              %td= variant.text_field :name, class: "form-control"
+              %td= variant.text_field :sku, class: "form-control"
+              %td= variant.text_field :price, class: "form-control"
+              %td= variant.text_field :count, class: "form-control"
+              %td= variant.text_field :availability, class: "form-control"
+              %td= variant.check_box :enabled, class: "form-control"
+              %td= variant.link_to_remove "Удалить", class: "btn btn-danger btn-xs"
+        = f.link_to_add 'Добавить вариант', :variants, class: "btn btn-success btn-xs", "data-target" => ".variants"
 
     .tab-pane#attrs
       %table.table.attrs.pull-left
@@ -63,9 +66,13 @@
           %td Имя
           %td Значение
           %td Действие
-        = f.fields_for :attrs do |attr|
-          = render 'attr_fields', :f => attr
-      = link_to_add_association 'Добавить атрибут', f, :attrs, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".attrs", "data-association-insertion-method" => "append"
+        = f.fields_for :attrs, :wrapper => false do |attr|
+          %tr.fields
+            %td= attr.text_field :name, class: "form-control"
+            %td= attr.text_field :value, class: "form-control"
+            %td= attr.link_to_remove "Удалить", class: "btn btn-danger btn-xs"
+
+      = f.link_to_add 'Добавить атрибут', :attrs, class: "btn btn-success btn-xs", "data-target" => ".attrs"
 
     .tab-pane#seo
       = render partial: 'seo', locals: {f: f}

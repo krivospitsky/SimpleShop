@@ -1,8 +1,10 @@
 #coding:utf-8
 class Order < ActiveRecord::Base
   belongs_to :cart
-  has_many :cart_items, foreign_key: :cart_id, primary_key: :cart_id
-  accepts_nested_attributes_for :cart_items, allow_destroy:true
+
+  # has_many :cart_items, foreign_key: :cart_id, primary_key: :cart_id
+  has_many :order_items
+  accepts_nested_attributes_for :order_items, allow_destroy:true
 
   # validates :name, presence: true
   validates :email, presence: true
@@ -19,6 +21,19 @@ class Order < ActiveRecord::Base
       transition any - :Отменен => :Отменен
     end
   end
+
+  def total_price_str
+    total=0
+    order_items.each do |item|
+      if item.discount_price
+        total+=item.discount_price*item.quantity
+      else
+        total+=item.price*item.quantity
+      end
+    end
+    "#{total} руб."
+  end
+
 
   before_save :set_secure_key
   def set_secure_key

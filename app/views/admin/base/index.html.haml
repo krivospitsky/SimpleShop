@@ -10,7 +10,7 @@
     - @objects.each do |object|
       %tr{id: object.id}
         -@index_attributes.each do |attr|
-          -if @class_obj.columns_hash[attr.to_s].type == :boolean
+          -if object.class.columns_hash[attr.to_s].type == :boolean
             %td
               -if object.attributes[attr.to_s]
                 %i.glyphicon.glyphicon-ok

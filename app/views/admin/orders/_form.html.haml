@@ -1,0 +1,32 @@
+= simple_nested_form_for [:admin, @order], html: { class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :city
+  = f.input :phone
+  = f.input :email
+  = f.input :zip
+  = f.input :address
+  = f.input :comment
+
+  .panel
+    %table.table.order_items.pull-left
+      %tr
+        %td Товар
+        %td Артикул
+        %td Цена
+        %td Цена со скидкой
+        %td Количество
+        %td Действие
+      = f.fields_for :order_items, :wrapper => false do |item|
+        %tr.fields
+          %td= item.text_field :product_name, class: "form-control"
+          %td= item.text_field :product_sku, class: "form-control"
+          %td= item.text_field :price, class: "form-control"
+          %td= item.text_field :discount_price, class: "form-control"
+          %td= item.text_field :quantity, class: "form-control"
+          -# product
+          %td= item.link_to_remove "Удалить", class: "btn btn-danger btn-xs"
+    = f.link_to_add 'Добавить товар', :order_items, class: "btn btn-success btn-xs", "data-target" => ".order_items"
+
+
+  = f.button :submit
+  = link_to 'Cancel', admin_orders_path, class: 'btn btn-default'

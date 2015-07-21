@@ -4,19 +4,17 @@
   %li
     %a(href="#seo" data-toggle="tab") SEO
 
-= simple_form_for [:admin, @page] do |f|
+= simple_form_for [:admin, @page], html: { class: 'form-horizontal' } do |f|
   .tab-content
-    .tab-pane.active(id="common")
+    .tab-pane.active#common
       = f.input :name
-      %label.optional.control-label
-        Текст
-      = f.input_field :text, as: :ckeditor
+      = f.input :text, as: :ckeditor
 
       / = f.input :text, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
       = f.input :position, collection: Page::POSITIONS
       = f.input :enabled
 
-    .tab-pane(id="seo")
+    .tab-pane#seo
       = render partial: 'seo', locals: {f: f}
 
   = f.button :submit

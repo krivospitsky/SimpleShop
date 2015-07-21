@@ -1,5 +1,8 @@
 class Admin::ProductsController < Admin::BaseController
-  
+
+  index_attributes [:name, :enabled, :price_str]
+  actions [:index, :show, :edit, :new, :delete, :clone]
+
   # def autocomplete
   #   @products = Product.enabled.where("products.name like ?", "%#{params[:name]}%").limit(10)
   #   respond_to do |format|
@@ -17,7 +20,6 @@ class Admin::ProductsController < Admin::BaseController
       @products=Product.rank(:sort_order).all.page(params[:page]).per(50)
     end
     @categories=Category.all
-    @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_product_path, :class => 'btn btn-primary')
     respond_with @products
   end
 

@@ -53,7 +53,7 @@ gem 'state_machine', github:'huoxito/state_machine', branch:'activerecord-4.2-up
 gem 'responders'
 gem 'simple_form' #, github: 'plataformatec/simple_form'
 #gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
-gem "cocoon"
+gem "nested_form"
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'

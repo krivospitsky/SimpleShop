@@ -7,11 +7,23 @@ class Admin::CategoriesController < Admin::BaseController
   #   end
   # end
 
+  actions_except [:clone]
+  
+  def form
+    tab :common do |t|
+      input :name, t
+      ckeditor :description, t
+      input :enabled, t
+      input :external_id, t
+      association :linked_categories, t
+      association :linked_products, t
+      image :image, t
+    end     
+    seo
+  end
 
   def index
     @categories=Category.root
-    @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_category_path, :class => 'btn btn-primary')
-
     respond_with @categories
   end
 

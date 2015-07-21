@@ -1,9 +1,18 @@
 class Admin::PagesController < Admin::BaseController
+	actions_except [:clone]
+	index_attributes [:name, :enabled]
+	# attr_accessor :index_attributes
+
 	
-	def index
-	    @h1 = (t("title.#{controller_name}.#{action_name}")) + '&nbsp;' + (view_context.link_to t('.new', :default => t("helpers.links.new")), new_admin_page_path, :class => 'btn btn-primary')
-	    super
-	end
+	# def form
+	# 	tab :common do |t|
+	# 		input :name, t
+	# 		ckeditor :text, t
+	# 		input :position, t
+	# 		input :enabled, t
+	# 	end			
+	# 	seo
+	# end
 
 	private	
 	

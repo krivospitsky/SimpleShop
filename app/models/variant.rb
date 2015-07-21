@@ -28,7 +28,7 @@ class Variant < ActiveRecord::Base
     if max_discount>0
       return price * (100 - max_discount) / 100
     else
-      return false
+      return nil
     end
   end
 

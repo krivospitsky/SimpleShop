@@ -11,8 +11,8 @@ $(window).load(function(){
   });
 
   $('#images')
-    .on('cocoon:after-insert', function(e, added_image) {
-      $(added_image).find('input').focus().click();;
+    .on('nested:fieldAdded', function(event) {
+      $(event.field).find('input').focus().click();;
     }); 
 
 
