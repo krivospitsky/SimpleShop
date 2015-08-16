@@ -9,18 +9,18 @@ class Admin::CategoriesController < Admin::BaseController
 
   actions_except [:clone]
   
-  def form
-    tab :common do |t|
-      input :name, t
-      ckeditor :description, t
-      input :enabled, t
-      input :external_id, t
-      association :linked_categories, t
-      association :linked_products, t
-      image :image, t
-    end     
-    seo
-  end
+  # def form
+  #   tab :common do |t|
+  #     input :name, t
+  #     ckeditor :description, t
+  #     input :enabled, t
+  #     input :external_id, t
+  #     association :linked_categories, t
+  #     association :linked_products, t
+  #     image :image, t
+  #   end     
+  #   seo
+  # end
 
   def index
     @categories=Category.root
