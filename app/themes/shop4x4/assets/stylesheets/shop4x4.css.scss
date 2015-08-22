@@ -22,6 +22,9 @@ $navbar-default-link-active-color: #fff;
 
 @import "application";
 
+.container-fixed.topbar{
+  padding: 0px;
+}
 
 .product_item {
   .thumbnail{
@@ -43,7 +46,7 @@ $navbar-default-link-active-color: #fff;
 // }
 
 .header .contacts{
-  font-size: 13pt;
+  font-size: 10pt;
   font-weight: 600;
   a{
     font-size: inherit;
