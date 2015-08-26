@@ -12,7 +12,7 @@
 				.panel.panel-default
 					.panel-body
 						-if @category.image.present?
-							.thumbnail= image_tag(@category.image.url(:thumb))
+							.thumbnail.pull-left= image_tag(@category.image.url(:product_list))
 
 						= raw @category.description
 
