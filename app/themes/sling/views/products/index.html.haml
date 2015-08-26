@@ -9,7 +9,12 @@
 
 		-if @category
 			-if @category.description.present?
-				.panel.panel-default= raw @category.description
+				.panel.panel-default
+					.panel-body
+						-if @category.image.present?
+							.thumbnail= image_tag(@category.image.url(:thumb))
+
+						= raw @category.description
 
 		-if @products && ! @products.empty?
 			.clearfix
