@@ -23,6 +23,10 @@ $navbar-default-link-active-color: #fff;
 
 @import "application";
 
+.breadcrumb{
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
 
 .product_item {
   .thumbnail{

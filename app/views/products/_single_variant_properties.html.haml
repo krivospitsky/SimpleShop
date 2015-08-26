@@ -11,6 +11,6 @@
       %strong Цена:
       =raw @product.variants.first.price_str
       =render 'add_to_cart', f: f
--else
-  %strong Артикул:
-  =@product.sku
+-# -else
+-#   %strong Артикул:
+-#   =@product.sku
