@@ -1,8 +1,7 @@
 =render '/categories/breadcrumbs'
 
 #content{itemscope:'', itemtype:"http://schema.org/Product"} 
-  -if @product.variants.count>1
-    %h1{itemprop:"name"}= @product.name
+  %h1{itemprop:"name"}= @product.name
   .row.fly-to-cart
     -if @product.sku['expertfisher_']
       %ul#lightSlider.text-center.col-sm-12
