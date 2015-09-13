@@ -8,11 +8,11 @@
         -@product.images.each do |img|
           %li
             =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})
+      = render 'products/single_variant_properties', product: @product
     -else
       .main-img.col-sm-5
         = render 'products/images'
       .col-sm-7= render 'products/single_variant_properties', product: @product
-
   =render 'products/tabs'
        
   =render 'products/variants_table', product: @product
