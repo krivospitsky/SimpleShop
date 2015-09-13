@@ -61,7 +61,7 @@ class Product < ActiveRecord::Base
   def availability
 	  # return 'В наличии' if count>0
 	  # return 'Под заказ' if count==0
-    return 'В наличии'
+      return 'В наличии'
 	end
 
   def linked
@@ -118,7 +118,6 @@ class Product < ActiveRecord::Base
       if min_price == max_price
         "#{(min_price*c).to_i}&nbsp;<small>руб.</small>"
       else
-        # "<small>от</small> #{(min_price*c).to_i} <small>до</small> #{(max_price*c).to_i} <small>руб.</small>"
         "#{(min_price*c).to_i}&nbsp;-&nbsp;#{(max_price*c).to_i}&nbsp;<small>руб.</small>"
       end
     end

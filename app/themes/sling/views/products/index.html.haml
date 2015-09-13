@@ -8,13 +8,12 @@
 		%h1= @category.name
 
 		-if @category
-			-if @category.image.present? || @category.description.present?
+			-if @category.description.present?
 				.panel.panel-default
-					-if @category.image.present?
-						.row
-							.col-md-3= image_tag(@category.image.url(:product_list))
-							.col-md-9= raw @category.description
-					-else
+					.panel-body
+						-if @category.image.present?
+							.thumbnail.pull-left= image_tag(@category.image.url(:product_list))
+
 						= raw @category.description
 
 		-if @products && ! @products.empty?
