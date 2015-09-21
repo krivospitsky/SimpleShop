@@ -1,11 +1,12 @@
 # coding: utf-8
 namespace :import do
-	task :finalize => :environment do
-		c=Variant.where("updated_at < ?", 2.month.ago).update_all(availability: 'Недоступно', enabled: false)
+	task :finalize, [:like_str]=> :environment  do |task, args|
+		like_str=args.like_str || '%'
+		c=Variant.where("updated_at < ? and sku SIMILAR TO ?", 2.month.ago, like_str).update_all(availability: 'Недоступно', enabled: false)
 		puts "Недоступно #{c}"
-		c=Variant.where("updated_at < ? and updated_at >= ?", 2.week.ago, 2.month.ago).update_all(availability: 'Нет в наличии')
+		c=Variant.where("updated_at < ? and updated_at >= ? and sku SIMILAR TO ?", 2.week.ago, 2.month.ago, like_str).update_all(availability: 'Нет в наличии')
 		puts "Нет в наличии #{c}"
-		c=Variant.where("updated_at < ? and updated_at >= ?", 1.day.ago, 2.week.ago).update_all(availability: 'Уточнить у менеджера')
+		c=Variant.where("updated_at < ? and updated_at >= ? and sku SIMILAR TO ?", 1.day.ago, 2.week.ago, like_str).update_all(availability: 'Уточнить у менеджера')
 		puts "Уточнить у менеджера #{c}"
 		# Variant.all.each do |variant|
 		# 	if variant.updated_at < 2.month.ago
@@ -23,7 +24,7 @@ namespace :import do
 		# 		variant.save
 		# 	end
 		# end
-		Product.all.each do |prod|
+		Product.where('sku SIMILAR TO ?', like_str).all.each do |prod|
 			if prod.variants.enabled.empty?
 				puts "товар #{prod.name} недоступен"
 				prod.enabled=false
