@@ -18,7 +18,9 @@ $(document).ready(function() {
   //       return false;
   //   });
   
-   $("#lightSlider").lightSlider({autoWidth: false, item: 1}); 
+   // $("#lightSlider").lightSlider({autoWidth: false, item: 1}); 
+   $('.expertfisher_productimages_slider_container').owlCarousel({items: 1, loop: true, center: true, autoplay: true, autoplayTimeout: 2000}); 
+
 
    $("#sort_order").change(function(){   	
    	order=$("#sort_order").val()
