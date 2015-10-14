@@ -6,7 +6,7 @@
     -if @product.sku['expertfisher_']
       .expertfisher_productimages_slider_container.owl-carousel.owl-theme.col-sm-12
         -@product.images.each do |img|
-            =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})
+          =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})
       = render 'products/single_variant_properties', product: @product
     -else
       .main-img.col-sm-5
