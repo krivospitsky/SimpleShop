@@ -1,8 +1,8 @@
 -if @banners.count>0
   .row.text-center
-    %ul#lightSlider
+    .main_page_slider_container.owl-carousel.owl-theme
       -@banners.each do |banner|
-        %li
+        %div
           =link_to banner do
             =image_tag(banner.banner.url, {title:banner.name, alt:banner.name})
 .row
