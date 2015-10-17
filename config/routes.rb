@@ -36,7 +36,6 @@ Shop::Application.routes.draw do
       to: proc { |env| [200, {}, ["google-site-verification: #{Settings.google_verification}.html"]] }
     get "/yandex_#{Settings.yandex_verification}.txt",
       to: proc { |env| [200, {}, ["yandex_verification"]] }
-  end
     get "/yandex_#{Settings.yandex_verification}.html",
       to: proc { |env| [200, {}, ["<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>Verification: #{Settings.yandex_verification}</body></html>"]] }
   end
