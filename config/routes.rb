@@ -37,6 +37,9 @@ Shop::Application.routes.draw do
     get "/yandex_#{Settings.yandex_verification}.txt",
       to: proc { |env| [200, {}, ["yandex_verification"]] }
   end
+    get "/yandex_#{Settings.yandex_verification}.html",
+      to: proc { |env| [200, {}, ["<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>Verification: #{Settings.yandex_verification}</body></html>"]] }
+  end
 
   %w( 404 500 ).each do |code|
     get code, :to => "errors#show", :code => code
