@@ -1,0 +1,24 @@
+%header.header
+  .container-fixed
+    .row
+      .col-sm-2
+        =link_to root_path do
+          =image_tag 'logo_mama40.png', class: 'logo'
+      .col-sm-3
+        .small Интернет магазин
+        Все для мам в Калуга
+        Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
+      .col-sm-2
+        Для тех, кто любит покупать в магазине!
+        Калуга, ул. московская, д. 24
+        пн-пт 10-19, сб-вс 10-17
+      .col-sm-2
+        тел. 40-00-54
+        +7 (930) 7540054
+        info@mama40.ru
+      .col-sm-2
+        = render 'cart'
+      -# .col-sm-3
+      -#   = render 'search'
+      -#   .contacts
+      -#     =raw Settings.contacts
