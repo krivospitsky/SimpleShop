@@ -1,0 +1,24 @@
+-if @filters
+	%form
+		.panel.panel-default.filters
+			.panel-heading
+				%strong
+					Фильтр
+			%ul.list-group
+				%li.list-group-item
+					.filter-param Цена
+					.price-block
+						.pull-left от
+						%input.form-control.min-price{name: 'filter[min-price]', value: params[:filter]['min-price']}
+						.pull-left до
+						%input.form-control.max-price{name: 'filter[max-price]', value: params[:filter]['max-price']}
+				-@filters.keys.each do |param|
+					%li.list-group-item
+						.filter-param= param
+						-@filters[param].each do |val|
+							.btn-group{:'data-toggle' => :buttons}
+								%label.btn.btn-default
+									%input{type: :checkbox, autocomplete: :off, name: "filter[#{param}][]", value: val}= val
+			.panel-footer
+				%input.btn.btn-primary{type: 'submit', value: 'Показать'} 
+				.btn.btn-default Сбросить

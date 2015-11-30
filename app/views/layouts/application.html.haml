@@ -35,9 +35,6 @@
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
     =render 'header'
-    =render 'menu'
-
     .container-fixed= yield
-
     =render 'footer'
     =raw Settings::metrika 

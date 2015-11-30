@@ -108,5 +108,10 @@ Shop::Application.routes.draw do
     post '/settings/edit' => '/admin/settings#update'
     get '/moscanella/new' => '/admin/moscanella#new'
     post '/moscanella/import' => '/admin/moscanella#import'
+
+    get '/1c_exchange.php' => '/admin/commerce_ml#exchange'
+    post '/1c_exchange.php' => '/admin/commerce_ml#exchange'
   end
+
+
 end

@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.lightSlider.min
 //= require bootstrap
+//= require jquery.lightSlider.min
 //= require fancybox
 //= require cart
 //= require_tree .

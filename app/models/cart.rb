@@ -41,7 +41,7 @@ class Cart < ActiveRecord::Base
         total+=item.variant.price*item.quantity
       end
     end
-    "#{total} руб."
+    to_price(total)
   end
 
   def total_count

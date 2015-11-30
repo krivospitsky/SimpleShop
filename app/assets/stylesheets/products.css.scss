@@ -213,3 +213,14 @@ span.new-price{
     padding: 2px 10px;
   }
 }
+
+
+
+.price::after {
+    display: inline-block;
+    font: 0.9em/1 FontAwesome;
+    text-rendering: auto;
+    transform: translate(0px, 0px);
+    content: "₽";
+    margin-left: 0.3em;
+}

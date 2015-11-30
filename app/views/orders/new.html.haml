@@ -20,7 +20,7 @@
 							Артикул:
 							=item.variant.sku
 					%td
-						%small
+						%small.price
 							=raw item.variant.price_str
 					%td
 						.input-group.input-group-sm#quantity
@@ -29,7 +29,7 @@
 								%button.btn.btn-xs{type:'submit'}
 									%span.glyphicon.glyphicon-refresh
 					%td
-						%small
+						%small.price
 							=raw item.variant.price_str(item.quantity)
 				%td
 					=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
@@ -39,7 +39,7 @@
 			%td{colspan:4}
 				.pull-right
 					Итог
-			%td
+			%td.price
 				=@current_cart.total_price_str
 			%td
 

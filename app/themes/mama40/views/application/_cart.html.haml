@@ -1,0 +1,5 @@
+-unless Settings.disable_cart
+	%a.shopping-cart{href: new_order_path}
+		.glyphicon.glyphicon-shopping-cart
+		.cart-text
+			=t 'cart.count', count: @current_cart.total_count

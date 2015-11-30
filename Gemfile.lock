@@ -57,6 +57,9 @@ GEM
     amoeba (3.0.0)
       activerecord (>= 3.2.6)
     arel (6.0.0)
+    autoprefixer-rails (6.1.1)
+      execjs
+      json
     bcrypt (3.1.9)
     bcrypt (3.1.9-x64-mingw32)
     better_errors (2.1.1)
@@ -65,8 +68,9 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.1.1.1)
-      sass (~> 3.2)
+    bootstrap-sass (3.3.5)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     cancan (1.6.10)
     carrierwave (0.10.0)
@@ -274,7 +278,7 @@ DEPENDENCIES
   amoeba
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.1.1)
+  bootstrap-sass
   cancan
   carrierwave
   ckeditor!
@@ -305,7 +309,7 @@ DEPENDENCIES
   roo-xls
   rspec-rails
   russian
-  sass-rails (>= 3.2)
+  sass-rails
   seed_dump
   select2-rails
   simple_form

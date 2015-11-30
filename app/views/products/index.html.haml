@@ -1,11 +1,11 @@
 =render '/categories/breadcrumbs'
+%h1.category_name= @category.name
 .row
 	.col-sm-4.col-md-3
 		=render '/categories/smart_tree'
 		-unless Settings::disable_filters
 			=render '/products/smart_filter'
 	.col-sm-8.col-md-9
-		%h1= @category.name
 
 		-if @category
 			-if @category.image.present? || @category.description.present?

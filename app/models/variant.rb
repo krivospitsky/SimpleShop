@@ -1,3 +1,5 @@
+include ProductsHelper
+
 class Variant < ActiveRecord::Base
   belongs_to :product
   scope :enabled, -> { where(enabled: 't') }
@@ -37,9 +39,9 @@ class Variant < ActiveRecord::Base
     if !price
       "по запросу"
     elsif discount_price
-      "<del>#{price*quantity}</del>&nbsp;#{discount_price*quantity} руб."
+      "<del>#{to_price(price*quantity)}</del>&nbsp;#{to_price(discount_price*quantity)}"
     else
-      "#{price*quantity}&nbsp;руб."
+      "#{to_price(price*quantity)}"
     end
   end
 end

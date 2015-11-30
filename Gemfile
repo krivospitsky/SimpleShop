@@ -36,8 +36,8 @@ gem 'jbuilder', '~> 1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'sass-rails', '>= 3.2'
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'sass-rails'
+gem 'bootstrap-sass'
 
 gem 'haml-rails' #, :github => 'indirect/haml-rails'
 

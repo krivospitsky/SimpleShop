@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720182705) do
+ActiveRecord::Schema.define(version: 20151124202435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,7 +176,10 @@ ActiveRecord::Schema.define(version: 20150720182705) do
     t.string   "attr"
     t.integer  "min_price"
     t.integer  "max_price"
+    t.string   "external_id"
   end
+
+  add_index "products", ["external_id"], name: "index_products_on_external_id", using: :btree
 
   create_table "products_linked_categories", force: :cascade do |t|
     t.integer "product_id"
@@ -266,6 +269,9 @@ ActiveRecord::Schema.define(version: 20150720182705) do
     t.datetime "updated_at"
     t.string   "image"
     t.string   "availability"
+    t.string   "external_id"
   end
+
+  add_index "variants", ["external_id"], name: "index_variants_on_external_id", using: :btree
 
 end

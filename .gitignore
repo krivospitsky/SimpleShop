@@ -15,6 +15,7 @@
 /log/*.log
 /tmp
 
+/public/assets
 /public/ckeditor_assets
 /public/uploads
 /config/database.yml

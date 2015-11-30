@@ -56,12 +56,12 @@
           Артикул:
           =item.product_sku
       %td
-        %small=raw item.price_str
+        %small.price=raw item.price_str
       %td
         %small= item.quantity
       %td
-        %small= raw item.price_str(item.quantity)
+        %small.price= raw item.price_str(item.quantity)
   %tr
     %td{colspan:4}
       .pull-right Итог
-    %td= @order.total_price_str
+    %td.price= @order.total_price_str

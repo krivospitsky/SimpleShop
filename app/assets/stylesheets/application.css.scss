@@ -13,6 +13,13 @@
 
 // $brand-primary: #31464C;
 
+  @font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url("/assets/bootstrap/glyphicons-halflings-regular.eot");
+    src: url("/assets/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("/assets/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("/assets/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("/assets/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("/assets/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@import 'bootstrap-sprockets';
 @import "bootstrap";
 @import "pages";
 @import "main";
@@ -25,6 +32,13 @@
 @import "lightSlider";
 @import "owl.carousel.min";
 @import "owl.theme.default.min";
+
+
+@media (max-width: 767px) {
+  .navbar-collapse .nav > .divider-vertical {
+      display: none;
+    }
+}
 
  /* Custom container */
 .container-fixed {

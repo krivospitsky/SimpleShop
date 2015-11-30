@@ -1,24 +1,60 @@
 %header.header
   .container-fixed
+    .articles
+      %ul
+        -Page.in_menu.each do |page|
+          %li
+            =link_to page.name, page_path(page)
+  %hr
+  .container-fixed
     .row
       .col-sm-2
         =link_to root_path do
           =image_tag 'logo_mama40.png', class: 'logo'
       .col-sm-3
-        .small Интернет магазин
-        Все для мам в Калуга
+        .strong Интернет магазин
         Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
+      .col-sm-3
+        .strong Розничный магазин
+        .address г. Калуга, ул. Московская, д. 24
+        .timetable ПН-ПТ 10:00 - 19:00
+        .timetable СБ-ВС 10:00 - 17:00
       .col-sm-2
-        Для тех, кто любит покупать в магазине!
-        Калуга, ул. московская, д. 24
-        пн-пт 10-19, сб-вс 10-17
-      .col-sm-2
-        тел. 40-00-54
-        +7 (930) 7540054
+        .strong 8 (4842) 40-00-54
+        .strong 8 (930) 754-00-54
         info@mama40.ru
       .col-sm-2
+        .strong Ваша корзина
         = render 'cart'
       -# .col-sm-3
       -#   = render 'search'
       -#   .contacts
       -#     =raw Settings.contacts
+
+.scroller_anchor
+.scroller
+  .container-fixed.topbar
+    %nav.navbar-default.text-center
+      .navbar-header.navbar-right
+        %button.navbar-toggle.collapsed{data: {toggle:"collapse", target:"#bs-example-navbar-collapse-1"}, type: "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
+      .collapse.navbar-collapse#bs-example-navbar-collapse-1
+        %ul.nav.navbar-nav
+          -# %li
+          -#   %a{href: root_path}
+          -#     .glyphicon.glyphicon-home
+          -#     %span &nbsp;
+          -#     %span.hidden-sm.shown-xs Главная
+
+          %li.nav-divider{role: :separator}
+          -Category.root.enabled.each do |cat|        
+            %li
+              =link_to cat.name, category_path(cat.path, cat.id)
+            %li.divider-vertical
+        %ul.nav.navbar-nav.navbar-right
+          %li 
+            %a Поиск

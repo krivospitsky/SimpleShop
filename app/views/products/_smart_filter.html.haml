@@ -6,8 +6,11 @@
 		%ul.list-group
 			-@filters.keys.each do |param|
 				%li.list-group-item
-					=param
+					.filter-param= param
 					%ul
 						-@filters[param].each do |val|
 							%li
 								=val
+		.panel-footer
+			.btn.btn-primary Показать
+			.btn.btn-default Сбросить

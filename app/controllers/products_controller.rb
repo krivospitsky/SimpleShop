@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
         
       @category = Category.find(params[:category_id])
       # if @category.parent || @category.products.count>0
-        @products = Product.in_categories(@category.all_sub_cats).enabled.page(params[:page]).order(sort_key => sort_dir)
+      @products = Product.in_categories(@category.all_sub_cats).enabled
       # end
       set_seo_variables(@category)
 
@@ -63,26 +63,47 @@ class ProductsController < ApplicationController
         tmp=tmp.parent
       end
       @breadcrumbs=@breadcrumbs.reverse
-
-
     else
-      @products=Product.enabled.page(params[:page])
+      @products=Product.enabled
     end
 
     unless Settings::disable_filters
+      #генерация фильтров
       @filters=Hash.new
-      @products.each do |prod|
-        prod.attr.keys.each do |attr|
-          @filters[attr]=[] unless @filters[attr]
-          @filters[attr] << prod.attr[attr] unless @filters[attr].include?(prod.attr[attr])
+      @products.enabled.each do |prod|
+        prod.attrs.each do |attr|
+          @filters[attr.name]=[] unless @filters[attr.name]
+          @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
+        end
+
+        prod.variants.enabled.each do |var|
+          var.attrs.each do |attr|
+            @filters[attr.name]=[] unless @filters[attr.name]
+            @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
+          end          
         end
       end
-
       @filters.keys.each do |filter|
         @filters.delete(filter) if @filters[filter].size<2
       end
+
+      #фильтрация
+      filter=params[:filter]
+      if filter
+        filter.keys.each do |param_name|
+          if param_name == 'min-price' && filter['min-price'] && filter['min-price'].to_i >0
+            @products=@products.where('min_price>=?', filter['min-price'])
+          elsif param_name == 'max-price' && filter['max-price'] && filter['max-price'].to_i >0
+            @products=@products.where('max_price<=?', filter['max-price'])
+          else
+            # @products=@products.joins(:attrs).joins(variants:{:attrs}).where()
+            @products=@products.joins(:attrs).joins(:variants).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variants.enabled = true and variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
+            @products=Product.where('id in (?)', @products.pluck(:id))
+          end
+        end
+      end
     end
 
+    @products=@products.order(sort_key => sort_dir).page(params[:page])
   end
-
 end
