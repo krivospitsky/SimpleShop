@@ -57,6 +57,7 @@ skip_before_filter :verify_authenticity_token
                 	doc.xpath('//images/image').each do |img|
                 		img_url="https://online.moysklad.ru/app/download/#{img.xpath('uuid').first.content}"
 						`wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=admin@mama40&j_password=adminmama&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
+						sleep 2
                 		image=product.images.new          
                 		File.open('tmp/product_image.jpg') do |f|
   							image.image = f
