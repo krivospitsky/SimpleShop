@@ -150,6 +150,14 @@ h1.category_name{
 }
 
 .product_item{
+  border: 1px solid lighten($brand-primary, 30%);
+  margin: 2px;
+  &:hover{
+    border: 1px solid $brand-primary;
+  }
+  .image{
+    width: 100%;
+  }
   .name{
     a{
       color: #000;
