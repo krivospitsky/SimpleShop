@@ -30,7 +30,7 @@
 								%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
 								%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
 								-# %option По дате поступления
-			.row
+			.row.products_list
 				- @products.each do |product|
 					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
 			#paginator= paginate @products 

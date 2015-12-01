@@ -40,4 +40,23 @@ $(document).ready(function() {
     }
   })
 
+  var page = 1;
+  $(window).scroll(function() {
+    height = window.innerHeight ? window.innerHeight : $(window).height();
+    if ($(window).scrollTop() >= $(document).height() - height - 100) {
+      if (!is_loading && page < $('#ajax-loader').attr('data-pages'))
+      {
+        $('#ajax-loader').show();
+        page = page + 1;
+        is_loading=1;
+
+        $.ajax(document.location + '&page=' + page, {type:"xml"}).done(function(data){
+          $(".products_list").append($(".products_list", data).html());
+          $('#ajax-loader').hide();
+          is_loading=0;
+        });
+      }
+    }
+  });
 });
+

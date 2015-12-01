@@ -41,10 +41,8 @@
 										%li
 											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
 		-elsif @products && ! @products.empty?
-			-# .row
-			-# 	.col-sm-6
-			-# 		#paginator= paginate @products 
-			.row
+			.row.products_list
 				- @products.each do |product|
 					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
-			#paginator= paginate @products 
+			#ajax-loader{style: 'display:none;text-align: center;', data: {pages: @products.total_pages}}
+				=image_tag 'ajax-loader.gif'
