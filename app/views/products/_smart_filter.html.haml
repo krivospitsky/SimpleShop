@@ -15,7 +15,7 @@
 				-@filters.keys.each do |param|
 					%li.list-group-item
 						.filter-param= param
-						-@filters[param].each do |val|
+						-@filters[param].sort.each do |val|
 							-checked=@current_filters[param] && @current_filters[param].include?(val)
 							.btn-group{:'data-toggle' => :buttons}
 								%label.btn.btn-default{class: checked ? 'active' : ''}
