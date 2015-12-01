@@ -51,20 +51,6 @@ skip_before_filter :verify_authenticity_token
 
                 product.enabled=true
                 product.save
-                if product.images.empty?
-                	doc = Nokogiri::HTML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?filter=externalCode%3D#{product.external_id}",
-                		http_basic_authentication: ["admin@mama40", "adminmama"]))
-                	doc.xpath('//images/image').each do |img|
-                		img_url="https://online.moysklad.ru/app/download/#{img.xpath('uuid').first.content}"
-						`wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=admin@mama40&j_password=adminmama&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
-						sleep 2
-                		image=product.images.new          
-                		File.open('tmp/product_image.jpg') do |f|
-  							image.image = f
-						end
-                		image.save
-                	end
-                end
     		end
 
     		doc.xpath('КоммерческаяИнформация/ПакетПредложений/Предложения/Предложение').each do |var|    			
