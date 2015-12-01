@@ -104,12 +104,14 @@ class ProductsController < ApplicationController
             end
           else
             # @products=@products.joins(:attrs).joins(variants:{:attrs}).where()
-            @products=@products.joins(:attrs).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
+
+            # @products=@products.joins(:attrs).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
+            @products=@products.joins('LEFT OUTER JOIN "attrs" ON "attrs"."product_id" = "products"."id"').joins('LEFT OUTER JOIN "variants" ON "variants"."product_id" = "products"."id" AND "variants"."enabled" = \'t\'').joins('LEFT OUTER JOIN "variant_attrs" ON "variant_attrs"."variant_id" = "variants"."id"').where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name]).uniq
             @current_filters[param_name] = filter[param_name]            
           end
         end        
       end
-      @products=Product.where('id in (?)', @products.pluck(:id)) 
+      # @products=Product.where('id in (?)', @products.pluck(:id)) 
     end
 
     @min_price||=@products.pluck(:min_price).min
