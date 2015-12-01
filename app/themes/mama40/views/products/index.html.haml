@@ -1,0 +1,50 @@
+=render '/categories/breadcrumbs'
+.row
+	.col-sm-8
+		%h1.category_name= @category.name
+	.col-sm-4
+		%form.form-inline.pull-right
+			.form-group
+				%label Сортировка
+				%select#sort_order.form-control
+					%option{value: 'default', selected: @sort_order=='default'} По умолчанию
+					%option{value: 'name', selected: @sort_order=='name'} По названию
+					%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
+					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
+					-# %option По дате поступления
+.row
+	.col-sm-4.col-md-3
+		=render '/categories/smart_tree'
+		-unless Settings::disable_filters
+			=render '/products/smart_filter'
+	.col-sm-8.col-md-9
+
+		-if @category
+			-if @category.image.present? || @category.description.present?
+				.panel.panel-default
+					-if @category.image.present?
+						.row
+							.col-md-3= image_tag(@category.image.url(:product_list))
+							.col-md-9= raw @category.description
+					-else
+						= raw @category.description
+
+		-if @category && !@category.parent && @category.children.enabled.present?
+			.categories_list
+				%ul
+					- @category.children.enabled.each do |child|					
+						%li
+							= link_to child.name, category_path(child.path, child.id)
+							-if child.children.count>0
+								%ul
+									- child.children.enabled.each do |sub_child|					
+										%li
+											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
+		-elsif @products && ! @products.empty?
+			-# .row
+			-# 	.col-sm-6
+			-# 		#paginator= paginate @products 
+			.row
+				- @products.each do |product|
+					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+			#paginator= paginate @products 
