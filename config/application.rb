@@ -26,6 +26,7 @@ module Shop
     config.assets.precompile += %w(ckeditor/*)
     config.assets.precompile += ['admin/admin.css', 'admin/admin.js']
 
+    config.active_job.queue_adapter = :delayed_job
     config.exceptions_app = self.routes
   end
 end

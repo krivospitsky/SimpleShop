@@ -96,3 +96,5 @@ gem 'roo'
 gem 'roo-xls'
 
 gem 'amoeba'
+
+gem 'delayed_job_active_record'
