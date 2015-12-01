@@ -12,7 +12,8 @@ class Product < ActiveRecord::Base
   has_many :variants, :dependent => :destroy
   accepts_nested_attributes_for :variants, allow_destroy:true
 
-  has_many :variant_attrs, through: :variants, source: :attrs #, :conditions=> [enabled: true]
+
+  has_many :variant_attrs, -> {where :'variants.enabled' => true}, through: :variants, source: :attrs
 
   has_and_belongs_to_many(:categories,
     :join_table => "categories_products")

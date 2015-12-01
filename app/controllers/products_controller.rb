@@ -89,21 +89,31 @@ class ProductsController < ApplicationController
 
       #фильтрация
       filter=params[:filter]
+      @current_filters=Hash.new 
       if filter
         filter.keys.each do |param_name|
-          if param_name == 'min-price' && filter['min-price'] && filter['min-price'].to_i >0
-            @products=@products.where('min_price>=?', filter['min-price'])
-          elsif param_name == 'max-price' && filter['max-price'] && filter['max-price'].to_i >0
-            @products=@products.where('max_price<=?', filter['max-price'])
+          if param_name == 'min-price'
+            if filter['min-price'] && filter['min-price'].to_i >0
+              @products=@products.where('min_price>=?', filter['min-price'])
+              @min_price=filter['min-price'].to_i
+            end
+          elsif param_name == 'max-price'
+            if filter['max-price'] && filter['max-price'].to_i >0
+              @products=@products.where('max_price<=?', filter['max-price'])
+              @max_price=filter['max-price'].to_i
+            end
           else
             # @products=@products.joins(:attrs).joins(variants:{:attrs}).where()
-            @products=@products.joins(:attrs).joins(:variants).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variants.enabled = true and variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
-            @products=Product.where('id in (?)', @products.pluck(:id))
+            @products=@products.joins(:attrs).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
+            @current_filters[param_name] = filter[param_name]            
           end
-        end
+        end        
       end
+      @products=Product.where('id in (?)', @products.pluck(:id)) 
     end
 
+    @min_price||=@products.pluck(:min_price).min
+    @max_price||=@products.pluck(:max_price).max
     @products=@products.order(sort_key => sort_dir).page(params[:page])
   end
 end

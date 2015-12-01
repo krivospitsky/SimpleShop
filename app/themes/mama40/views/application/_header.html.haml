@@ -1,17 +1,19 @@
 %header.header
-  .container-fixed
-    .articles
+  .container-fixed.clearfix 
+    .articles.pull-left
       %ul
         -Page.in_menu.each do |page|
           %li
             =link_to page.name, page_path(page)
+    .search.pull-right
+      = render 'search'
   %hr
   .container-fixed
     .row
-      .col-sm-2
+      .col-xs-2
         =link_to root_path do
           =image_tag 'logo_mama40.png', class: 'logo'
-      .col-sm-3
+      .col-xs-3
         .strong Интернет магазин
         Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
       .col-sm-3
@@ -31,7 +33,7 @@
       -#   .contacts
       -#     =raw Settings.contacts
 
-.scroller_anchor
+-# .scroller_anchor
 .scroller
   .container-fixed.topbar
     %nav.navbar-default.text-center
@@ -55,6 +57,4 @@
             %li
               =link_to cat.name, category_path(cat.path, cat.id)
             %li.divider-vertical
-        %ul.nav.navbar-nav.navbar-right
-          %li 
-            %a Поиск
+    

@@ -1,16 +1,25 @@
 -if @filters
-	.panel.panel-default
-		.panel-heading
-			%strong
-				Фильтр
-		%ul.list-group
-			-@filters.keys.each do |param|
+	%form
+		.panel.panel-default.filters
+			.panel-heading
+				%strong
+					Фильтр
+			%ul.list-group
 				%li.list-group-item
-					.filter-param= param
-					%ul
+					.filter-param Цена
+					.price-block
+						.pull-left от
+						%input.form-control.min-price{name: 'filter[min-price]', value: @min_price}
+						.pull-left до
+						%input.form-control.max-price{name: 'filter[max-price]', value: @max_price}
+				-@filters.keys.each do |param|
+					%li.list-group-item
+						.filter-param= param
 						-@filters[param].each do |val|
-							%li
-								=val
-		.panel-footer
-			.btn.btn-primary Показать
-			.btn.btn-default Сбросить
+							-checked=@current_filters[param] && @current_filters[param].include?(val)
+							.btn-group{:'data-toggle' => :buttons}
+								%label.btn.btn-default{class: checked ? 'active' : ''}
+									%input{type: :checkbox, autocomplete: :off, name: "filter[#{param}][]", value: val, checked: checked}= val								
+			.panel-footer
+				%input.btn.btn-primary{type: 'submit', value: 'Показать'} 
+				.btn.btn-default Сбросить

@@ -19,6 +19,9 @@ $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-active-color: #fff;
 
+$screen-md-min: 475px;
+
+
 @import "application";
 
 
@@ -27,6 +30,7 @@ $navbar-default-link-active-color: #fff;
 .header{
   .container-fixed{
     padding-top: 1px;
+    padding-bottom: 0;
   }
   color: #000;
   background-color: #fff;
@@ -51,6 +55,9 @@ $navbar-default-link-active-color: #fff;
         }
       }
     }
+  }
+  .search{
+    margin-top: 7px;
   }
   .glyphicon-shopping-cart{
     font-size: 40px;
