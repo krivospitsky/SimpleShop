@@ -34,7 +34,7 @@
             -variant.attrs.each do |attr|
               %td= attr.value
             %td= variant.availability
-            %td= raw variant.price_str
+            %td.price= raw variant.price_str
             %td
               -if Settings.hide_count_in_product
                 = f.hidden_field :quantity
