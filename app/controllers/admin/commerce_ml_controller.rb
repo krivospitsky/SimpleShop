@@ -8,7 +8,7 @@ skip_before_filter :verify_authenticity_token
 		end
 
 		if params[:mode]=='init'
-			dir='tmp/commerceml'
+			dir='public/uploads/commerceml'
 			FileUtils.mkdir_p(dir) unless File.directory?(dir)
 			# FileUtils.rm_rf(dir)
 			render plain: "zip=no\nfile_limit=10670080"
@@ -16,7 +16,7 @@ skip_before_filter :verify_authenticity_token
 
 		if params[:mode]=='file'
 		    name = params[:filename]
-    		dir = "tmp/commerceml"
+    		dir = "public/uploads/commerceml"
     		path = File.join(dir, name)
     		File.open(path, "wb") { |f| f.write(request.raw_post) }
 			render plain: "success"
