@@ -7,9 +7,10 @@
     .col-sm-7
       %h1{itemprop:"name"}= @product.name
       .price= raw @product.variants.first.price_str
-      .sku.block
-        .strong Артикул:
-        =@product.sku
+      -if @product.sku.present?
+        .sku.block
+          .strong Артикул:
+          =@product.sku
 
         -if @product.variants.enabled.count==1 || (@product.variants.enabled.count>1 && @product.variants.enabled.first.attrs.count<2)
           = form_for @cart_item, remote: true do |f|
@@ -31,9 +32,10 @@
             %button.btn.btn-lg.btn-primary.block{type:'submit'}
               %span.glyphicon.glyphicon-shopping-cart
               Купить
-      .description.block
-        .strong Описание
-        =raw @product.description
+      -if @product.description.present?              
+        .description.block
+          .strong Описание
+          =raw @product.description
 
 
   -# = render 'products/single_variant_properties', product: @product
