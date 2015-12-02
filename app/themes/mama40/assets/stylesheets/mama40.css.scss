@@ -36,9 +36,14 @@ $screen-md-min: 475px;
   background-color: #fff;
   text-align: justify;
   font-size: 12px;
+  .footer-articles{
+    list-style: none;
+    margin-left: 10px;
+    padding-left: 0px;
+  }
   .footer-cats{
-    -moz-column-count: 2;
-    column-count: 2;
+    -moz-column-count: 3;
+    column-count: 3;
     list-style: none;
     margin: 0;
     li{
