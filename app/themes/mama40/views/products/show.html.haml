@@ -12,26 +12,26 @@
           .strong Артикул:
           =@product.sku
 
-        -if @product.variants.enabled.count==1 || (@product.variants.enabled.count>1 && @product.variants.enabled.first.attrs.count<2)
-          = form_for @cart_item, remote: true do |f|
-            -if @product.variants.enabled.first.attrs.present?
-              .size.block
-                .strong= @product.variants.enabled.first.attrs.first.name
-                .btn-group{:'data-toggle' => :buttons}
-                  -list=Hash.new
-                  -@product.variants.enabled.each do |var|
-                    -list[var.attrs.first.value]=var.id
-                  -list.keys.sort.each do |var|
-                    %label.btn.btn-default
-                      %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
-            -else
-              %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
-                
-            = f.hidden_field :product_id
-            = f.hidden_field :quantity
-            %button.btn.btn-lg.btn-primary.block{type:'submit'}
-              %span.glyphicon.glyphicon-shopping-cart
-              Купить
+      -if @product.variants.enabled.count==1 || (@product.variants.enabled.count>1 && @product.variants.enabled.first.attrs.count<2)
+        = form_for @cart_item, remote: true do |f|
+          -if @product.variants.enabled.first.attrs.present?
+            .size.block
+              .strong= @product.variants.enabled.first.attrs.first.name
+              .btn-group{:'data-toggle' => :buttons}
+                -list=Hash.new
+                -@product.variants.enabled.each do |var|
+                  -list[var.attrs.first.value]=var.id
+                -list.keys.sort.each do |var|
+                  %label.btn.btn-default
+                    %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
+          -else
+            %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
+              
+          = f.hidden_field :product_id
+          = f.hidden_field :quantity
+          %button.btn.btn-lg.btn-primary.block{type:'submit'}
+            %span.glyphicon.glyphicon-shopping-cart
+            Купить
       -if @product.description.present?              
         .description.block
           .strong Описание
