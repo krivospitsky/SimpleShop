@@ -157,6 +157,11 @@ h1.category_name{
   margin: 0;
 }
 
+
+.product_item_outer{
+  padding: 0;
+}
+
 .product_item{
   border: 1px solid lighten($brand-primary, 30%);
   margin: 2px;

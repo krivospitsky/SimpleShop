@@ -11,7 +11,7 @@ skip_before_filter :verify_authenticity_token
 			dir='public/uploads/commerceml'
 			FileUtils.mkdir_p(dir) unless File.directory?(dir)
 			FileUtils.rm_f(File.join(dir, 'import.xml'))
-			FileUtils.rm_f(File.join(dir, 'import.xml'))
+			FileUtils.rm_f(File.join(dir, 'offers.xml'))
 			# FileUtils.rm_rf(dir)
 			render plain: "zip=no\nfile_limit=10670080"
 		end

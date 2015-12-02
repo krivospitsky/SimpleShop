@@ -12,35 +12,35 @@ class ImportCommercemlJob < ActiveJob::Base
 	end
 
 	doc.xpath('КоммерческаяИнформация/Каталог/Товары/Товар').each do |prod|    			
-		product=Product.find_or_initialize_by(external_id: prod.xpath('Ид').first.content)
-		product.sku=prod.xpath('Артикул').first.content
-		product.name=prod.xpath('Наименование').first.content
+		product=Product.find_or_initialize_by(external_id: prod.xpath('Ид').first.content.strip)
+		product.sku=prod.xpath('Артикул').first.content.strip
+		product.name=prod.xpath('Наименование').first.content.strip
 
 		puts product.name
 
 		prod.xpath('ЗначенияРеквизитов/ЗначениеРеквизита').each do |rec|    			
 			if rec.xpath('Наименование').first.content == 'Полное наименование'
-				product.description = rec.xpath('Значение').first.content
+				product.description = rec.xpath('Значение').first.content.strip
 			end
 		end
 
 		product.categories.delete_all
         prod.xpath('Группы/Ид').each do |cat|
-        	product.categories << Category.find_by(external_id: cat.content)
+        	product.categories << Category.find_by(external_id: cat.content.strip)
         end
         product.enabled=true
         product.save
 	end
 
 	doc.xpath('КоммерческаяИнформация/ПакетПредложений/Предложения/Предложение').each do |var|    			
-		variant=Variant.find_or_initialize_by(external_id: var.xpath('Ид').first.content)
+		variant=Variant.find_or_initialize_by(external_id: var.xpath('Ид').first.content.strip)
 		variant.product=Product.find_by(external_id: variant.external_id.split('#')[0])
 		var.xpath('Цены/Цена').each do |price|
-			if price.xpath('ИдТипаЦены').first.content == 'cbcf493b-55bc-11d9-848a-00112f43529a'
-				variant.price=price.xpath('ЦенаЗаЕдиницу').first.content
+			if price.xpath('ИдТипаЦены').first.content.strip == 'cbcf493b-55bc-11d9-848a-00112f43529a'
+				variant.price=price.xpath('ЦенаЗаЕдиницу').first.content.strip
 			end
 		end
-		variant.count=var.xpath('Количество').first.content
+		variant.count=var.xpath('Количество').first.content.strip
 		if variant.count>0
 			variant.availability='В наличии'
 			variant.enabled=true
@@ -61,8 +61,8 @@ class ImportCommercemlJob < ActiveJob::Base
 				variant.name+=', '    					
 			end
 			a=variant.attrs.new
-			a.name=v_attr.xpath('Наименование').first.content
-			a.value=v_attr.xpath('Значение').first.content
+			a.name=v_attr.xpath('Наименование').first.content.strip
+			a.value=v_attr.xpath('Значение').first.content.strip
 			a.save
 			variant.name+= "#{a.name.mb_chars.downcase.to_s} #{a.value}"
 			variant.sku+="_#{a.value}"
@@ -78,7 +78,7 @@ class ImportCommercemlJob < ActiveJob::Base
 	private
 
 	def process_group(group, parent_gr=nil)
-		category=Category.find_or_initialize_by(external_id: group.xpath('Ид').first.content )
+		category=Category.find_or_initialize_by(external_id: group.xpath('Ид').first.content.strip )
 		category.name=group.xpath('Наименование').first.content.strip
 		puts category.name
 		category.parent=parent_gr if parent_gr
