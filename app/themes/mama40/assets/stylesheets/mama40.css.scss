@@ -89,7 +89,7 @@ $screen-md-min: 475px;
   font-weight: bold;
   border-radius: 5px;
   border: 1px solid rgba(164, 119, 201, 0.7);
-  overflow: hidden;
+  /*overflow: hidden;*/
   background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;
   li{
     a:hover{

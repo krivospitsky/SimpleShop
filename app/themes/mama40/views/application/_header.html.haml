@@ -56,9 +56,13 @@
           -#     %span &nbsp;
           -#     %span.hidden-sm.shown-xs Главная
 
-          %li.nav-divider{role: :separator}
+          -# %li.nav-divider{role: :separator}
           -Category.root.enabled.each do |cat|        
-            %li
-              =link_to cat.name, category_path(cat.path, cat.id)
+            %li.dropdown
+              =link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle', data: {toggle: 'dropdown', hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
+              %ul.dropdown-menu
+                -cat.children.enabled.each do |subcat|
+                  %li
+                    =link_to subcat.name, category_path(subcat.path, subcat.id)
             %li.divider-vertical
     
