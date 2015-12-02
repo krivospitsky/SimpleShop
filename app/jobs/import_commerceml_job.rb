@@ -93,7 +93,7 @@ class ImportCommercemlJob < ActiveJob::Base
 		category.name=group.xpath('Наименование').first.content.strip
 		puts category.name
 		category.parent=parent_gr if parent_gr
-		category.enabled=true
+		category.enabled=true if category.new_record?
 		category.save
 
 		group.xpath('Группы/Группа').each do |sub_group|
