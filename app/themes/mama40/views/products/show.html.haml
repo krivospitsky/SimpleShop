@@ -25,11 +25,11 @@
           -else
             %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
               
-        = f.hidden_field :product_id
-        = f.hidden_field :quantity
-        %button.btn.btn-lg.btn-primary.block{type:'submit'}
-          %span.glyphicon.glyphicon-shopping-cart
-          Купить
+          = f.hidden_field :product_id
+          = f.hidden_field :quantity
+          %button.btn.btn-lg.btn-primary.block{type:'submit'}
+            %span.glyphicon.glyphicon-shopping-cart
+            Купить
       .description.block
         .strong Описание
         =raw @product.description
