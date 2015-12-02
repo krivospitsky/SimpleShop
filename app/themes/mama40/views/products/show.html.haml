@@ -11,18 +11,20 @@
         .strong Артикул:
         =@product.sku
 
-      = form_for @cart_item, remote: true do |f|
-        -if @product.variants.enabled.first.attrs.present?
-          .size.block
-            .strong Выбрать размер
-            .btn-group{:'data-toggle' => :buttons}
-              -list=Hash.new
-              -@product.variants.enabled.each do |var|
-                -list[var.attrs.first.value]=var.id
-              -list.keys.sort.each do |var|
-                -# %li{id: list[var]}= var
-                %label.btn.btn-default
-                  %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
+        = form_for @cart_item, remote: true do |f|
+          -if @product.variants.enabled.first.attrs.present?
+            .size.block
+              .strong= @product.variants.enabled.first.attrs.first.name
+              .btn-group{:'data-toggle' => :buttons}
+                -list=Hash.new
+                -@product.variants.enabled.each do |var|
+                  -list[var.attrs.first.value]=var.id
+                -list.keys.sort.each do |var|
+                  %label.btn.btn-default
+                    %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
+          -else
+            %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
+              
         = f.hidden_field :product_id
         = f.hidden_field :quantity
         %button.btn.btn-lg.btn-primary.block{type:'submit'}
@@ -36,6 +38,6 @@
   -# = render 'products/single_variant_properties', product: @product
   -# =render 'products/tabs'
        
-  -# =render 'products/variants_table', product: @product
+  -# 
 
   =render 'products/linked_products', linked: @linked
