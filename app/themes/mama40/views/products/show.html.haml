@@ -12,18 +12,18 @@
         =@product.sku
 
       = form_for @cart_item, remote: true do |f|
-        .size.block
-          .strong Выбрать размер
-          .btn-group{:'data-toggle' => :buttons}
-            -list=Hash.new
-            -@product.variants.enabled.each do |var|
-              -list[var.attrs.first.value]=var.id
-            -list.keys.sort.each do |var|
-              -# %li{id: list[var]}= var
-              %label.btn.btn-default
-                %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
+        -if @product.variants.enabled.first.attrs.present?
+          .size.block
+            .strong Выбрать размер
+            .btn-group{:'data-toggle' => :buttons}
+              -list=Hash.new
+              -@product.variants.enabled.each do |var|
+                -list[var.attrs.first.value]=var.id
+              -list.keys.sort.each do |var|
+                -# %li{id: list[var]}= var
+                %label.btn.btn-default
+                  %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
         = f.hidden_field :product_id
-        -# %input(id="cart_item_variant_id" type="hidden" value="#{@product.variants.enabled.first.id}" name="cart_item[variant_id]")
         = f.hidden_field :quantity
         %button.btn.btn-lg.btn-primary.block{type:'submit'}
           %span.glyphicon.glyphicon-shopping-cart
@@ -39,13 +39,3 @@
   -# =render 'products/variants_table', product: @product
 
   =render 'products/linked_products', linked: @linked
-
--# :javascript
--#   $(document).ready( function() {
--#     $('.size ul li').first().addClass('active')
--#     $('.size ul li').on('click', function(event){
--#       $('#cart_item_variant_id').val($(event.target).attr('id'))      
--#       $('.size ul li.active').removeClass('active')
--#       $(event.target).addClass('active')
--#     })
--#   })
