@@ -27,7 +27,7 @@ $screen-md-min: 475px;
 
 
 
-.header{
+.header,.footer{
   .container-fixed{
     padding-top: 1px;
     padding-bottom: 0;
@@ -36,6 +36,26 @@ $screen-md-min: 475px;
   background-color: #fff;
   text-align: justify;
   font-size: 12px;
+  .footer-cats{
+    -moz-column-count: 2;
+    column-count: 2;
+    list-style: none;
+    margin: 0;
+    li{
+      a{
+        color: #000;
+      }
+      page-break-inside: avoid;      
+      ul{
+        list-style: none;
+        margin-left: 10px;
+        padding-left: 0px;
+        a{
+          color: $brand-primary;
+        }
+      }
+    }
+  }
   .social{
     width: 100%;
     padding-top: 5px;
