@@ -73,6 +73,17 @@ class ImportCommercemlJob < ActiveJob::Base
 		puts variant.name
 		variant.save    			
 	end
+
+	if name =='offers.xml'
+		# Variant.where("updated_at < ? and updated_at >= ?", 1.day.ago, 2.week.ago, like_str).update_all(availability: 'Уточнить у менеджера')
+		Product.all.each do |prod|
+			if prod.variants.enabled.empty?
+				puts "товар #{prod.name} недоступен"
+				prod.enabled=false
+				prod.save
+			end
+		end		
+	end
   end
 
 	private
