@@ -96,6 +96,11 @@ $screen-md-min: 475px;
       background-color: #fff !important;
       color: $brand-primary !important;
     }
+    &:first-child{
+      a{
+        border-radius: 4px 0 0 4px;
+      }
+    }
   }
   .divider-vertical {
     height: 50px;

@@ -1,68 +1,72 @@
 %header.header
-  .container-fixed.clearfix 
-    .articles.pull-left
-      %ul
-        -Page.in_menu.each do |page|
-          %li
-            =link_to page.name, page_path(page)
-    .search.pull-right
-      = render 'search'
-  %hr
-  .container-fixed
-    .row
-      .col-xs-2
-        =link_to root_path do
-          =image_tag 'logo_mama40.png', class: 'logo'
-      .col-xs-3
-        .strong Интернет магазин
-        Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
-      .col-sm-3
-        .strong Розничный магазин
-        .address г. Калуга, ул. Московская, д. 24
-        .timetable Пн-Пт 10:00 - 19:00
-        .timetable Сб-Вс 10:00 - 17:00
-      .col-sm-2
-        .strong 8 (4842) 40-00-54
-        .strong 8 (930) 754-00-54
-        info@mama40.ru
-        %a{href: 'http://vk.com/mama40ru', target: '_blank'}
-          =image_tag 'vk.png', class: 'social'
-        %a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
-          =image_tag 'ok.png', class: 'social'
-        
-      .col-sm-2
-        = render 'cart'
-      -# .col-sm-3
-      -#   = render 'search'
-      -#   .contacts
-      -#     =raw Settings.contacts
+	.container-fixed.clearfix 
+		.articles.pull-left
+			%ul
+				-Page.in_menu.each do |page|
+					%li
+						=link_to page.name, page_path(page)
+		.search.pull-right
+			= render 'search'
+	%hr
+	.container-fixed
+		.row
+			.col-xs-2
+				=link_to root_path do
+					=image_tag 'logo_mama40.png', class: 'logo'
+			.col-xs-3
+				.strong Интернет магазин
+				Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
+			.col-sm-3
+				.strong Розничный магазин
+				.address г. Калуга, ул. Московская, д. 24
+				.timetable Пн-Пт 10:00 - 19:00
+				.timetable Сб-Вс 10:00 - 17:00
+			.col-sm-2
+				.strong 8 (4842) 40-00-54
+				.strong 8 (930) 754-00-54
+				info@mama40.ru
+				%a{href: 'http://vk.com/mama40ru', target: '_blank'}
+					=image_tag 'vk.png', class: 'social'
+				%a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
+					=image_tag 'ok.png', class: 'social'
+				
+			.col-sm-2
+				= render 'cart'
+			-# .col-sm-3
+			-#   = render 'search'
+			-#   .contacts
+			-#     =raw Settings.contacts
 
 -# .scroller_anchor
 .scroller
-  .container-fixed.topbar
-    %nav.navbar-default.text-center
-      .navbar-header.navbar-right
-        %button.navbar-toggle.collapsed{data: {toggle:"collapse", target:"#bs-example-navbar-collapse-1"}, type: "button"}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+	.container-fixed.topbar
+		%nav.navbar-default.text-center
+			.navbar-header.navbar-right
+				%button.navbar-toggle.collapsed{data: {toggle:"collapse", target:"#bs-example-navbar-collapse-1"}, type: "button"}
+					%span.sr-only Toggle navigation
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
 
-      .collapse.navbar-collapse#bs-example-navbar-collapse-1
-        %ul.nav.navbar-nav
-          -# %li
-          -#   %a{href: root_path}
-          -#     .glyphicon.glyphicon-home
-          -#     %span &nbsp;
-          -#     %span.hidden-sm.shown-xs Главная
+			.collapse.navbar-collapse#bs-example-navbar-collapse-1
+				%ul.nav.navbar-nav
+					-# %li
+					-#   %a{href: root_path}
+					-#     .glyphicon.glyphicon-home
+					-#     %span &nbsp;
+					-#     %span.hidden-sm.shown-xs Главная
 
-          -# %li.nav-divider{role: :separator}
-          -Category.root.enabled.each do |cat|        
-            %li.dropdown
-              =link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle', data: {toggle: 'dropdown', hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
-              %ul.dropdown-menu
-                -cat.children.enabled.each do |subcat|
-                  %li
-                    =link_to subcat.name, category_path(subcat.path, subcat.id)
-            %li.divider-vertical
-    
+					-# %li.nav-divider{role: :separator}
+					-Category.root.enabled.each do |cat|    
+						-if cat.children.enabled.present?
+							%li.dropdown
+								=link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
+								%ul.dropdown-menu
+									-cat.children.enabled.each do |subcat|
+										%li
+											=link_to subcat.name, category_path(subcat.path, subcat.id)
+						-else
+							%li
+								=link_to cat.name, category_path(cat.path, cat.id)
+						%li.divider-vertical
+		
