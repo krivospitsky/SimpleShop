@@ -41,11 +41,11 @@ $(document).ready(function() {
   })
 
   var page = 1;
+  var is_loading = 0;
   $(window).scroll(function() {
     height = window.innerHeight ? window.innerHeight : $(window).height();
     if ($(window).scrollTop() >= $(document).height() - height - 100) {
-      if (!is_loading && page < $('#ajax-loader').attr('data-pages'))
-      {
+      if (!is_loading && page < $('#ajax-loader').attr('data-pages')){
         $('#ajax-loader').show();
         page = page + 1;
         is_loading=1;

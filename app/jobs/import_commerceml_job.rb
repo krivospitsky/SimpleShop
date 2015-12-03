@@ -63,6 +63,7 @@ class ImportCommercemlJob < ActiveJob::Base
 			a=variant.attrs.new
 			a.name=v_attr.xpath('Наименование').first.content.strip
 			a.value=v_attr.xpath('Значение').first.content.strip
+			a.value.match(/\((.+)\)/)
 			a.save
 			variant.name+= "#{a.name.mb_chars.downcase.to_s} #{a.value}"
 			variant.sku+="_#{a.value}"
