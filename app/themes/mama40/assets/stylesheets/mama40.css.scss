@@ -136,6 +136,19 @@ $screen-md-min: 475px;
   .navbar-collapse{
     padding: 0px;
   }
+  .dropdown-menu{
+    li{
+      page-break-inside: avoid;
+      .level-3{
+        list-style: none;
+        font-weight: normal;
+      }
+    }
+  }
+  .dropdown-menu-columns{
+    -moz-column-count: 2;
+    column-count: 2;
+  }
 }
 
 

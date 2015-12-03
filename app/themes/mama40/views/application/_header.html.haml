@@ -61,12 +61,15 @@
 						-if cat.children.enabled.present?
 							%li.dropdown
 								=link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
-								%ul.dropdown-menu
+								%ul.dropdown-menu{class: (cat.children.enabled.count>7) ? 'dropdown-menu-columns' : ''}
 									-cat.children.enabled.each do |subcat|
 										%li
 											=link_to subcat.name, category_path(subcat.path, subcat.id)
+											-if subcat.children.enabled.present?
+												%ul.level-3
+													-subcat.children.enabled.each do |subcat2|
+														%li= link_to subcat2.name, category_path(subcat2.path, subcat2.id)
 						-else
-							%li
-								=link_to cat.name, category_path(cat.path, cat.id)
+							%li= link_to cat.name, category_path(cat.path, cat.id)
 						%li.divider-vertical
 		
