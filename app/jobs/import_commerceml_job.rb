@@ -20,7 +20,7 @@ class ImportCommercemlJob < ActiveJob::Base
 
 		prod.xpath('ЗначенияРеквизитов/ЗначениеРеквизита').each do |rec|    			
 			if rec.xpath('Наименование').first.content == 'Полное наименование'
-				product.description = rec.xpath('Значение').first.content.strip
+				product.description = rec.xpath('Значение').first.content.strip.gsub("\n", "<br>\n")
 			end
 		end
 

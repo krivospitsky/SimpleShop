@@ -20,7 +20,7 @@
 			-# 	%a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
 			-# 		=image_tag 'ok.png', class: 'social'
 
-			.col-sm-9
+			.col-sm-10
 				%ul.footer-cats
 					-Category.root.enabled.each do |cat|    
 						-if cat.children.enabled.present?
@@ -34,7 +34,7 @@
 							%li
 								=link_to cat.name, category_path(cat.path, cat.id), class: 'strong'
 
-			.col-sm-3
+			.col-sm-2
 				.strong Помощь
 				%ul.footer-articles
 					-Page.in_menu.each do |page|
