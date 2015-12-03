@@ -50,7 +50,7 @@ $(document).ready(function() {
         page = page + 1;
         is_loading=1;
 
-        $.ajax(document.location + '&page=' + page, {type:"xml"}).done(function(data){
+        $.ajax(addParameterToURL('page=' + page)).done(function(data){
           $(".products_list").append($(".products_list", data).html());
           $('#ajax-loader').hide();
           is_loading=0;
@@ -60,3 +60,8 @@ $(document).ready(function() {
   });
 });
 
+function addParameterToURL(param){
+    _url = location.href;
+    _url += (_url.split('?')[1] ? '&':'?') + param;
+    return _url;
+}
