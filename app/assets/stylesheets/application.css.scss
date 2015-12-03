@@ -218,3 +218,22 @@
     color: #fff;
     background-color: #555;
 }
+
+
+#scroller{
+    position: fixed;    
+    /** позиция кнопки scroll to top **/
+    top: 0px;
+    bottom: 0px;   
+    /** картинка кнопки наверх**/
+    // background: transparent url(arrow.png) no-repeat left top;  
+    width: 80px;
+    background-color: #E1E7ED;
+    color: $brand-primary;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 9px;
+    cursor: pointer;
+    /** скрываем кнопку в начале **/
+    display:none;
+}
