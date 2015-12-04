@@ -54,6 +54,8 @@ $(document).ready(function() {
           $(".products_list").append($(".products_list", data).html());
           $('#ajax-loader').hide();
           is_loading=0;
+          $(".name").matchHeight({byRow: true});
+          $(".product_item").matchHeight({byRow: true});          
         });
       }
     }
