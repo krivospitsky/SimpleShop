@@ -1,0 +1,12 @@
+%ul.nav.nav-tabs
+
+= simple_form_for [:admin, @user] do |f|
+  = f.input :name
+  = f.input :card_number
+  = f.input :discount
+  = f.input :email
+  = f.input :password
+
+  = f.button :submit
+
+  = link_to 'Cancel', admin_slides_path, class: 'btn btn-default'

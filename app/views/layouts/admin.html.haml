@@ -83,6 +83,12 @@
                 &nbsp;
                 Слайдер
 
+            %li{class: controller_name=='users' ? 'active' : ''}
+              =link_to admin_users_path do
+                %span.glyphicon.glyphicon-user
+                &nbsp;
+                Пользователи
+
             -if Settings.theme == 'fish'
               %li{class: controller_name=='moscanella' ? 'active' : ''}
                 =link_to 'Импорт Moscanella', '/admin/moscanella/new'

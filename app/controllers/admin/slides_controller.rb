@@ -4,6 +4,6 @@ class Admin::SlidesController < Admin::BaseController
 	private
 
 	def permitted_params
-		params.require(:slide).permit(:name, :enabled, :start_at, :end_at, :image)
+		params.require(:slide).permit(:name, :enabled, :start_at, :end_at, :image, :url)
 	end
 end

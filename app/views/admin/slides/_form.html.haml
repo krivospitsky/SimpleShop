@@ -3,7 +3,7 @@
 = simple_form_for [:admin, @slide] do |f|
   = f.input :name
   = f.input :enabled
-  = f.input :image, as: :image_preview
+  = f.input :url
   .row
     %label.col-sm-3.control-label
       Период показа
@@ -13,5 +13,7 @@
       по
       = f.input_field :end_at, as: :string
 
+  = f.input :image, as: :image_preview
   = f.button :submit
+  
   = link_to 'Cancel', admin_slides_path, class: 'btn btn-default'

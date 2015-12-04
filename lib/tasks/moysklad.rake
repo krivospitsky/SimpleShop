@@ -19,4 +19,21 @@ namespace :moysklad do
             end
         end
 	end
+	task :import_users => :environment do
+    	doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Company/list",
+    		http_basic_authentication: ["admin@mama40", "adminmama"]))
+        doc.xpath('/collection/company').each do |user|
+        	card=user.attr('discountCardNumber')
+        	if card && card!=''
+	        	u=User.find_or_initialize_by(card_number: card)
+	        	u.name=user.attr('name')
+	        	u.discount=user.attr('autoDiscount')
+	        	u.email="#{card}@moysklad.ru"
+	        	puts u.email
+	        	u.password=Devise.friendly_token[0,20]
+				# u.skip_confirmation!
+				u.save!
+			end
+        end
+	end
 end
