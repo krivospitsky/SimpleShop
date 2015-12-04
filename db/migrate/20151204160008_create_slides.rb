@@ -17,7 +17,7 @@ class CreateSlides < ActiveRecord::Migration
         s.start_at=p.start_at
         s.end_at=p.end_at
         s.enabled=p.enabled
-        s.image = p.image.file
+        s.image = p.banner.file
         s.save
         p.delete
       end

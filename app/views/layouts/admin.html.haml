@@ -77,6 +77,11 @@
                 %span.glyphicon.glyphicon-shopping-cart
                 &nbsp;
                 Заказы
+            %li{class: controller_name=='slides' ? 'active' : ''}
+              =link_to admin_slides_path do
+                %span.glyphicon.glyphicon-film
+                &nbsp;
+                Слайдер
 
             -if Settings.theme == 'fish'
               %li{class: controller_name=='moscanella' ? 'active' : ''}

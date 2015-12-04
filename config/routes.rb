@@ -104,6 +104,7 @@ Shop::Application.routes.draw do
     resources :pages
     resources :orders
     resources :promotions
+    resources :slides
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
     get '/moscanella/new' => '/admin/moscanella#new'

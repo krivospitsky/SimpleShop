@@ -1,0 +1,17 @@
+%ul.nav.nav-tabs
+
+= simple_form_for [:admin, @slide] do |f|
+  = f.input :name
+  = f.input :enabled
+  = f.input :image, as: :image_preview
+  .row
+    %label.col-sm-3.control-label
+      Период показа
+    .col-sm-6
+      c
+      = f.input_field :start_at, as: :string
+      по
+      = f.input_field :end_at, as: :string
+
+  = f.button :submit
+  = link_to 'Cancel', admin_slides_path, class: 'btn btn-default'
