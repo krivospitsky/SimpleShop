@@ -32,6 +32,7 @@ $(document).ready(function() {
   });
 
   $(".name").matchHeight({byRow: true});
+  $(".image_outer").matchHeight({byRow: true});  
   $(".product_item").matchHeight({byRow: true});
 
   $('.add-to-cart').on('click', function(){
@@ -55,7 +56,8 @@ $(document).ready(function() {
           $('#ajax-loader').hide();
           is_loading=0;
           $(".name").matchHeight({byRow: true});
-          $(".product_item").matchHeight({byRow: true});          
+          $(".image_outer").matchHeight({byRow: true});  
+          $(".product_item").matchHeight({byRow: true});
         });
       }
     }

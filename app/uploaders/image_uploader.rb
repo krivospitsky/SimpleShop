@@ -39,7 +39,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :product_list do
-     process :resize_to_fit => [230, -1]
+     process :resize_to_fit => [250, -1]
   end
 
   version :product_page do
