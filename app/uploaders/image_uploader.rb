@@ -39,11 +39,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :product_list do
-     process :resize_to_fit => [250, -1]
+     process :resize_and_pad => [Settings[:list_width]||250, Settings[:list_height]||-1, background='#ffffff', gravity = 'Center']
   end
 
   version :product_page do
-     process :resize_to_fit => [300, -1]
+     process :resize_and_pad => [Settings[:show_width]||350, Settings[:show_height]||-1, background='#ffffff', gravity = 'Center']
   end
 
   version :expertfisher do

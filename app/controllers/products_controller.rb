@@ -112,9 +112,10 @@ class ProductsController < ApplicationController
             # @products=@products.joins(:attrs).joins(variants:{:attrs}).where()
 
             # @products=@products.joins(:attrs).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
-            regex=filter[param_name].map{|x| "^#{x}$"}.join("|")+'|'+filter[param_name].map{|x| "-#{x}$"}.join("|")+'|'+filter[param_name].map{|x| "^#{x}-"}.join("|")
+            regex='%('+filter[param_name].map{|x| "-#{x}"}.join("|")+'|'+filter[param_name].map{|x| "#{x}-"}.join("|")+')%'
             # raise
-            @products=@products.joins('LEFT OUTER JOIN "attrs" ON "attrs"."product_id" = "products"."id"').joins('LEFT OUTER JOIN "variants" ON "variants"."product_id" = "products"."id" AND "variants"."enabled" = \'t\'').joins('LEFT OUTER JOIN "variant_attrs" ON "variant_attrs"."variant_id" = "variants"."id"').where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value similar to (?))', param_name, filter[param_name], param_name, regex).uniq
+            @products=@products.joins('LEFT OUTER JOIN "attrs" ON "attrs"."product_id" = "products"."id"').joins('LEFT OUTER JOIN "variants" ON "variants"."product_id" = "products"."id" AND "variants"."enabled" = \'t\'').joins('LEFT OUTER JOIN "variant_attrs" ON "variant_attrs"."variant_id" = "variants"."id"').where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and (variant_attrs.value in (?) or variant_attrs.value similar to ?))', param_name, filter[param_name], param_name, filter[param_name], regex).uniq
+
             @current_filters[param_name] = filter[param_name]            
           end
         end        
