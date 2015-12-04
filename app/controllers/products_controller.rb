@@ -79,7 +79,13 @@ class ProductsController < ApplicationController
         prod.variants.enabled.each do |var|
           var.attrs.each do |attr|
             @filters[attr.name]=[] unless @filters[attr.name]
-            @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
+
+            if attr.value.match(/(\d+)\-(\d+)/) #48-50
+              @filters[attr.name] << Regexp.last_match[1] unless @filters[attr.name].include?(Regexp.last_match[1])
+              @filters[attr.name] << Regexp.last_match[2] unless @filters[attr.name].include?(Regexp.last_match[2])
+            else
+              @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
+            end
           end          
         end
       end
@@ -106,7 +112,9 @@ class ProductsController < ApplicationController
             # @products=@products.joins(:attrs).joins(variants:{:attrs}).where()
 
             # @products=@products.joins(:attrs).joins(:variant_attrs).where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name])
-            @products=@products.joins('LEFT OUTER JOIN "attrs" ON "attrs"."product_id" = "products"."id"').joins('LEFT OUTER JOIN "variants" ON "variants"."product_id" = "products"."id" AND "variants"."enabled" = \'t\'').joins('LEFT OUTER JOIN "variant_attrs" ON "variant_attrs"."variant_id" = "variants"."id"').where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value in (?))', param_name, filter[param_name], param_name, filter[param_name]).uniq
+            regex=filter[param_name].map{|x| "^#{x}$"}.join("|")+'|'+filter[param_name].map{|x| "-#{x}$"}.join("|")+'|'+filter[param_name].map{|x| "^#{x}-"}.join("|")
+            # raise
+            @products=@products.joins('LEFT OUTER JOIN "attrs" ON "attrs"."product_id" = "products"."id"').joins('LEFT OUTER JOIN "variants" ON "variants"."product_id" = "products"."id" AND "variants"."enabled" = \'t\'').joins('LEFT OUTER JOIN "variant_attrs" ON "variant_attrs"."variant_id" = "variants"."id"').where('(attrs.name=? and attrs.value in (?)) or (variant_attrs.name=? and variant_attrs.value similar to (?))', param_name, filter[param_name], param_name, regex).uniq
             @current_filters[param_name] = filter[param_name]            
           end
         end        
