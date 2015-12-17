@@ -10,9 +10,17 @@
 	%hr
 	.container-fixed
 		.row
-			.col-xs-2
-				=link_to root_path do
-					=image_tag 'logo_mama40.png', class: 'logo'
+			.col-xs-5
+				.row
+					.col-xs-4
+						=link_to root_path do
+							=image_tag 'logo_mama40.png', class: 'logo'
+					.col-xs-8
+						.title Все для мам
+						-# %br
+						%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
+						.pull-right 
+							%a{href:'mailto:info@mama40.ru'} info@mama40.ru
 			-# .col-xs-3
 			-# 	.strong Интернет магазин
 			-# 	Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
@@ -26,18 +34,20 @@
 			-# 	=image_tag 'vk.png', class: 'social'
 			-# %a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
 			-# 	=image_tag 'ok.png', class: 'social'
-			.col-sm-2.header-icon
-				=image_tag('delivery.png')
-				.text Доставка по России
-			.col-sm-2.header-icon
-				=image_tag('money.png')
-				.text Способы оплаты
-			.col-sm-2.header-icon
-				=image_tag('discount.png')
-				.text Дисконтная программа
-			.col-sm-2
-				.strong 8 (930) 754-00-54
-				info@mama40.ru
+			.col-sm-5
+				.row
+					.col-sm-4.header-icon
+						=image_tag('delivery.png')
+						.text Доставка по России
+					.col-sm-4.header-icon
+						=image_tag('money.png')
+						.text Способы оплаты
+					.col-sm-4.header-icon
+						=image_tag('discount.png')
+						.text Дисконтная программа
+			-# .col-sm-2
+			-# 	.strong 8 (930) 754-00-54
+			-# 	info@mama40.ru
 				
 			.col-sm-2
 				= render 'cart'

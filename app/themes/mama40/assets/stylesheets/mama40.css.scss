@@ -25,18 +25,6 @@ $screen-md-min: 475px;
 @import "application";
 
 
-.header-icon{
-  text-align: center;
-  .text{
-    text-transform: uppercase;
-    font-size: 15px;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-  img{
-    width: 70%;
-  }
-}
 .container-fixed {
     max-width: 1024px;
 }
@@ -50,8 +38,24 @@ $screen-md-min: 475px;
   background-color: #fff;
   text-align: justify;
   font-size: 12px;
+  .title{
+    font-size: 42px;  
+    color: $brand-primary;
+  }
   .logo{
-    width: 80%;
+    width: 100%;
+  }
+  .header-icon{
+    text-align: center;
+    .text{
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: bold;
+      padding-top: 5px;
+    }
+    img{
+      width: 70%;
+    }
   }
   .footer-articles{
     list-style: none;
