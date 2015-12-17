@@ -92,9 +92,9 @@ class Product < ActiveRecord::Base
   end
 
   def get_discount
-    max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
+    max_discount1 = Discount.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
 
-    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
+    max_discount2 = Discount.current.joins(:categories).where('categories.id in (?)', categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
     max_discount
@@ -133,10 +133,10 @@ class Product < ActiveRecord::Base
     discount=get_discount
     if discount && discount>0
       if min_price == max_price
-        "#{min_price}"
+        "#{to_price(min_price)}"
       else
         # "<small>от</small> #{min_price} <small>до</small> #{max_price} <small>руб.</small>"
-        "#{min_price}&nbsp;-&nbsp;#{max_price}&nbsp;<small>руб.</small>"
+        "#{to_price(min_price)}&nbsp;-&nbsp;#{to_price(max_price)}"
       end
     else
       ""

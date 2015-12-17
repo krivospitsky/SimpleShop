@@ -66,11 +66,11 @@
                 &nbsp;
                 Страницы
 
-            %li{class: controller_name=='promotions' ? 'active' : ''}
-              =link_to admin_promotions_path do
+            %li{class: controller_name=='discounts' ? 'active' : ''}
+              =link_to admin_discounts_path do
                 %span.glyphicon.glyphicon-pushpin
                 &nbsp;
-                Акции и баннеры
+                Скидки
             
             %li{class: controller_name=='orders' ? 'active' : ''}
               =link_to admin_orders_path do
@@ -79,7 +79,7 @@
                 Заказы
             %li{class: controller_name=='slides' ? 'active' : ''}
               =link_to admin_slides_path do
-                %span.glyphicon.glyphicon-film
+                %span.glyphicon.glyphicon-picture
                 &nbsp;
                 Слайдер
 

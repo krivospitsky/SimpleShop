@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204165506) do
+ActiveRecord::Schema.define(version: 20151204191237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,16 @@ ActiveRecord::Schema.define(version: 20151204165506) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "discounts", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "enabled"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.integer  "discount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: :cascade do |t|
     t.integer  "product_id"
     t.string   "image"
@@ -212,21 +222,6 @@ ActiveRecord::Schema.define(version: 20151204165506) do
     t.integer "product_id"
   end
 
-  create_table "promotions", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "sort_order"
-    t.boolean  "enabled"
-    t.boolean  "has_banner"
-    t.string   "banner"
-    t.boolean  "send_mail"
-    t.date     "start_at"
-    t.date     "end_at"
-    t.integer  "discount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "seos", force: :cascade do |t|
     t.integer  "seoable_id"
     t.string   "seoable_type"
@@ -257,6 +252,7 @@ ActiveRecord::Schema.define(version: 20151204165506) do
     t.date     "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sort_order"
   end
 
   create_table "text_blocks", force: :cascade do |t|

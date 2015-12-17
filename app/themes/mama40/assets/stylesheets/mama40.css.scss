@@ -25,7 +25,18 @@ $screen-md-min: 475px;
 @import "application";
 
 
-
+.header-icon{
+  text-align: center;
+  .text{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+  img{
+    width: 70%;
+  }
+}
 .container-fixed {
     max-width: 1024px;
 }
@@ -39,6 +50,9 @@ $screen-md-min: 475px;
   background-color: #fff;
   text-align: justify;
   font-size: 12px;
+  .logo{
+    width: 80%;
+  }
   .footer-articles{
     list-style: none;
     margin-left: 10px;
@@ -232,37 +246,21 @@ h1.category_name{
       position: static; 
       bottom: 5px;
       width: 100%;
-
+      margin-bottom: 3px;   
   }
 
   .old_price{
-    // height: 20px;
-    //padding-bottom: 10px;
-    font-weight: bold;
-    font-size: 1.2em;
     color:red;  
+    font-weight: bold;
+    font-size: 24px;
     text-decoration:line-through;
   }
 
   .price{
-    // height: 20px;
-    //padding-bottom: 10px;
     color: $brand-primary;
     font-weight: bold;
     font-size: 24px;
-    margin-bottom: 3px;   
-    
-    //  padding-top:5px;
-    //  position: absolute;
-    //  bottom:10px;
-    //left: 0px;
-    //right: 0px;
-
-    small{
-      font-weight: normal;
-      font-size: 0.8em;
-    }
-  }
+   }
 }
 
 

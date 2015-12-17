@@ -1,10 +1,11 @@
 Shop::Application.routes.draw do
   devise_for :users
+  devise_for :admins
 
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :pages#, as: :original_page
-  resources :promotions
+  # resources :promotions
 #  resources :categories
 #  resources :products
 
@@ -92,7 +93,6 @@ Shop::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  devise_for :admins
 
   namespace :admin do
     resources :products do
@@ -103,7 +103,7 @@ Shop::Application.routes.draw do
     end
     resources :pages
     resources :orders
-    resources :promotions
+    resources :discounts
     resources :slides
     resources :users
     get '/settings/edit' => '/admin/settings#edit'
