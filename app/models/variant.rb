@@ -23,8 +23,8 @@ class Variant < ActiveRecord::Base
   end
 
   def discount_price
-    max_discount1 = Promotion.current.joins(:products).where('products.id = ?', product.id).maximum(:discount) || 0
-    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', product.categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
+    max_discount1 = Discount.current.joins(:products).where('products.id = ?', product.id).maximum(:discount) || 0
+    max_discount2 = Discount.current.joins(:categories).where('categories.id in (?)', product.categories.flat_map{|c| c.parent_ids}).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
     if max_discount>0
