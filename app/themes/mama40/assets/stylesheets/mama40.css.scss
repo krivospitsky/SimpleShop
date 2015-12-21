@@ -21,6 +21,13 @@ $navbar-default-link-active-color: #fff;
 
 $screen-md-min: 475px;
 
+@font-face {
+    font-family: 'SegoePrintRegular';
+    src: font-url('SegoePrintRegular.eot'),
+        font-url('SegoePrintRegular.woff') format('woff'),
+        font-url('SegoePrintRegular.ttf') format('truetype');
+}
+
 
 @import "application";
 
@@ -39,8 +46,10 @@ $screen-md-min: 475px;
   text-align: justify;
   font-size: 12px;
   .title{
-    font-size: 42px;  
+    font-size: 38px;  
     color: $brand-primary;
+    font-family: SegoePrintRegular;
+    padding: 16px 0;
   }
   .logo{
     width: 100%;
