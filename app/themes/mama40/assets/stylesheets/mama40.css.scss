@@ -23,9 +23,7 @@ $screen-md-min: 475px;
 
 @font-face {
     font-family: 'SegoePrintRegular';
-    src: font-url('SegoePrintRegular.eot'),
-        font-url('SegoePrintRegular.woff') format('woff'),
-        font-url('SegoePrintRegular.ttf') format('truetype');
+    src: url('/fonts/SegoePrintRegular.eot'), url('/fonts/SegoePrintRegular.woff') format('woff'), url('/fonts/SegoePrintRegular.ttf') format('truetype');
 }
 
 

@@ -88,7 +88,5 @@ Shop::Application.configure do
   #   authentication:       'plain',
   #   enable_starttls_auto: true  }
 
-  config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
-
 end
 

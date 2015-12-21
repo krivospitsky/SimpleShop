@@ -51,9 +51,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    airbrake (4.0.0)
-      builder
-      multi_json
     amoeba (3.0.0)
       activerecord (>= 3.2.6)
     arel (6.0.0)
@@ -279,7 +276,6 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  airbrake
   amoeba
   better_errors
   binding_of_caller
