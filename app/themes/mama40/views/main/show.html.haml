@@ -6,13 +6,16 @@
           =link_to banner.url do
             =image_tag(banner.image.url, {title:banner.name, alt:banner.name})
 .row
-  -@categories.each do |cat|
-    .col-sm-4.col-xs-12.product_item_outer
-      .product_item
-        .name.text-center
-          =link_to cat.name, category_path(cat.path, cat)
-        .image.text-center
-          =link_to image_tag(cat.image.url(:product_list)), category_path(cat.path, cat) if cat.image
+  -# -@categories.each do |cat|
+  -#   .col-sm-4.col-xs-12.product_item_outer
+  -#     .product_item
+  -#       .name.text-center
+  -#         =link_to cat.name, category_path(cat.path, cat)
+  -#       .image.text-center
+  -#         =link_to image_tag(cat.image.url(:product_list)), category_path(cat.path, cat) if cat.image
+  %h1 Последнии поступления
+  -@last.each do |product|
+    =render "/products/show_item", category: product.categories.first, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
 
 -# .panel.panel-default
 -#   .panel-body.small
