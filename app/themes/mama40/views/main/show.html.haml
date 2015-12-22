@@ -7,8 +7,8 @@
             =image_tag(banner.image.url, {title:banner.name, alt:banner.name})
 .row
   -@categories.each do |cat|
-    .col-md-3.col-sm-4.col-xs-12.product_item
-      .thumbnail.shadow
+    .col-sm-4.col-xs-12.product_item_outer
+      .product_item
         .name.text-center
           =link_to cat.name, category_path(cat.path, cat)
         .image.text-center
