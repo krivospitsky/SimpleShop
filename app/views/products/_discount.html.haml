@@ -1,0 +1,13 @@
+.panel.panel-default.filters
+	.panel-heading
+		%strong
+			Товар недели
+	-Product.discounted.order("RANDOM()").first(5).each do |product|
+		.product_item_outer
+			.product_item
+				=link_to product_path(product) do
+					.text-center.image_outer= image_tag(product.main_image_url(:product_list), class: 'image')
+					.name.text-center= link_to product.name, product_path(product)
+					.price_block.text-center
+						%span.old_price= raw product.old_price_str
+						%span.price= raw product.price_str

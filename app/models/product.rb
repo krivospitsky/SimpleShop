@@ -55,6 +55,10 @@ class Product < ActiveRecord::Base
     where('lower(name) LIKE lower(:search)', search: "%#{search}%")
   end
 
+  def self.discounted
+    Product.enabled.joins(:categories).where('category_id in (?) or products.id in (?)', Discount.current.joins(:categories).pluck(:category_id), Discount.current.joins(:products).pluck(:product_id))
+  end
+
   # def price
   #   prices=variants.map {|v| v.price}
   #   if prices.min == prices.max
