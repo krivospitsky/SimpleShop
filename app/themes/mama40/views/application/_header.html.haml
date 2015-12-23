@@ -39,14 +39,17 @@
 			.col-sm-5
 				.row
 					.col-sm-3.col-sm-offset-2.header-icon
-						=image_tag('delivery.png')
-						.text Доставка по России
+						%a{href: '/pages/4'}
+							=image_tag('delivery.png')
+							.text Доставка по России
 					.col-sm-3.header-icon
-						=image_tag('money.png')
-						.text Способы оплаты
+						%a{href: '/pages/5'}
+							=image_tag('money.png')
+							.text Способы оплаты
 					.col-sm-3.header-icon
-						=image_tag('discount.png')
-						.text Дисконтная программа
+						%a{href: '/pages/6'}
+							=image_tag('discount.png')
+							.text Дисконтная программа
 			-# .col-sm-2
 			-# 	.strong 8 (930) 754-00-54
 			-# 	info@mama40.ru
