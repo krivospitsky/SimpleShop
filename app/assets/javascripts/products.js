@@ -54,7 +54,7 @@ $(document).ready(function() {
           $('#ajax-loader').hide();
           is_loading=0;
           sleep(1);
-          RecalcHeight();
+          // RecalcHeight();
       });
       }
     }
@@ -70,6 +70,6 @@ function addParameterToURL(param){
 function RecalcHeight(){
   // $('.products_list img').on('load', RecalcHeight);
   $(".name").matchHeight({byRow: true});
-  $(".image_outer").matchHeight({byRow: true});  
+  // $(".image_outer").matchHeight({byRow: true});  
   $(".product_item").matchHeight({byRow: true}); 
 }
