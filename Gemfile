@@ -36,6 +36,9 @@ gem 'jbuilder', '~> 1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+gem 'sprockets','~> 2.8', '<= 2.11.0'
+gem 'sprockets-rails', '~> 2.0'
 gem 'sass-rails'
 gem 'bootstrap-sass'
 
