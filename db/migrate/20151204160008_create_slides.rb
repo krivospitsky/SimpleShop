@@ -7,6 +7,7 @@ class CreateSlides < ActiveRecord::Migration
       t.string :url
       t.date :start_at
       t.date :end_at
+      t.integer :sort_order
 
       t.timestamps null: false
     end
