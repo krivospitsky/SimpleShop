@@ -115,7 +115,7 @@
 					-Category.root.enabled.each_with_index do |cat, i|    
 						-if cat.children.enabled.present?
 							%li.dropdown
-								=link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
+								=link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle first-level', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
 								%ul.dropdown-menu{class: (cat.children.enabled.count>7) ? 'dropdown-menu-columns' : ''}
 									-cat.children.enabled.each do |subcat|
 										%li
@@ -125,7 +125,7 @@
 													-subcat.children.enabled.each do |subcat2|
 														%li= link_to subcat2.name, category_path(subcat2.path, subcat2.id)
 						-else
-							%li= link_to cat.name, category_path(cat.path, cat.id)
+							%li= link_to cat.name, category_path(cat.path, cat.id), class: 'first-level'
 						-if i<Category.root.enabled.count-1
 							%li.divider-vertical
 		

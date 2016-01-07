@@ -13,13 +13,13 @@
 					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
 					-# %option По дате поступления
 .row
-	.col-sm-12.col-md-4
+	.col-sm-12.col-md-4.col-lg-3
 		=render '/categories/smart_tree'
 		-unless Settings::disable_filters
 			=render '/products/smart_filter'
 		.hidden-sm.hidden-xs
 			=render '/products/discount'
-	.col-sm-12.col-md-8
+	.col-sm-12.col-md-8.col-lg-9
 
 		-# -if @category
 		-# 	-if @category.image.present? || @category.description.present?

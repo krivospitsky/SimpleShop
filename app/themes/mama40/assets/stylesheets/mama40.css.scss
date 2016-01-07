@@ -15,10 +15,11 @@ $brand-primary: #ffa000;
 $brand-secondary: #441d0d;
 $navbar-default-bg: $brand-primary;
 // $navbar-default-bg: darken($brand-primary, 10%);
-$navbar-default-link-hover-bg: darken($brand-primary, 10%);
+$navbar-default-link-hover-bg: $brand-secondary;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: $brand-secondary;
-$navbar-default-link-active-color: $brand-secondary;
+$navbar-default-link-active-bg: $brand-secondary;
+$navbar-default-link-active-color: #fff;
 
 $screen-sm-min: 480px;
 $screen-md-min: 800px;
@@ -199,14 +200,16 @@ $grid-float-breakpoint: 479px;
   /*overflow: hidden;*/
   background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;
   li{
-    a{
+    a.first-level{
       text-transform: uppercase;
       font-weight: 600;
       text-shadow: $brand-secondary 1px 1px 2px ;
+      padding: 15px 9px;
     }
-    a:hover{
-      background-color: #fff !important;
-      color: $brand-primary !important;
+    a.first-level:hover{
+      background-color: $brand-secondary !important;
+      color: #fff !important;
+      /*text-shadow: $brand-primary 1px 1px 2px ;*/
     }
     &:first-child{
       a{
