@@ -1,8 +1,8 @@
 =render '/categories/breadcrumbs'
 .row
-	.col-sm-8
+	.col-md-12.col-lg-8
 		%h1.category_name= @category.name
-	.col-sm-4
+	.col-md-12.col-lg-4
 		%form.form-inline.pull-right
 			.form-group
 				%label Сортировка
@@ -13,12 +13,13 @@
 					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
 					-# %option По дате поступления
 .row
-	.col-sm-4.col-md-3
+	.col-sm-12.col-md-4
 		=render '/categories/smart_tree'
 		-unless Settings::disable_filters
 			=render '/products/smart_filter'
-		=render '/products/discount'
-	.col-sm-8.col-md-9
+		.hidden-sm.hidden-xs
+			=render '/products/discount'
+	.col-sm-12.col-md-8
 
 		-# -if @category
 		-# 	-if @category.image.present? || @category.description.present?

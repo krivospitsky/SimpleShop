@@ -8,58 +8,89 @@
 		.search.pull-right
 			= render 'search'
 	%hr
-	.container-fixed
-		.row
-			.col-xs-5
-				.row
-					.col-xs-4
-						=link_to root_path do
-							=image_tag 'logo_mama40.png', class: 'logo'
-					.col-xs-8
-						.title Все для мам
-						.mama-contacts.pull-left 
-							%strong
-								%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
-						.mama-contacts.pull-right 
-							%strong
-								%a{href:'mailto:info@mama40.ru'} info@mama40.ru
-			-# .col-xs-3
-			-# 	.strong Интернет магазин
-			-# 	Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
-			-# .col-sm-3
-			-# 	.strong Розничный магазин
-			-# 	.address г. Калуга, ул. Московская, д. 24
-			-# 	.timetable Пн-Пт 10:00 - 19:00
-			-# 	.timetable Сб-Вс 10:00 - 17:00
-			-#  .strong 8 (4842) 40-00-54
-			-# %a{href: 'http://vk.com/mama40ru', target: '_blank'}
-			-# 	=image_tag 'vk.png', class: 'social'
-			-# %a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
-			-# 	=image_tag 'ok.png', class: 'social'
-			.col-sm-5
-				.row
-					.col-sm-3.col-sm-offset-2.header-icon
+		.container-fixed.second
+			=link_to root_path do
+				=image_tag 'logo_mama40.png', class: 'logo pull-left'
+			.title-block.pull-left
+				.title.secondary-color Все для мам
+				.mama-contacts.secondary-color.pull-left 
+					%strong
+						%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
+				.mama-contacts.secondary-color.pull-right 
+					%strong
+						%a{href:'mailto:info@mama40.ru'} info@mama40.ru
+			.header-icons.hidden-sm.hidden-xs.pull-left
+				.inner.center-block
+					.header-icon
 						%a{href: '/pages/4'}
 							=image_tag('delivery.png')
-							.text Доставка по России
-					.col-sm-3.header-icon
+							.text.secondary-color Доставка по России
+					.header-icon
 						%a{href: '/pages/5'}
 							=image_tag('money.png')
-							.text Способы оплаты
-					.col-sm-3.header-icon
+							.text.secondary-color Способы оплаты
+					.header-icon
 						%a{href: '/pages/6'}
 							=image_tag('discount.png')
-							.text Дисконтная программа
-			-# .col-sm-2
-			-# 	.strong 8 (930) 754-00-54
-			-# 	info@mama40.ru
+							.text.secondary-color Дисконтная программа
+			.shopping-cart.pull-right
+				-# .strong Ваша корзина
+				%a{href: new_order_path}
+					.glyphicon.glyphicon-shopping-cart.secondary-color
+					.cart-text.secondary-color
+						=t 'cart.count', count: @current_cart.total_count
+
+		-# .row
+		-# 	.col-xs-5
+		-# 		.row
+		-# 			.col-xs-4
+		-# 				=link_to root_path do
+		-# 					=image_tag 'logo_mama40.png', class: 'logo'
+		-# 			.col-xs-8
+		-# 				.title Все для мам
+		-# 				.mama-contacts.pull-left 
+		-# 					%strong
+		-# 						%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
+		-# 				.mama-contacts.pull-right 
+		-# 					%strong
+		-# 						%a{href:'mailto:info@mama40.ru'} info@mama40.ru
+		-# 	-# .col-xs-3
+		-# 	-# 	.strong Интернет магазин
+		-# 	-# 	Закажите в интернет-магазине с доставкой на дом все, что хотите примерить. Оплатите только то, что подходит и нравиться!       
+		-# 	-# .col-sm-3
+		-# 	-# 	.strong Розничный магазин
+		-# 	-# 	.address г. Калуга, ул. Московская, д. 24
+		-# 	-# 	.timetable Пн-Пт 10:00 - 19:00
+		-# 	-# 	.timetable Сб-Вс 10:00 - 17:00
+		-# 	-#  .strong 8 (4842) 40-00-54
+		-# 	-# %a{href: 'http://vk.com/mama40ru', target: '_blank'}
+		-# 	-# 	=image_tag 'vk.png', class: 'social'
+		-# 	-# %a{href: 'http://www.odnoklassniki.ru/group/53949983948820', target: '_blank'}
+		-# 	-# 	=image_tag 'ok.png', class: 'social'
+		-# 	.col-sm-5
+		-# 		.row
+		-# 			.col-sm-3.col-sm-offset-2.header-icon
+		-# 				%a{href: '/pages/4'}
+		-# 					=image_tag('delivery.png')
+		-# 					.text Доставка по России
+		-# 			.col-sm-3.header-icon
+		-# 				%a{href: '/pages/5'}
+		-# 					=image_tag('money.png')
+		-# 					.text Способы оплаты
+		-# 			.col-sm-3.header-icon
+		-# 				%a{href: '/pages/6'}
+		-# 					=image_tag('discount.png')
+		-# 					.text Дисконтная программа
+		-# 	-# .col-sm-2
+		-# 	-# 	.strong 8 (930) 754-00-54
+		-# 	-# 	info@mama40.ru
 				
-			.col-sm-2
-				= render 'cart'
-			-# .col-sm-3
-			-#   = render 'search'
-			-#   .contacts
-			-#     =raw Settings.contacts
+		-# 	.col-sm-2
+		-# 		= render 'cart'
+		-# 	-# .col-sm-3
+		-# 	-#   = render 'search'
+		-# 	-#   .contacts
+		-# 	-#     =raw Settings.contacts
 
 -# .scroller_anchor
 .scroller

@@ -56,7 +56,7 @@ $(window).scroll(function(e) {
 
 $(document).ready(function() {
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 0) {
+        if ($(this).scrollTop() > 0 && $(window).width()>1184) {
             $('#scroller').fadeIn();
         } else {
             $('#scroller').fadeOut();
