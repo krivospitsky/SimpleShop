@@ -33,4 +33,5 @@ Ckeditor.setup do |config|
   # config.asset_path = "http://www.example.com/assets/ckeditor/"
 
    config.assets_languages = ['ru']
+   config.cdn_url = "//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"
 end

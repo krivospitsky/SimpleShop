@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require bootstrap
-//= require ckeditor/init
 //= require jquery_nested_form
 //= require select2
 //= require_tree .
