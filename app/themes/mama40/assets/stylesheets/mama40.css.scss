@@ -23,7 +23,12 @@ $navbar-default-link-hover-color: $brand-secondary;
 $navbar-default-link-active-bg: $brand-secondary;
 $navbar-default-link-active-color: #fff;
 
-/*$panel-primary-heading-bg: $brand-light-primary;*/
+/*$panel-primary-heading-bg: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;*/
+
+.panel-primary > .panel-heading{
+  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;  
+  color: $brand-secondary !important;
+}
 
 $screen-sm-min: 475px;
 $screen-md-min: 795px;
@@ -200,13 +205,14 @@ $grid-float-breakpoint: 475px;
 
 .navbar-default{
   font-weight: bold;
-  /*border-radius: 5px;*/
-  /*border: 1px solid $brand-primary;*/
+  border-radius: 5px;
+  border: 1px solid $brand-primary;
   /*overflow: hidden;*/
-  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;
+  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 50%) repeat-x scroll 0% 0%;
   .articles-line{
     width: 100%;
     background-color: $brand-light-primary;
+    border-radius: 0 0 4px 4px;
 /*    height: 50px;
     top: 50px;
 */    float: left;  
