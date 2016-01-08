@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-primary
 	.panel-heading
 		%strong
 			Категории
@@ -15,7 +15,7 @@
 							-if @category == cat
 								%strong= cat.name
 							-else
-								= link_to cat.name, category_path(cat.path, cat)
+								= link_to cat.name, category_path(cat.path, cat), class: 'smart_tree_list_item'
 		-else
 			- Category.enabled.where({parent_id: nil}).each do |cat|
 				%li.list-group-item
