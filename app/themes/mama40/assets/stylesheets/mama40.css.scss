@@ -26,7 +26,8 @@ $navbar-default-link-active-color: #fff;
 /*$panel-primary-heading-bg: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;*/
 
 .panel-primary > .panel-heading{
-  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;  
+  /*background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 100%) repeat-x scroll 0% 0%;  */
+  background-color: $brand-light-primary !important;
   color: $brand-secondary !important;
 }
 
