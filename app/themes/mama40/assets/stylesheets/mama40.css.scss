@@ -222,7 +222,7 @@ $grid-float-breakpoint: 475px;
         color: #febb44;
         @media (max-width: $screen-lg-min) {
           font-size: 0.9em;
-          padding: 15px 5px;
+          padding: 15px 4px;
         }
       }
     }
@@ -287,7 +287,7 @@ $grid-float-breakpoint: 475px;
   }
   .price{
     font-size: 24px;
-    color: $brand-primary;
+    color: $brand-secondary;
   }
   .size{
     height: 60px;
@@ -366,7 +366,7 @@ h1.category_name{
   }
 
   .price{
-    color: $brand-primary;
+    color: $brand-secondary;
     font-weight: bold;
     font-size: 24px;
    }
