@@ -220,6 +220,10 @@ $grid-float-breakpoint: 475px;
     li{
       a{
         color: #febb44;
+        @media (max-width: $screen-lg-min) {
+          font-size: 0.9em;
+          padding: 15px 5px;
+        }
       }
     }
   }
@@ -229,6 +233,10 @@ $grid-float-breakpoint: 475px;
       font-weight: 600;
       /*text-shadow: $brand-secondary 1px 1px 2px ;*/
       padding: 15px 9px;
+      @media (max-width: $screen-lg-min) {
+        font-size: 0.9em;
+        padding: 15px 5px;
+      }
     }
     a.first-level:hover{
       background-color: $brand-secondary !important;
