@@ -209,7 +209,12 @@ $grid-float-breakpoint: 475px;
   border-radius: 5px;
   border: 1px solid $brand-primary;
   /*overflow: hidden;*/
-  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 50%) repeat-x scroll 0% 0%;
+  background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 30%) repeat-x scroll 0% 0%;
+  .navbar-form {
+    padding: 10px 0;
+    margin-right: 0px;
+    padding-right: 10px;
+  }
   .articles-line{
     width: 100%;
     background-color: $brand-light-primary;
@@ -220,6 +225,12 @@ $grid-float-breakpoint: 475px;
     li{
       a{
         color: #febb44;
+        width: 150px;
+        height: 70px;
+        text-align: left;
+        &:hover{
+          color: #fff;
+        }
         @media (max-width: $screen-lg-min) {
           font-size: 0.9em;
           padding: 15px 4px;
@@ -235,7 +246,7 @@ $grid-float-breakpoint: 475px;
       padding: 15px 9px;
       @media (max-width: $screen-lg-min) {
         font-size: 0.9em;
-        padding: 15px 5px;
+        padding: 15px 4px;
       }
     }
     a.first-level:hover{
@@ -328,7 +339,7 @@ h1.category_name{
 }
 
 .product_item{
-  border: 1px solid lighten($brand-primary, 30%);
+  /*border: 1px solid lighten($brand-primary, 30%);*/
   margin: 2px;
   &:hover{
     border: 1px solid $brand-primary;
