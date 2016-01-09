@@ -345,6 +345,7 @@ h1.category_name{
 
 .product_item{
   /*border: 1px solid lighten($brand-primary, 30%);*/
+  border: 1px solid transparent;
   margin: 2px;
   &:hover{
     border: 1px solid $brand-primary;
