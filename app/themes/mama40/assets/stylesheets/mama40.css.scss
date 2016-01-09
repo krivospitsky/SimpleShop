@@ -222,6 +222,11 @@ $grid-float-breakpoint: 475px;
 /*    height: 50px;
     top: 50px;
 */    float: left;  
+    .icon{
+      width: 40px;      
+      float: left;
+      margin-right: 10px;
+    }
     li{
       a{
         color: #febb44;
@@ -229,7 +234,7 @@ $grid-float-breakpoint: 475px;
         height: 70px;
         text-align: left;
         &:hover{
-          color: #fff;
+          color: $brand-primary;
         }
         @media (max-width: $screen-lg-min) {
           font-size: 0.9em;

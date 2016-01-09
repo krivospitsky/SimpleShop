@@ -13,4 +13,34 @@ $(window).load(function(){
     }
   });
   $( "#sortable" ).disableSelection();
+
+  $('#page_image').on('change', function(){
+		preview=$('.preview');
+		var oFReader = new FileReader();
+		oFReader.readAsDataURL(this.files[0]);
+		console.log(this.files[0]);
+		oFReader.onload = function (oFREvent) {
+			preview.attr('src', oFREvent.target.result).show();
+		};
+
+		$('.remove_image').val(0);
+		$('#image').find('img').first().hide();
+
+		$('.add-page-image').hide();
+		$('.remove-page-image').show();
+		$('.replace-page-image').show();
+  });
+
+  $('.add-page-image,.replace-page-image').on('click', function() {
+      $('#page_image').focus().click();;
+    }); 
+
+  $('.remove-page-image').on('click', function() {
+	  $('.remove_image').val(1);
+	  $('.add-page-image').show();
+	  $('.remove-page-image').hide();      
+	  $('.replace-page-image').hide();
+	  $('#image').find('img').first().hide();
+	  $('.preview').hide();
+    }); 
 });

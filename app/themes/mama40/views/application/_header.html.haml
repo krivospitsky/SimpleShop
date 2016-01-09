@@ -72,7 +72,11 @@
 					%ul.nav.navbar-nav
 						-Page.in_menu.each do |page|
 							%li
-								=link_to page.name, page_path(page)
+								=link_to page_path(page) do 
+									-if page.image.present?
+										%img.icon{src: page.image.url}
+									=page.name
+
 					=form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search', class: "navbar-form navbar-right" do
 						.input-group
 							%input.form-control{type:"text", placeholder:"Поиск", name: "text"}

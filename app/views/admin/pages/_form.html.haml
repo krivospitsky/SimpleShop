@@ -14,6 +14,21 @@
       = f.input :position, collection: Page::POSITIONS
       = f.input :enabled
 
+      #image.form-group
+        = f.label :image, class: 'col-sm-3 control-label'
+        .col-sm-9
+          = f.input_field :image, as: :image_preview, preview_version: :thumb
+          = f.hidden_field :remove_image, class: 'remove_image'
+          %img.preview
+          -if @page.image.present?
+            %btn.btn.btn-success.btn-xs.add-page-image.hide-ni Добавить
+            %btn.btn.btn-success.btn-xs.replace-page-image Заменить
+            %btn.btn.btn-danger.btn-xs.remove-page-image Удалить
+          -else
+            %btn.btn.btn-success.btn-xs.add-page-image Добавить
+            %btn.btn.btn-success.btn-xs.replace-page-image.hide-ni Заменить
+            %btn.btn.btn-danger.btn-xs.remove-page-image.hide-ni Удалить
+
     .tab-pane#seo
       = render partial: 'seo', locals: {f: f}
 
