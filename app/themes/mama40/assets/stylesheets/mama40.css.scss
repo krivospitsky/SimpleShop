@@ -69,9 +69,10 @@ $grid-float-breakpoint: 475px;
     position: relative;
     .logo{
       width: 100px;
+      padding: 10px;
     }
     .title-block{
-      padding-top: 16px;
+      padding-top: 6px;
       width: 260px;
       .title{
         font-size: 38px;  
@@ -80,14 +81,20 @@ $grid-float-breakpoint: 475px;
         font-weight: 600;
         /*padding: 6px 0;*/
       }
-      .mama-contacts{
-        padding: 0 15px;
+      .description{
         font-style: italic;
+        font-size: 13px;
+        font-weight: 600;
+        width: 170px;
+      }
+    }
+    .mama-contacts{
+        width: 300px;
+        margin: 20px 100px;
         a{
           color: $brand-secondary;
         }
       }
-    }
     .header-icons{
       /*padding: 0 105px;*/
       position: absolute;
@@ -293,6 +300,10 @@ $grid-float-breakpoint: 475px;
 
 
 #content{
+  .main-img{
+    max-width: 250px;
+    margin: 20px;
+  }
   .strong{
     float: left;
     text-transform: uppercase;

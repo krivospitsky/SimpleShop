@@ -15,7 +15,7 @@
 .row
 	.col-sm-12.col-md-4.col-lg-3
 		=render '/categories/smart_tree'
-		-unless Settings::disable_filters
+		-unless Settings::disable_filters || @category.id == 40
 			=render '/products/smart_filter'
 		.hidden-sm.hidden-xs
 			=render '/products/discount'

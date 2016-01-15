@@ -1,4 +1,5 @@
-.col-md-6.col-sm-6.col-lg-4.product_item_outer
+-outer_class ||= 'col-md-6 col-sm-6 col-lg-4'
+.product_item_outer{class: outer_class}
   .product_item.fly-to-cart
     =link_to product_path(product, category) do
       .text-center.image_outer= image_tag(product.main_image_url(:product_list), class: 'image')
@@ -7,3 +8,4 @@
       %span.old_price= raw product.old_price_str
       %span.price= raw product.price_str
     -# .text-center= render 'product_list_add_to_cart', product: product, category: category
+
