@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
   scope :in_categories, ->(cats) {joins(:categories).where('category_id in (?)', cats.map{|a| a.id})}
 
   def self.search(search)
-    where('lower(name) LIKE lower(:search)', search: "%#{search}%")
+    enabled.where('lower(name) LIKE lower(:search)', search: "%#{search}%")
   end
 
   def self.discounted

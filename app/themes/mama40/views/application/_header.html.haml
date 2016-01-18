@@ -6,13 +6,14 @@
 		.title-block.pull-left
 			.title.secondary-color Все для мам
 			.description.secondary-color Одежда для беременных и кормящих, слинги
-		.mama-contacts.secondary-color.pull-left 
-			.strong
-				%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
-			.strong
-				%a{href:'mailto:info@mama40.ru'} info@mama40.ru
-			.strong
-				%a.btn.btn-default#call Заказать обратный звонок
+		.mama-contacts-outer
+			.mama-contacts.secondary-color
+				.strong
+					%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
+				.strong
+					%a{href:'mailto:info@mama40.ru'} info@mama40.ru
+				.strong
+					%a.btn.btn-default#call Обратный звонок
 		.shopping-cart.pull-right
 			-# .strong Ваша корзина
 			%a{href: new_order_path}
