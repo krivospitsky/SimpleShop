@@ -3,6 +3,6 @@ class MainController < ApplicationController
   	@banners=Slide.current
   	@categories=Category.root.enabled
     @title=get_seo_title(nil)
-    @last=Product.enabled.last(8)
+    @last=Product.enabled.order(created_at: :ASC).last(8)
   end
 end
