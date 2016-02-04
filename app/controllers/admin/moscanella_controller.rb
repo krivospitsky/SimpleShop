@@ -16,12 +16,21 @@ class Admin::MoscanellaController < ApplicationController
 				if count.to_i>3 || count == '>50'
 					variant.availability='Доставка 2-3 дня'
 				else
-					variant.availability='Нет в наличии'
+					variant.availability='Недоступно'
+					variant.enabled=false
 				end
 				variant.touch unless variant.new_record?
 				variant.save
 			end
 		end
+
+		Product.where('sku SIMILAR TO "expertfisher_%"').all.each do |prod|
+			if prod.variants.enabled.empty?
+				prod.enabled=false
+				prod.save
+			end
+		end
+
 		redirect_to '/admin/moscanella/new'
 	end
 end
