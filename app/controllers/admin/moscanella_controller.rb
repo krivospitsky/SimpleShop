@@ -15,11 +15,14 @@ class Admin::MoscanellaController < ApplicationController
 				variant.price=price*1.5
 				if count.to_i>3 || count == '>50'
 					variant.availability='Доставка 2-3 дня'
+					variant.enabled=true
+					variant.product.enabled=true
 				else
 					variant.availability='Недоступно'
 					variant.enabled=false
 				end
 				variant.touch unless variant.new_record?
+				variant.product.save
 				variant.save
 			end
 		end
