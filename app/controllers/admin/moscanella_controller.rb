@@ -20,17 +20,13 @@ class Admin::MoscanellaController < ApplicationController
 				else
 					variant.availability='Недоступно'
 					variant.enabled=false
+					if variant.product.variants.enabled.empty?
+						variant.product.enabled=false
+					end
 				end
 				variant.touch unless variant.new_record?
 				variant.product.save
 				variant.save
-			end
-		end
-
-		Product.where('sku SIMILAR TO "expertfisher_%"').all.each do |prod|
-			if prod.variants.enabled.empty?
-				prod.enabled=false
-				prod.save
 			end
 		end
 
