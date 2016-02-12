@@ -1,0 +1,15 @@
+= simple_form_for [:admin, @delivery_method] do |f|
+  = f.input :name
+  = f.input :description
+  = f.input :hide
+  = f.input :min_price
+  = f.input :max_price  
+  = f.input :price  
+  = f.association :payment_methods
+  = f.input :enabled
+
+  -# = f.association :categories
+  -# = f.association :products
+
+  = f.button :submit
+  = link_to 'Cancel', admin_discounts_path, class: 'btn btn-default'

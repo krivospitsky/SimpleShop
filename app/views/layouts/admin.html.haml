@@ -93,6 +93,18 @@
                 &nbsp;
                 Пользователи
 
+            %li{class: controller_name=='delivery_methods' ? 'active' : ''}
+              =link_to admin_delivery_methods_path do
+                %span.glyphicon.glyphicon-shopping-cart
+                &nbsp;
+                Методы доставки
+
+            %li{class: controller_name=='payment_methods' ? 'active' : ''}
+              =link_to admin_payment_methods_path do
+                %span.glyphicon.glyphicon-credit-card
+                &nbsp;
+                Методы оплаты
+
             -if Settings.theme == 'fish'
               %li{class: controller_name=='moscanella' ? 'active' : ''}
                 =link_to 'Импорт Moscanella', '/admin/moscanella/new'

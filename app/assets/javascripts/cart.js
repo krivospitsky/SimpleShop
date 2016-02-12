@@ -49,5 +49,16 @@ $(document).ready(function() {
             alert(data.responseText)
         }
     })
+    $("input[name='order[delivery_method]']").on('change', function(){
+        $("input[name='order[payment_method]']").prop("disabled", true);
+        $("input[name='order[payment_method]']").prop("checked", false);
+        $(this).attr('data-payment-ids').split(' ').forEach(function(e){
+            $('#order_payment_method_'+e).prop("disabled", false);
+        })
+        $(".may-hide").show()
+        $(this).attr('data-hide').split(' ').forEach(function(e){
+            $('.'+e).hide();
+        })
 
+    })
 })

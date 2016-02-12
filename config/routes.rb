@@ -106,6 +106,8 @@ Shop::Application.routes.draw do
     resources :discounts
     resources :slides
     resources :users
+    resources :delivery_methods
+    resources :payment_methods
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
     get '/moscanella/new' => '/admin/moscanella#new'

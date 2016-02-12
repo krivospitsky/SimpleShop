@@ -32,7 +32,7 @@ class Cart < ActiveRecord::Base
     cart.reload.destroy
   end
 
-  def total_price_str
+  def total_price
     total=0
     cart_items.each do |item|
       if item.variant.discount_price
@@ -41,7 +41,11 @@ class Cart < ActiveRecord::Base
         total+=item.variant.price*item.quantity
       end
     end
-    to_price(total)
+    total
+  end
+
+  def total_price_str
+    to_price(total_price)
   end
 
   def total_count

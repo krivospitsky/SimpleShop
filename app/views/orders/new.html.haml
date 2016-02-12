@@ -65,23 +65,43 @@
 										%li= msg
 						.row
 							.col-md-5.col-md-offset-1
+								%h3 Способ доставки
+								-DeliveryMethod.enabled.each do |dm|
+									-if dm.applicable?(@current_cart.total_price)
+										.radio
+											%label
+												=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
+												=dm.text
+							.col-md-5.col-md-offset-1
+								%h3 Способ оплаты
+								-PaymentMethod.enabled.each do |pm|
+									.radio
+										%label
+											=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
+											=pm.name
+						.row
+							.col-md-4
 								.form-group
 									%label.control-label Фамилия, имя
 									=f.text_field :name, class:'form-control input-block-level'
+							.col-md-4
 								.form-group
 									%label.control-label.required E-Mail
 									=f.text_field :email, class:'form-control input-block-level'
+							.col-md-4
 								.form-group
 									%label.control-label.required Телефон
 									=f.text_field :phone, class:'form-control input-block-level'
-							.col-md-5.col-md-offset-1
-								.form-group
+							.col-md-4
+								.form-group.zip.may-hide
 									%label.control-label Индекс
 									=f.text_field :zip, class:'form-control input-block-level'
-								.form-group
+							.col-md-4
+								.form-group.city.may-hide
 									%label.control-label Город
 									=f.text_field :city, class:'form-control input-block-level'
-								.form-group
+							.col-md-4
+								.form-group.address.may-hide
 									%label.control-label Адрес
 									=f.text_field :address, class:'form-control input-block-level'
 						.row
