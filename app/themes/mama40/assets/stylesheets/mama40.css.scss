@@ -53,6 +53,18 @@ $grid-float-breakpoint: 475px;
     max-width: 1024px;
 }
 
+.footer{
+  .container-fixed{
+    background-color: $brand-light-primary;
+    border: solid 1px $brand-primary;;
+    border-radius: 4px;
+    hr{
+      color: $brand-primary;
+      border-top: solid 1px $brand-primary;;
+    }
+  }
+}
+
 .header,.footer{
   .container-fixed{
     padding-top: 1px;
@@ -222,6 +234,9 @@ $grid-float-breakpoint: 475px;
   border: 1px solid $brand-primary;
   /*overflow: hidden;*/
   background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 30%) repeat-x scroll 0% 0%;
+  #search_form{
+    padding: 0px 0;    
+  }
   .navbar-form {
     padding: 10px 0;
     margin-right: 0px;
@@ -243,7 +258,8 @@ $grid-float-breakpoint: 475px;
       a{
         color: #febb44;
         width: 175px;
-        height: 70px;
+        height: 50px;
+        padding: 5px 15px;
         text-align: left;
         &:hover{
           color: $brand-primary !important;

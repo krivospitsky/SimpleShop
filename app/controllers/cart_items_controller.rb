@@ -1,11 +1,19 @@
 class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:update, :destroy]
   def create
-    @current_cart.add(params[:cart_item][:product_id], params[:cart_item][:variant_id], params[:cart_item][:quantity].to_i)
-    respond_to do |format|
-      format.html { redirect_to  new_order_path  }
-      format.js   { render 'cart/add_cart_item' }
-      #format.json { render t 'cart.count', count: @current_cart.cart_items.count  }
+    if params[:cart_item][:variant_id]
+      @current_cart.add(params[:cart_item][:product_id], params[:cart_item][:variant_id], params[:cart_item][:quantity].to_i)
+      respond_to do |format|
+        format.html { redirect_to  new_order_path  }
+        format.js   { render 'cart/add_cart_item' }
+        #format.json { render t 'cart.count', count: @current_cart.cart_items.count  }
+      end
+    else
+      respond_to do |format|
+        # format.html { redirect_to  new_order_path  }
+        format.js   { render plain: 'Выберете вариант товара',  status: 400}
+        #format.json { render t 'cart.count', count: @current_cart.cart_items.count  }
+      end  
     end
   end
 

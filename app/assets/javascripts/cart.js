@@ -44,6 +44,10 @@ $(document).ready(function() {
             });
 
         }
+    }).bind("ajax:error", function(e, data, status, xhr){
+        if (data.responseText){
+            alert(data.responseText)
+        }
     })
 
 })

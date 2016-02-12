@@ -4,6 +4,9 @@ class CartItem < ActiveRecord::Base
   belongs_to :variant
   # belongs_to :variant
 
+  validates :variant, presence: {message: "Выберите вариант товара" }
+
+
   def incrase(count = 1)
     self.quantity = 0 if new_record?
     self.quantity += count
