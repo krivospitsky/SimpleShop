@@ -34,6 +34,15 @@
     %dd= @order.comment
 
 %dl.dl-horizontal
+  %dt Способ доставки
+  %dd= @order.delivery_method.name
+
+%dl.dl-horizontal
+  %dt Способ оплаты
+  %dd= @order.payment_method.name
+
+
+%dl.dl-horizontal
   %dt Статус
   %dd= @order.state
 
