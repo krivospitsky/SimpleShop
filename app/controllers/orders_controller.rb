@@ -11,6 +11,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.state='Новый'
+    @order.delivery_method_id=params['order[delivery_method]']
+    @order.payment_method_id=params['order[payment_method]']
     @current_cart.cart_items.all.each do |cart_item|
       order_item=@order.order_items.new
       order_item.product_name=cart_item.variant.name || cart_item.product.name 
@@ -36,6 +38,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :city, :phone, :email, :zip, :address, :comment, :delivery_method, :payment_method)
+      params.require(:order).permit(:name, :city, :phone, :email, :zip, :address, :comment)
     end
 end
