@@ -33,13 +33,15 @@
     %dt Коментарий
     %dd= @order.comment
 
-%dl.dl-horizontal
-  %dt Способ доставки
-  %dd= @order.delivery_method.name
+-if !@order.delivery_method.present?
+  %dl.dl-horizontal
+    %dt Способ доставки
+    %dd= @order.delivery_method.name
 
-%dl.dl-horizontal
-  %dt Способ оплаты
-  %dd= @order.payment_method.name
+-if !@order.payment_method.present?
+  %dl.dl-horizontal
+    %dt Способ оплаты
+    %dd= @order.payment_method.name
 
 
 %dl.dl-horizontal

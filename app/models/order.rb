@@ -6,8 +6,8 @@ class Order < ActiveRecord::Base
   has_many :order_items
   accepts_nested_attributes_for :order_items, allow_destroy:true
 
-  has_one :delivery_method
-  has_one :payment_method
+  belongs_to :delivery_method
+  belongs_to :payment_method
 
   # validates :name, presence: true
   validates :email, presence: true
