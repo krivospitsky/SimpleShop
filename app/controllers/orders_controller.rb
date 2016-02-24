@@ -11,8 +11,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.state='Новый'
-    @order.delivery_method_id=params['order[delivery_method]']
-    @order.payment_method_id=params['order[payment_method]']
+    @order.delivery_method_id=params['order']['delivery_method']
+    @order.payment_method_id=params['order']['payment_method']
     @current_cart.cart_items.all.each do |cart_item|
       order_item=@order.order_items.new
       order_item.product_name=cart_item.variant.name || cart_item.product.name 
