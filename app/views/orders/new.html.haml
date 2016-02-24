@@ -72,6 +72,8 @@
 											%label
 												=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
 												=dm.text
+										.delivery-descr{id: "delivery-descr-#{dm.id}"}
+											=raw dm.description
 							.col-md-5.col-md-offset-1
 								%h3 Способ оплаты
 								-PaymentMethod.enabled.each do |pm|
@@ -79,6 +81,7 @@
 										%label
 											=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
 											=pm.name
+						%hr
 						.row
 							.col-md-4
 								.form-group

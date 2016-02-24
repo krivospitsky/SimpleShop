@@ -55,10 +55,16 @@ $(document).ready(function() {
         $(this).attr('data-payment-ids').split(' ').forEach(function(e){
             $('#order_payment_method_'+e).prop("disabled", false);
         })
+
+        $(".delivery-descr").hide()
+        $("#delivery-descr-"+$(this).val()).show()
+
         $(".may-hide").show()
         $(this).attr('data-hide').split(' ').forEach(function(e){
             $('.'+e).hide();
         })
+
+        
 
     })
 })

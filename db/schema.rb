@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20160212101344) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "secure_key"
-    t.integer  "delivery_method"
-    t.integer  "payment_method"
+    t.integer  "delivery_method_id"
+    t.integer  "payment_method_id"
   end
 
   create_table "pages", force: :cascade do |t|
