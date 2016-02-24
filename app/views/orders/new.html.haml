@@ -70,14 +70,14 @@
 									-if dm.applicable?(@current_cart.total_price)
 										.radio
 											%label
-												=f.radio_button :delivery_method_id, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
+												=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
 												=dm.text
 							.col-md-5.col-md-offset-1
 								%h3 Способ оплаты
 								-PaymentMethod.enabled.each do |pm|
 									.radio
 										%label
-											=f.radio_button :payment_method_id, pm.id, disabled: true, :'data-hide'=> pm.hide
+											=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
 											=pm.name
 						.row
 							.col-md-4
