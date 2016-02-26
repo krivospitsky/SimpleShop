@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212101344) do
+ActiveRecord::Schema.define(version: 20160226133835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20160212101344) do
     t.string   "secure_key"
     t.integer  "delivery_method_id"
     t.integer  "payment_method_id"
+    t.string   "passport"
   end
 
   create_table "pages", force: :cascade do |t|

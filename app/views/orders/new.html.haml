@@ -95,18 +95,22 @@
 								.form-group
 									%label.control-label.required Телефон
 									=f.text_field :phone, class:'form-control input-block-level'
-							.col-md-4
-								.form-group.zip.may-hide
+							.col-md-4.zip.may-hide
+								.form-group
 									%label.control-label Индекс
 									=f.text_field :zip, class:'form-control input-block-level'
-							.col-md-4
-								.form-group.city.may-hide
+							.col-md-4.city.may-hide
+								.form-group
 									%label.control-label Город
 									=f.text_field :city, class:'form-control input-block-level'
-							.col-md-4
-								.form-group.address.may-hide
+							.col-md-4.address.may-hide
+								.form-group
 									%label.control-label Адрес
 									=f.text_field :address, class:'form-control input-block-level'
+							.col-md-12.passport.may-hide
+								.form-group
+									%label.control-label Паспортные данные
+									=f.text_field :passport, class:'form-control input-block-level'
 						.row
 							.col-md-12
 								.form-group

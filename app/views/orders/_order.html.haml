@@ -1,34 +1,39 @@
--if !@order.name.empty?
+-if @order.name.present?
   %dl.dl-horizontal
     %dt Имя
     %dd= @order.name
 
--if !@order.email.empty?
+-if @order.email.present?
   %dl.dl-horizontal
     %dt E-mail
     %dd= @order.email
 
--if !@order.phone.empty?
+-if @order.phone.present?
   %dl.dl-horizontal
     %dt Телефон
     %dd= @order.phone
 
--if !@order.zip.empty?
+-if @order.zip.present?
   %dl.dl-horizontal
     %dt Индекс
     %dd= @order.zip
 
--if !@order.city.empty?
+-if @order.city.present?
   %dl.dl-horizontal
     %dt Город
     %dd= @order.city
 
--if !@order.address.empty?
+-if @order.address.present?
   %dl.dl-horizontal
     %dt Адрес
     %dd= @order.address
 
--if !@order.comment.empty?
+-if @order.passport.present?
+  %dl.dl-horizontal
+    %dt Паспортные данные
+    %dd= @order.passport
+
+-if @order.comment.present?
   %dl.dl-horizontal
     %dt Коментарий
     %dd= @order.comment
