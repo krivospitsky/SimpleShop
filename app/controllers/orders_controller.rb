@@ -3,6 +3,10 @@ class OrdersController < ApplicationController
     @order = Order.find_by  secure_key: params[:id]
   end
 
+  def pay
+    @order = Order.find_by  secure_key: params[:order_id]
+  end
+
   def new
     @order=Order.new
   end

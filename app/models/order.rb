@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def total_price_str
+  def total_price
     total=0
     order_items.each do |item|
       if item.discount_price
@@ -34,7 +34,11 @@ class Order < ActiveRecord::Base
         total+=item.price*item.quantity
       end
     end
-    "#{total} руб."
+    total
+  end
+
+  def total_price_str
+    "#{total_price} руб."
   end
 
 

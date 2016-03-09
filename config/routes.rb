@@ -22,7 +22,9 @@ Shop::Application.routes.draw do
   resources :cart_items
   get '/cart/delete/:product_id' => 'cart#delete'
   post '/cart/add' => 'cart#add'
-  resources :orders
+  resources :orders do
+    get :pay
+  end
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
