@@ -1,9 +1,26 @@
 %form{action: Settings.kassa_form_action, method: :post}
 	%input{type: :hidden, name: :shopId, value: Settings.kassa_shopId}
 	%input{type: :hidden, name: :scid, value: Settings.kassa_scid}
-	%input{type: :hidden, name: :customerNumber, value: @order.phone}
+	%input{type: :hidden, name: :customerNumber, value: @order.phone}	
+	
+	.sum
+		%strong.pull-left Сумма оплаты:&nbsp;
+		.price= @order.total_price
+
 	%input{type: :hidden, name: :sum, value: @order.total_price}
 	%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
 	%input{type: :hidden, name: :cps_email, value: @order.email}
 	%input{type: :hidden, name: :cps_phone, value: @order.phone}
-	%input.btn.btn-default{type: :submit, value: 'Оплатить через Yandex кассу'}
+
+	%strong Способ оплаты
+	.radio
+		%label
+			%input{type: :radio, name: :paymentType, value: 'AC'} 
+			Банковская карта
+	.radio
+		%label
+			%input{type: :radio, name: :paymentType, value: 'PC'} 
+			Yandex.Деньги
+
+
+	%input.btn.btn-primary{type: :submit, value: 'Оплатить через Yandex кассу'}

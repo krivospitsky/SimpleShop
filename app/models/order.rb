@@ -13,17 +13,17 @@ class Order < ActiveRecord::Base
   validates :email, presence: true
   validates :phone, presence: true
 
-  state_machine :state, :initial => :Новый do
-    event :processing do
-      transition :Новый => :Обработка
-    end
-    event :processed do
-      transition :Обработка => :Выполнен
-    end
-    event :reject do
-      transition any - :Отменен => :Отменен
-    end
-  end
+  # state_machine :state, :initial => :Новый do
+  #   event :processing do
+  #     transition :Новый => :Обработка
+  #   end
+  #   event :processed do
+  #     transition :Обработка => :Выполнен
+  #   end
+  #   event :reject do
+  #     transition any - :Отменен => :Отменен
+  #   end
+  # end
 
   def total_price
     total=0
@@ -34,7 +34,7 @@ class Order < ActiveRecord::Base
         total+=item.price*item.quantity
       end
     end
-    total
+    total + (delivery_method.price || 0)
   end
 
   def total_price_str

@@ -6,9 +6,9 @@ class OrderItem < ActiveRecord::Base
 		if !price
 			"по запросу"
 		elsif discount_price
-			"<del>#{price*quantity}</del>&nbsp;#{discount_price*quantity} руб."
+			"<del>#{price*quantity}</del>&nbsp;#{discount_price*quantity}"
 		else
-			"#{price*quantity}&nbsp;руб."
+			"#{price*quantity}"
 		end
 	end
 end

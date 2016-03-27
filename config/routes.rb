@@ -24,6 +24,8 @@ Shop::Application.routes.draw do
   post '/cart/add' => 'cart#add'
   resources :orders do
     get :pay
+    get :after_pay
+    get :after_pay_error
   end
 
     # The priority is based upon order of creation: first created -> highest priority.

@@ -3,8 +3,20 @@ class OrdersController < ApplicationController
     @order = Order.find_by  secure_key: params[:id]
   end
 
-  def pay
+  def after_pay
     @order = Order.find_by  secure_key: params[:order_id]
+    @order.state="Ожидание поступления оплаты"
+    @order.save
+    flash[:info]='Ожидаем поступления оплаты'
+    respond_with @order, location: "/orders/#{@order.secure_key}"
+  end
+
+  def after_pay_error
+    @order = Order.find_by  secure_key: params[:order_id]
+    @order.state="Ожидание поступления оплаты"
+    @order.save
+    flash[:error]='Ошибка оплаты'
+    respond_with @order, location: "/orders/#{@order.secure_key}"
   end
 
   def new
