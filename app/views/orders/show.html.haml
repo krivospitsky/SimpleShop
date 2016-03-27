@@ -22,8 +22,8 @@
 				%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
 				%input{type: :hidden, name: :cps_email, value: @order.email}
 				%input{type: :hidden, name: :cps_phone, value: @order.phone}
-				%input{type: :hidden, name: :shopSuccessURL, value: "http://127.0.0.1:3000/orders/@order.secure_key/after_pay"}
-				%input{type: :hidden, name: :shopFailURL, value: "http://127.0.0.1:3000/orders/@order.secure_key/after_pay_error"}
+				%input{type: :hidden, name: :shopSuccessURL, value: "http://#{Settings.site_url}/orders/@order.secure_key/after_pay"}
+				%input{type: :hidden, name: :shopFailURL, value: "http://#{Settings.site_url}/orders/@order.secure_key/after_pay_error"}
 
 
 
