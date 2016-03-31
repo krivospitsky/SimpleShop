@@ -19,6 +19,22 @@ class OrdersController < ApplicationController
     respond_with @order, location: "/orders/#{@order.secure_key}"
   end
 
+  def ya_kassa_check
+    @order = Order.find_by  secure_key: params[:orderNumber]
+    # if @order.state == "Ожидание поступления оплаты"
+      render 'check_ok.xml'
+    # end
+  end
+
+  def ya_kassa_payment
+      @order = Order.find_by  secure_key: params[:orderNumber]
+      @order.state="Оплачено"
+      @order.save
+
+      render 'check_ok.xml'
+  end
+
+
   def new
     @order=Order.new
   end

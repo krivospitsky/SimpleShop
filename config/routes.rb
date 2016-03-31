@@ -26,6 +26,8 @@ Shop::Application.routes.draw do
     get :pay
     get :after_pay
     get :after_pay_error
+    post :ya_kassa_check
+    post :ya_kassa_payment
   end
 
     # The priority is based upon order of creation: first created -> highest priority.
