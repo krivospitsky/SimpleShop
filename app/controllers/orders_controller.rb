@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     # if @order.state == "Ожидание поступления оплаты"
       @shopId=params[:shopId]
       @invoiceId=params[:invoiceId]
-      render 'check_ok.xml'
+      # render 'check_ok.xml'
     # end
   end
 
@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
       @shopId=params[:shopId]
       @invoiceId=params[:invoiceId]
 
-      render 'check_ok.xml'
+      # render 'check_ok.xml'
   end
 
 
