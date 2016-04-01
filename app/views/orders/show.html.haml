@@ -9,7 +9,7 @@
 	.alert.alert-error= flash[:error]
 
 
--if @order.state == 'Новый' && @order.payment_method.use_online == true
+-if (@order.state == 'Новый' || @order.state == 'Ошибка оплаты') && @order.payment_method.use_online == true
 	.panel.panel-default
 		.panel-heading
 			Онлайн оплата

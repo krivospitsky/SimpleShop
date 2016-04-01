@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<checkOrderResponse performedDatetime="#{Time.now.xmlschema }" code="0" invoiceId="#{params[:invoiceId]}" shopId="#{params[:shopId]}"/> 
+<checkOrderResponse performedDatetime="<% Time.now.xmlschema ?>" code="0" invoiceId="<? params[:invoiceId] ?>" shopId="<? params[:shopId] ?>"/> 
