@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
   def ya_kassa_check
     @order = Order.find_by  secure_key: params[:orderNumber]
     # if @order.state == "Ожидание поступления оплаты"
+      @shopId=params[:shopId]
+      @invoiceId=params[:invoiceId]
       render 'check_ok.xml'
     # end
   end
@@ -30,6 +32,9 @@ class OrdersController < ApplicationController
       @order = Order.find_by  secure_key: params[:orderNumber]
       @order.state="Оплачено"
       @order.save
+
+      @shopId=params[:shopId]
+      @invoiceId=params[:invoiceId]
 
       render 'check_ok.xml'
   end
