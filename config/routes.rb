@@ -26,8 +26,8 @@ Shop::Application.routes.draw do
   resources :orders do
     get :after_pay, on: :collection
     get :after_pay_error, on: :collection
-    post :ya_kassa_check, on: :collection
-    post :ya_kassa_payment, on: :collection
+    post :ya_kassa_check, on: :collection, defaults: { format: 'xml' }
+    post :ya_kassa_payment, on: :collection, defaults: { format: 'xml' }
   end
 
     # The priority is based upon order of creation: first created -> highest priority.
