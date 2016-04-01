@@ -23,7 +23,7 @@ Shop::Application.routes.draw do
   get '/cart/delete/:product_id' => 'cart#delete'
   post '/cart/add' => 'cart#add'
 
-  resources :orders
+  resources :orders do
     get :after_pay, on: :collection
     get :after_pay_error, on: :collection
     post :ya_kassa_check, on: :collection
