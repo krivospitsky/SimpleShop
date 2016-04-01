@@ -24,10 +24,11 @@ Shop::Application.routes.draw do
   post '/cart/add' => 'cart#add'
 
   resources :orders
-  get '/orders/after_pay'
-  get '/after_pay_error'
-  post '/ya_kassa_check'
-  post 'ya_kassa_payment'
+    get :after_pay, on: :collection
+    get :after_pay_error, on: :collection
+    post :ya_kassa_check, on: :collection
+    post :ya_kassa_payment, on: :collection
+  end
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
