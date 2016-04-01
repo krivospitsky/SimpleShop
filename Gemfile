@@ -66,7 +66,6 @@ gem 'cancan'
 gem "rails-settings-cached", "0.4.1"
 
 #gem 'unicorn', :platforms => :ruby
-gem 'rails_stdout_logging', group: :production
 
 gem 'rails-i18n'
 
