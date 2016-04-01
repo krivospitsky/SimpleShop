@@ -9,14 +9,14 @@ class OrdersController < ApplicationController
     @order = Order.find_by  secure_key: params[:orderNumber]
     # @order.state="Ожидание поступления оплаты"
     # @order.save
-    redirect_to "/orders/#{@order.secure_key}", flash: {info: 'Ожидаем поступления оплаты'}
+    redirect_to "/orders/#{@order.secure_key}", flash: {info: 'Заказ успешно оплачен'}
   end
 
   def after_pay_error
     @order = Order.find_by  secure_key: params[:orderNumber]
     @order.state="Ошибка оплаты"
     @order.save
-    redirect_to "/orders/#{@order.secure_key}", flash: {error: 'Ошибка оплаты'}
+    redirect_to "/orders/#{@order.secure_key}", flash: {error: 'Ошибка оплаты заказа'}
   end
 
   def ya_kassa_check
