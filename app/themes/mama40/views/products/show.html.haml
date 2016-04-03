@@ -22,8 +22,8 @@
                 -@product.variants.enabled.each do |var|
                   -list[var.attrs.first.value]=var.id
                 -list.keys.sort.each_with_index do |var, index|
-                  %label.btn.btn-default{class: (index==0)? 'active': ''}
-                    %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var]}= var
+                  %label{class: (index==0)? 'btn btn-default active': 'btn btn-default'}
+                    %input{type: :radio, autocomplete: :off, name: 'cart_item[variant_id]', value: list[var], checked: (index==0)? true : false}= var
           -else
             %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
               
