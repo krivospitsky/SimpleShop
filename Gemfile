@@ -88,7 +88,7 @@ gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
 
-#gem 'puma', group: :production
+gem 'puma', group: :production
 
 group :development do
 	gem "better_errors"
