@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~>4.2.0'
@@ -87,7 +87,8 @@ gem 'ranked-model'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
-gem 'puma'
+
+#gem 'puma', group: :production
 
 group :development do
 	gem "better_errors"

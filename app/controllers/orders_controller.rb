@@ -61,6 +61,14 @@ class OrdersController < ApplicationController
       order_item.quantity=cart_item.quantity
     end
 
+    @order.card_number=params['order']['card_number']
+    if @order.card_number
+      user=User.find_by(:card_number, @order.card_number)
+      if user
+        @order.discount=user.discount
+      end
+    end
+
     if @order.save
       UserMailer.order_confirmation(@order).deliver if ! @order.email.empty?
       UserMailer.new_order(@order).deliver 

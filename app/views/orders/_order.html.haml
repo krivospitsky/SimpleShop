@@ -79,6 +79,11 @@
         %small= item.quantity
       %td
         %small.price= raw item.price_str(item.quantity)
+  -if @order.discount>0
+    %tr
+      %td{colspan:3}
+        .pull-right= "Скидка #{@order.discount}%:"
+      %td.price= @order.discount_value
   %tr
     %td{colspan:3}
       .pull-right Доставка:
@@ -86,4 +91,4 @@
   %tr
     %td{colspan:3}
       .pull-right Итог:
-    %td.price= @order.total_price_str
+    %td.price= @order.total_price

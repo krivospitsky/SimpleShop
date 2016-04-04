@@ -25,7 +25,11 @@ class Order < ActiveRecord::Base
   #   end
   # end
 
-  def total_price
+  def discount_value
+
+  end
+
+  def price
     total=0
     order_items.each do |item|
       if item.discount_price
@@ -34,7 +38,14 @@ class Order < ActiveRecord::Base
         total+=item.price*item.quantity
       end
     end
-    total + (delivery_method.price || 0)
+  end
+
+  def discount_value
+    price*(discount || 0)/100
+  end
+
+  def total_price    
+    price - discount_value + (delivery_method.price || 0)
   end
 
   def total_price_str
