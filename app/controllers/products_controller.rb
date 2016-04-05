@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   def index
     @products=[]
     if params[:category_id]
-      @sort_order=params[:sort_order] || 'default'
+      @sort_order=params[:sort_order] || 'date'
       case @sort_order
         when 'default'
           sort_key=:sort_order
@@ -47,6 +47,9 @@ class ProductsController < ApplicationController
         when 'price_max'
           sort_key=:max_price
           sort_dir=:desc
+        when 'date'
+          sort_key=:returned_at
+          sort_dir=:asc
       end
         
       @category = Category.find(params[:category_id])

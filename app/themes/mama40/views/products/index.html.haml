@@ -7,7 +7,8 @@
 			.form-group
 				%label Сортировка
 				%select#sort_order.form-control
-					%option{value: 'default', selected: @sort_order=='default'} По умолчанию
+					%option{value: 'date', selected: @sort_order=='date'} По дате поступления
+					-# %option{value: 'default', selected: @sort_order=='default'} По умолчанию
 					%option{value: 'name', selected: @sort_order=='name'} По названию
 					%option{value: 'price_min', selected: @sort_order=='price_min'} По возрастанию цены
 					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены

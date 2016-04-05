@@ -28,7 +28,6 @@ class ImportCommercemlJob < ActiveJob::Base
         prod.xpath('Группы/Ид').each do |cat|
         	product.categories << Category.find_by(external_id: cat.content.strip)
         end
-        product.enabled=true
         product.save
 	end
 
@@ -44,6 +43,13 @@ class ImportCommercemlJob < ActiveJob::Base
 		if variant.count>0
 			variant.availability='В наличии'
 			variant.enabled=true
+	        product=variant.product
+	        if product.enabled == false
+	        	product.enabled=true
+	        	product.returned_at=Time.now()
+	        	product.save
+	        end
+
 		else
 			variant.availability='Нет в наличии'
 			variant.enabled=false
