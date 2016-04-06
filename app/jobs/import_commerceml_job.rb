@@ -44,6 +44,7 @@ class ImportCommercemlJob < ActiveJob::Base
 			variant.availability='В наличии'
 			variant.enabled=true
 	        product=variant.product
+	        puts "!!! #{product.name} !! #{product.enabled}"
 	        if product.enabled == false
 	        	product.enabled=true
 	        	product.returned_at=Time.now()
