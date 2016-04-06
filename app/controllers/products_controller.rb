@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
           sort_dir=:desc
         when 'date'
           sort_key=:returned_at
-          sort_dir=:asc
+          sort_dir=:desc
       end
         
       @category = Category.find(params[:category_id])

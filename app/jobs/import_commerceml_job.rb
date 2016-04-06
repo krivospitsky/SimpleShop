@@ -16,7 +16,7 @@ class ImportCommercemlJob < ActiveJob::Base
 		product.sku=prod.xpath('Артикул').first.content.strip
 		product.name=prod.xpath('Наименование').first.content.strip
 
-		# puts product.name
+		puts product.name
 
 		prod.xpath('ЗначенияРеквизитов/ЗначениеРеквизита').each do |rec|    			
 			if rec.xpath('Наименование').first.content == 'Полное наименование'
@@ -44,8 +44,9 @@ class ImportCommercemlJob < ActiveJob::Base
 			variant.availability='В наличии'
 			variant.enabled=true
 	        product=variant.product
-	        puts "!!! #{product.name} !! #{product.enabled}"
+	        # puts "!!! #{product.name} !! #{product.enabled}"
 	        if product.enabled == false
+		        puts "enabling  #{product.name}"
 	        	product.enabled=true
 	        	product.returned_at=Time.now()
 	        	product.save
@@ -81,7 +82,7 @@ class ImportCommercemlJob < ActiveJob::Base
 			var_exist=true
 		end
 		variant.name+=')' if var_exist
-		# puts variant.name
+		puts variant.name
 		variant.save    			
 	end
 
