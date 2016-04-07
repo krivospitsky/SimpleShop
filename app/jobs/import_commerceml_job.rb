@@ -95,6 +95,8 @@ class ImportCommercemlJob < ActiveJob::Base
 				prod.save
 			end
 		end		
+		`rake -f #{Rails.root.join("Rakefile")} moysklad:import_photos`
+		`rake -f #{Rails.root.join("Rakefile")} moysklad:import_users`
 	end
   end
 

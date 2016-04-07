@@ -1,6 +1,6 @@
 # coding: utf-8
 namespace :moysklad do
-	task :import_photo => :environment do
+	task :import_photos => :environment do
 		start=0
 		loop do 
 			puts "https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000"
