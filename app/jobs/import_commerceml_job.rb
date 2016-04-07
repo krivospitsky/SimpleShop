@@ -45,7 +45,7 @@ class ImportCommercemlJob < ActiveJob::Base
 			variant.enabled=true
 	        product=variant.product
 	        # puts "!!! #{product.name} !! #{product.enabled}"
-	        if product.enabled == false
+	        if product.enabled != true
 		        puts "enabling  #{product.name}"
 	        	product.enabled=true
 	        	product.returned_at=Time.now()
