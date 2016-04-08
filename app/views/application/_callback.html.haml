@@ -2,7 +2,7 @@
 #callback.modal
 	.modal-dialog
 		.modal-content
-			=form_tag('/callback', remote: true, id: 'callback-form') 
+			=form_tag('/callback', remote: true, id: 'callback-form') do
 				.modal-header
 					%button.close{ "data-dismiss"=>"modal", "aria-hidden"=>"true"}
 						&times;
