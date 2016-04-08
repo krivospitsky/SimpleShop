@@ -237,3 +237,7 @@
     /** скрываем кнопку в начале **/
     display:none;
 }
+
+.callback-btn{
+  border-bottom: 1px dashed $brand-secondary;
+}
