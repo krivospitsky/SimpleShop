@@ -41,4 +41,9 @@ class UserMailer < ActionMailer::Base
     # 	mail(to: Settings.owner_email, subject:"Новый заказ", from: order.email, delivery_method_options: delivery_options2)
     # end
   end
+
+  def callback(phone)
+    @phone=phone
+    mail(to: Settings.owner_email, subject:"Обратный звонок", from: Settings.owner_email, delivery_method_options: delivery_options)
+  end
 end

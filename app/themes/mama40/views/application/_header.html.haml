@@ -13,7 +13,8 @@
 				.strong
 					%a{href:'mailto:info@mama40.ru'} info@mama40.ru
 				.strong
-					%a.btn.btn-default#call Обратный звонок
+					=render 'callback'
+
 		.shopping-cart.pull-right
 			-# .strong Ваша корзина
 			%a{href: new_order_path}

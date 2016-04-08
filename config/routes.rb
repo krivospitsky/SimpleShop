@@ -23,6 +23,8 @@ Shop::Application.routes.draw do
   get '/cart/delete/:product_id' => 'cart#delete'
   post '/cart/add' => 'cart#add'
 
+  post '/callback' => 'callback#new'
+
   resources :orders do
     get :after_pay, on: :collection
     get :after_pay_error, on: :collection
