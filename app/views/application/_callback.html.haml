@@ -2,23 +2,17 @@
 #callback.modal
 	.modal-dialog
 		.modal-content
-			=form_tag('/callback', remote: true, id: 'callback-form')  do |f|
+			=form_tag('/callback', remote: true, id: 'callback-form') 
 				.modal-header
 					%button.close{ "data-dismiss"=>"modal", "aria-hidden"=>"true"}
 						&times;
 					%h4.modal-title Заказ обратного звонка
 				.modal-body
-					-# - if @order.errors.any?
-					-# 	.alert.alert-danger
-					-# 		%h2 Ошибка оформления заказа
-					-# 		%ul
-					-# 			- @order.errors.full_messages.each do |msg|
-					-# 				%li= msg
 					.row
 						.col-md-12
 							.form-group
 								%label.control-label Номер телефона
-								=f.text_field_tag :phone, class:'form-control input-block-level'
+								=text_field_tag :phone, class:'form-control input-block-level'
 				.modal-footer
 					%button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
 						Отменить
