@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
 
     @order.card_number=params['order']['card_number']
     if @order.card_number
-      user=User.find_by(:card_number, @order.card_number)
+      user=User.find_by card_number: @order.card_number
       if user
         @order.discount=user.discount
       end
