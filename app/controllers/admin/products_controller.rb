@@ -33,6 +33,6 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def permitted_params
-    params.require(:product).permit(:name, :description, :sku, :price, :count, :enabled, :sort_order_position, :external_id, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[], :linked_category_ids=>[], :linked_product_ids=>[], variants_attributes: [:id, :sku, :enabled, :name, :price, :count, :availability, :_destroy] ,seo_attributes: [:title, :description, :keywords], attrs_attributes:[:id, :name, :value, :variantable, :_destroy])
+    params.require(:product).permit(:name, :description, :sku, :price, :count, :enabled, :sort_order_position, :external_id, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[], :linked_category_ids=>[], :linked_product_ids=>[], variants_attributes: [:id, :sku, :enabled, :name, :price, :count, :availability, :_destroy], attrs_attributes:[:id, :name, :value, :variantable, :_destroy])
   end
 end

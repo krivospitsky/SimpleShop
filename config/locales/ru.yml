@@ -106,6 +106,7 @@ ru:
         end_at: Окончание
       order:
         phone: Номер телефона
+        name: ФИО
     errors:
       models:
         order:
