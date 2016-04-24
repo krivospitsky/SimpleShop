@@ -26,9 +26,9 @@ class Order < ActiveRecord::Base
   #   end
   # end
 
-  def discount_value
+  # def discount_value
 
-  end
+  # end
 
   def price
     total=0
@@ -42,7 +42,7 @@ class Order < ActiveRecord::Base
   end
 
   def discount_value
-    price*(discount || 0)/100
+    price*discount/100
   end
 
   def total_price    
