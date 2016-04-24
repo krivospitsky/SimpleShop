@@ -19,11 +19,13 @@ class ProductsController < ApplicationController
 
     @breadcrumbs=[]
     @breadcrumbs << @product
-    if params[:category_id]
-      tmp=Category.find(params[:category_id])
-      while tmp do 
-        @breadcrumbs << tmp
-        tmp=tmp.parent
+
+    cat=params[:category_id] ? Category.find(params[:category_id]) : (@products.categories.empty? ? nil : @products.categories.first)
+
+    if cat
+      while cat do 
+        @breadcrumbs << cat
+        cat=cat.parent
       end
       @breadcrumbs=@breadcrumbs.reverse
     end
