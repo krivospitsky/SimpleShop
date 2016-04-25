@@ -70,30 +70,28 @@ gem "rails-settings-cached", "0.4.1"
 gem 'rails-i18n'
 
 group :development, :test do
-#  gem 'sqlite3'
-  gem 'seed_dump'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
-  gem 'ffaker'
-  gem 'quiet_assets'
+	#  gem 'sqlite3'
+	gem 'seed_dump'
+	gem 'rspec-rails'
+	gem 'factory_girl_rails'
+	gem 'database_cleaner'
+	gem 'ffaker'
+	gem 'quiet_assets'
+	gem "better_errors"
+	gem "binding_of_caller" 
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 
 gem 'ranked-model'
-
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
 
 gem 'puma', group: :production
+gem 'rails_12factor', group: :production
 
-group :development do
-	gem "better_errors"
-	gem "binding_of_caller" 
-end
 
 gem 'roo'
 gem 'roo-xls'
@@ -101,5 +99,3 @@ gem 'roo-xls'
 gem 'amoeba'
 
 gem 'delayed_job_active_record'
-
-gem 'rails_12factor', group: :production

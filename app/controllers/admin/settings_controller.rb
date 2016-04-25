@@ -6,7 +6,7 @@ class Admin::SettingsController < Admin::BaseController
                         {title: 'Фото', settings: [:list_width, :list_height, :show_width, :show_height]},
                         {title: 'Yandex Kassa', settings: [:kassa_shopId, :kassa_scid, :kassa_form_action]},
                         {title: 'Аналитика', settings: [{metrika: :text}, :metrika_id, :metrika_cart_goal, :metrika_order_goal, :google_verification, :yandex_verification]},
-                        {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}]}]
+                        {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {disable_discount_card: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}]}]
 
     def edit
         @settings_list=@@settings_list
@@ -30,7 +30,7 @@ class Admin::SettingsController < Admin::BaseController
         end
 
         Rails.application.reload_routes!
-        RecreateImagesJob.perform_later
+        RecreateImagesJob.perform_later if recreate
 
         redirect_to '/admin/settings/edit'
     end
