@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
         @order.discount=user.discount
       end
     end
-    @order.discount |= 0
+    @order.discount = 0 unless @order.discount
 
     if @order.save
       UserMailer.order_confirmation(@order).deliver if ! @order.email.empty?

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~>4.2.0'
@@ -70,7 +70,7 @@ gem "rails-settings-cached", "0.4.1"
 gem 'rails-i18n'
 
 group :development, :test do
-  gem 'sqlite3'
+#  gem 'sqlite3'
   gem 'seed_dump'
   gem 'rspec-rails'
   gem 'factory_girl_rails'

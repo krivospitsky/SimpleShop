@@ -39,6 +39,7 @@ class Order < ActiveRecord::Base
         total+=item.price*item.quantity
       end
     end
+    total
   end
 
   def discount_value
