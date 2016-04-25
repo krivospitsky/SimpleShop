@@ -9,7 +9,7 @@
       %span{itemprop: "availability"}= @product.variants.first.availability
       %br
       %strong Цена:
-      .price{itemprop: "price"}= raw @product.variants.first.price_str
+      %span.price{itemprop: "price"}= raw @product.variants.first.price_str
       =render 'add_to_cart', f: f
 -# -else
 -#   %strong Артикул:
