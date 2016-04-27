@@ -124,6 +124,7 @@ namespace :import do
 						as=variant.attrs.find_or_initialize_by(name: 'Размер')
 						as.value=long_size
 						as.save
+						variant.touch unless variant.new_record?
 						variant.save
 					end
 				end
