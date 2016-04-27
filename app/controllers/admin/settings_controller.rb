@@ -5,6 +5,7 @@ class Admin::SettingsController < Admin::BaseController
                         {title: 'Почта', settings: [:smtp_host, :smtp_port, :smtp_domain, :smtp_user_name, :smtp_password, :smtp_authentication]},
                         {title: 'Фото', settings: [:list_width, :list_height, :show_width, :show_height]},
                         {title: 'Yandex Kassa', settings: [:kassa_shopId, :kassa_scid, :kassa_form_action]},
+                        {title: 'Yandex Кошелек', settings: [:ya_money_receiver]},
                         {title: 'Аналитика', settings: [{metrika: :text}, :metrika_id, :metrika_cart_goal, :metrika_order_goal, :google_verification, :yandex_verification]},
                         {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {disable_discount_card: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}]}]
 

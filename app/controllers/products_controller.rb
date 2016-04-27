@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
     @breadcrumbs=[]
     @breadcrumbs << @product
 
-    cat=params[:category_id] ? Category.find(params[:category_id]) : (@products.categories.empty? ? nil : @products.categories.first)
+    cat=params[:category_id] ? Category.find(params[:category_id]) : (@product.categories.empty? ? nil : @product.categories.first)
 
     if cat
       while cat do 
