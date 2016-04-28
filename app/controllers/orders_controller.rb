@@ -88,7 +88,7 @@ class OrdersController < ApplicationController
       flash[:info]='Заказ успешно создан'
       respond_with @order, location: "/orders/#{@order.secure_key}"
     else      
-      render :action => 'new'
+      render :action => 'checkout'
     end
   end
 

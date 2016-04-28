@@ -2,11 +2,11 @@
 	.panel.panel-default
 		.panel-heading
 			.row.order-header
-				.col-sm-4.text-center
+				.col-sm-4.text-center.cart-tab
 					%h2.past Корзина
-				.col-sm-4.text-center
+				.col-sm-4.text-center.checkout-tab
 					%h2 Оформление
-				.col-sm-4.text-center
+				.col-sm-4.text-center.pay-tab
 					%h2.disabled Оплата
 
 
@@ -24,7 +24,7 @@
 					-if dm.applicable?(@current_cart.total_price)
 						.radio
 							%label
-								=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
+								=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide, checked: (@order.delivery_method == dm)
 								=dm.text
 						.delivery-descr{id: "delivery-descr-#{dm.id}"}
 							=raw dm.description
@@ -33,7 +33,7 @@
 				-PaymentMethod.enabled.each do |pm|
 					.radio
 						%label
-							=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
+							=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide, :'data-online' => pm.use_online, checked: (@order.payment_method == pm)
 							=pm.name
 		%hr
 		.row
