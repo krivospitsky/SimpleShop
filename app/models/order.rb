@@ -13,6 +13,8 @@ class Order < ActiveRecord::Base
   validates :email, presence: true
   validates :phone, presence: true
   validates :name, presence: true
+  validates :delivery_method, presence: true
+  validates :payment_method, presence: true
 
   # state_machine :state, :initial => :Новый do
   #   event :processing do

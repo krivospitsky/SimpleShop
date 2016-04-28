@@ -1,135 +1,53 @@
-- model_class = Cart
-.page-header
-	%h1 Корзина
-
--if @current_cart.cart_items.count>0
-	%table.table.table-condensed
-		-@current_cart.cart_items.all.each do |item|
+.panel.panel-default
+	.panel-heading
+		.row.order-header
+			.col-sm-4.text-center
+				%h2 Корзина
+			.col-sm-4.text-center
+				%h2.disabled Оформление
+			.col-sm-4.text-center
+				%h2.disabled Оплата
+	-if @current_cart.cart_items.count>0
+		%table.table.cart
+			-@current_cart.cart_items.all.each do |item|
+				%tr
+					= form_for item, method:'patch' do |f|
+						%td
+							=link_to product_path(item.product) do
+								=image_tag item.product.main_image_url(:thumb), class: 'img_thumb'
+						%td
+							-if item.variant.name && item.variant.name!=''
+								=link_to item.variant.name, product_path(item.product)
+							-else
+								=link_to item.product.name, product_path(item.product)
+							%br
+							%small
+								Артикул:
+								=item.variant.sku
+						%td
+							%small.price
+								=raw item.variant.price_str
+						%td
+							.input-group.input-group-sm#quantity
+								=f.text_field :quantity, class:'form-control'
+								%span.input-group-btn
+									%button.btn.btn-xs{type:'submit'}
+										%span.glyphicon.glyphicon-refresh
+						%td
+							%small.price
+								=raw item.variant.price_str(item.quantity)
+					%td
+						=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
+							%span.glyphicon.glyphicon-trash
+							Удалить
 			%tr
-				= form_for item, method:'patch' do |f|
-					%td
-						=link_to product_path(item.product) do
-							=image_tag item.product.main_image_url(:thumb), class: 'img_thumb'
-					%td
-						-if item.variant.name && item.variant.name!=''
-							=link_to item.variant.name, product_path(item.product)
-						-else
-							=link_to item.product.name, product_path(item.product)
-						%br
-						%small
-							Артикул:
-							=item.variant.sku
-					%td
-						%small.price
-							=raw item.variant.price_str
-					%td
-						.input-group.input-group-sm#quantity
-							=f.text_field :quantity, class:'form-control'
-							%span.input-group-btn
-								%button.btn.btn-xs{type:'submit'}
-									%span.glyphicon.glyphicon-refresh
-					%td
-						%small.price
-							=raw item.variant.price_str(item.quantity)
+				%td{colspan:4}
+					.pull-right
+						Итог:
+				%td.price
+					=@current_cart.total_price_str
 				%td
-					=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
-						%span.glyphicon.glyphicon-trash
-						Удалить
-		%tr
-			%td{colspan:4}
-				.pull-right
-					Итог
-			%td.price
-				=@current_cart.total_price_str
-			%td
 
-	%hr
-	=link_to 'Оформить заказ', "#", class:'btn btn-primary', 'data-toggle'=>"modal", 'data-target'=>"#order-info"
-	=#link_to 'Продолжить покупки', "", class:'btn btn-primary'
-
-	#order-info.modal
-		.modal-dialog
-			.modal-content
-				=form_for @order do |f|
-					=f.hidden_field :cart_id
-					.modal-header
-						%button.close{ "data-dismiss"=>"modal", "aria-hidden"=>"true"}
-							&times;
-						%h4.modal-title Оформление заказа
-					.modal-body
-						- if @order.errors.any?
-							.alert.alert-danger
-								%h2 Ошибка оформления заказа
-								%ul
-									- @order.errors.full_messages.each do |msg|
-										%li= msg
-						.row
-							.col-md-5.col-md-offset-1
-								%h3 Способ доставки
-								-DeliveryMethod.enabled.each do |dm|
-									-if dm.applicable?(@current_cart.total_price)
-										.radio
-											%label
-												=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
-												=dm.text
-										.delivery-descr{id: "delivery-descr-#{dm.id}"}
-											=raw dm.description
-							.col-md-5.col-md-offset-1
-								%h3 Способ оплаты
-								-PaymentMethod.enabled.each do |pm|
-									.radio
-										%label
-											=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
-											=pm.name
-						%hr
-						.row
-							.col-md-4
-								.form-group
-									%label.control-label.required Фамилия, имя, отчество
-									=f.text_field :name, class:'form-control input-block-level'
-							.col-md-4
-								.form-group
-									%label.control-label.required E-Mail
-									=f.text_field :email, class:'form-control input-block-level'
-							.col-md-4
-								.form-group
-									%label.control-label.required Телефон
-									=f.text_field :phone, class:'form-control input-block-level'
-							.col-md-4.zip.may-hide
-								.form-group
-									%label.control-label Индекс
-									=f.text_field :zip, class:'form-control input-block-level'
-							.col-md-4.city.may-hide
-								.form-group
-									%label.control-label Город
-									=f.text_field :city, class:'form-control input-block-level'
-							.col-md-4.address.may-hide
-								.form-group
-									%label.control-label Адрес
-									=f.text_field :address, class:'form-control input-block-level'
-							-unless Settings.disable_discount_card
-								.col-md-4
-									.form-group
-										%label.control-label Дисконтная карта
-										=f.text_field :card_number, class:'form-control input-block-level'
-							.col-md-12.passport.may-hide
-								.form-group
-									%label.control-label Паспортные данные
-									=f.text_field :passport, class:'form-control input-block-level', placeholder: 'Серия, номер, кем и когда выдан'
-						.row
-							.col-md-12
-								.form-group
-									%label.control-label Комментарий
-									=f.text_area :comment, class:'form-control input-block-level'
-					.modal-footer
-						%button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
-							Отменить
-						%button.btn.btn-primary{type:'submit'}
-							Оформить заказ
--else
-	%p.bg-primary
-		Корзина пуста
-
--if @order.errors.any?
-	:javascript
-		$('#order-info').modal('show')			
+	.panel-footer
+		%a.btn.btn-primary.pull-right{href: order_checkout_path} Оформить заказ >>
+		.clearfix

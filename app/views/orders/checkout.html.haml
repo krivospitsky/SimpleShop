@@ -1,0 +1,83 @@
+=form_for @order do |f|
+	.panel.panel-default
+		.panel-heading
+			.row.order-header
+				.col-sm-4.text-center
+					%h2.past Корзина
+				.col-sm-4.text-center
+					%h2 Оформление
+				.col-sm-4.text-center
+					%h2.disabled Оплата
+
+
+		- if @order.errors.any?
+			.alert.alert-danger
+				%h2 Ошибка оформления заказа
+				%ul
+					- @order.errors.full_messages.each do |msg|
+						%li= msg
+		=f.hidden_field :cart_id
+		.row
+			.col-md-5.col-md-offset-1
+				%h3 Способ доставки
+				-DeliveryMethod.enabled.each do |dm|
+					-if dm.applicable?(@current_cart.total_price)
+						.radio
+							%label
+								=f.radio_button :delivery_method, dm.id, :'data-payment-ids'=> dm.payment_methods.pluck(:id), :'data-hide'=> dm.hide
+								=dm.text
+						.delivery-descr{id: "delivery-descr-#{dm.id}"}
+							=raw dm.description
+			.col-md-5.col-md-offset-1
+				%h3 Способ оплаты
+				-PaymentMethod.enabled.each do |pm|
+					.radio
+						%label
+							=f.radio_button :payment_method, pm.id, disabled: true, :'data-hide'=> pm.hide
+							=pm.name
+		%hr
+		.row
+			.col-sm-8
+				.col-md-12
+					.form-group
+						%label.control-label.required Фамилия, имя, отчество
+						=f.text_field :name, class:'form-control input-block-level'
+				.col-md-6
+					.form-group
+						%label.control-label.required E-Mail
+						=f.text_field :email, class:'form-control input-block-level'
+				.col-md-6
+					.form-group
+						%label.control-label.required Телефон
+						=f.text_field :phone, class:'form-control input-block-level'
+				-# .col-md-2.zip.may-hide
+				-# 	.form-group
+				-# 		%label.control-label Индекс
+				-# 		=f.text_field :zip, class:'form-control input-block-level'
+				-# .col-md-4.city.may-hide
+				-# 	.form-group
+				-# 		%label.control-label Город
+				-# 		=f.text_field :city, class:'form-control input-block-level'
+				.col-md-12.address.may-hide
+					.form-group
+						%label.control-label Адрес
+						=f.text_field :address, class:'form-control input-block-level', placeholder: 'Индекс, город, улица, дом, квартира'
+				.col-md-12.passport.may-hide
+					.form-group
+						%label.control-label Паспортные данные
+						=f.text_field :passport, class:'form-control input-block-level', placeholder: 'Серия, номер, кем и когда выдан'
+			.col-sm-4
+				.form-group.col-md-12
+					%label.control-label Комментарий
+					=f.text_area :comment, class:'form-control input-block-level'
+				-unless Settings.disable_discount_card
+					.col-md-12
+						.form-group
+							%label.control-label Дисконтная карта
+							=f.text_field :card_number, class:'form-control input-block-level'
+
+
+		.panel-footer
+			%button.btn.btn-default{href: new_order_path} << Корзина	
+			%button.btn.btn-primary.pull-right{type:'submit'} Оплата >>
+			.clearfix

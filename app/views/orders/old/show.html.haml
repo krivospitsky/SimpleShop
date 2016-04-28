@@ -1,0 +1,41 @@
+-if flash[:info]
+	.alert.alert-success= flash[:info]
+	%script
+		$(window).load(function() {
+		=Settings.metrika_order_goal_full
+		})
+
+-if flash[:error]
+	.alert.alert-danger= flash[:error]
+
+
+-if (@order.state == 'Новый' || @order.state == 'Ошибка оплаты') && @order.payment_method.use_online == true
+	.panel.panel-default
+		.panel-heading
+			Онлайн оплата
+		.panel-body
+			%form{action: Settings.kassa_form_action, method: :post}
+				%input{type: :hidden, name: :shopId, value: Settings.kassa_shopId}
+				%input{type: :hidden, name: :scid, value: Settings.kassa_scid}
+				%input{type: :hidden, name: :customerNumber, value: @order.phone}	
+				%input{type: :hidden, name: :sum, value: @order.total_price}
+				%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
+				%input{type: :hidden, name: :cps_email, value: @order.email}
+				%input{type: :hidden, name: :cps_phone, value: @order.phone}
+
+				.row
+					.col-sm-3
+						%strong Способ оплаты
+						.radio
+							%label
+								%input{type: :radio, name: :paymentType, value: 'AC'} 
+								Банковская карта
+						.radio
+							%label
+								%input{type: :radio, name: :paymentType, value: 'PC'} 
+								Yandex.Деньги
+
+					.col-sm-6
+						%input.btn.btn-primary{type: :submit, value: 'Оплатить'}
+
+=render 'order'

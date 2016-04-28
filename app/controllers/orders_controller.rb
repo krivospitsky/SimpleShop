@@ -1,8 +1,19 @@
 class OrdersController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:after_pay, :after_pay_error, :ya_kassa_check, :ya_kassa_payment]
 
+
+  def checkout
+    @order=Order.new
+  end
+
+
   def show
+    # @order=Order.last
+    # @use_online_pay=true
+    # @need_pay=true
     @order = Order.find_by  secure_key: params[:id]
+    @use_online_pay=@order.payment_method.use_online
+    @need_pay=@use_online_pay && (@order.state == "Новый")
   end
 
   def after_pay

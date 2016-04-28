@@ -25,12 +25,17 @@ Shop::Application.routes.draw do
 
   post '/callback' => 'callback#new'
 
+
   resources :orders do
+    # get :order, on: :collection
+    # get :finish, on: :collection
+
     get :after_pay, on: :collection
     get :after_pay_error, on: :collection
     post :ya_kassa_check, on: :collection, defaults: { format: 'xml' }
     post :ya_kassa_payment, on: :collection, defaults: { format: 'xml' }
   end
+  get '/order/checkout' => 'orders#checkout'
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

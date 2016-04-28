@@ -1,41 +1,142 @@
--if flash[:info]
-	.alert.alert-success= flash[:info]
-	%script
-		$(window).load(function() {
-		=Settings.metrika_order_goal_full
-		})
+.panel.panel-default
+	.panel-heading
+		.row.order-header
+			-if @use_online_pay
+				.col-sm-4.text-center
+					%h2.past Корзина
+				.col-sm-4.text-center
+					%h2.past Оформление
+				.col-sm-4.text-center
+					%h2{class: @need_pay? '' : 'past'} Оплата
+			-else
+				.col-sm-6.text-center
+					%h2.past Корзина
+				.col-sm-6.text-center
+					%h2.past Оформление
+	.panel-body
+		-if flash[:info]
+			.alert.alert-success= flash[:info]
+			%script
+				$(window).load(function() {
+				=Settings.metrika_order_goal_full
+				})
 
--if flash[:error]
-	.alert.alert-danger= flash[:error]
+		-if flash[:error]
+			.alert.alert-danger= flash[:error]
+		%dl.dl-horizontal
+			%dt Имя
+			%dd= @order.name
+
+		.row
+			%dl.dl-horizontal.col-sm-6
+				%dt E-mail
+				%dd= @order.email
+
+			%dl.dl-horizontal.col-sm-6
+				%dt Телефон
+				%dd= @order.phone
+
+		-# -if @order.zip.present?
+		-# 	%dl.dl-horizontal
+		-# 		%dt Индекс
+		-# 		%dd= @order.zip
+
+		-# -if @order.city.present?
+		-# 	%dl.dl-horizontal
+		-# 		%dt Город
+		-# 		%dd= @order.city
+
+		-if @order.address.present?
+			%dl.dl-horizontal
+				%dt Адрес
+				%dd= @order.address
+
+		-if @order.passport.present?
+			%dl.dl-horizontal
+				%dt Паспортные данные
+				%dd= @order.passport
+
+		.row
+			-if @order.delivery_method.present?
+				%dl.dl-horizontal.col-sm-6
+					%dt Способ доставки
+					%dd= @order.delivery_method.name
+
+			-if @order.payment_method.present?
+				%dl.dl-horizontal.col-sm-6
+					%dt Способ оплаты
+					%dd= @order.payment_method.name
+
+		-if @order.comment.present?
+			%dl.dl-horizontal
+				%dt Коментарий
+				%dd= @order.comment
 
 
--if (@order.state == 'Новый' || @order.state == 'Ошибка оплаты') && @order.payment_method.use_online == true
-	.panel.panel-default
-		.panel-heading
-			Онлайн оплата
-		.panel-body
-			%form{action: Settings.kassa_form_action, method: :post}
-				%input{type: :hidden, name: :shopId, value: Settings.kassa_shopId}
-				%input{type: :hidden, name: :scid, value: Settings.kassa_scid}
-				%input{type: :hidden, name: :customerNumber, value: @order.phone}	
-				%input{type: :hidden, name: :sum, value: @order.total_price}
-				%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
-				%input{type: :hidden, name: :cps_email, value: @order.email}
-				%input{type: :hidden, name: :cps_phone, value: @order.phone}
 
-				.row
-					.col-sm-3
-						%strong Способ оплаты
-						.radio
-							%label
-								%input{type: :radio, name: :paymentType, value: 'AC'} 
-								Банковская карта
-						.radio
-							%label
-								%input{type: :radio, name: :paymentType, value: 'PC'} 
-								Yandex.Деньги
+		-# %dl.dl-horizontal
+		-# 	%dt Статус
+		-# 	%dd= @order.state
 
-					.col-sm-6
-						%input.btn.btn-primary{type: :submit, value: 'Оплатить'}
+		-# %dl.dl-horizontal
+		-# 	%dt Ссылка на заказ
+		-# 	%dd= "#{Settings.site_url}/orders/#{@order.secure_key}"
 
-=render 'order'
+
+
+	%table.table.order
+		%tr
+			%td Товар
+			%td Цена
+			%td Количество
+			%td Сумма
+		-@order.order_items.all.each do |item|
+			%tr
+				%td 
+					=item.product_name
+					%br
+					%small
+						Артикул:
+						=item.product_sku
+				%td
+					%small.price=raw item.price_str
+				%td
+					%small= item.quantity
+				%td
+					%small.price= raw item.price_str(item.quantity)
+		-if @order.discount>0
+			%tr
+				%td{colspan:3}
+					.pull-right= "Скидка #{@order.discount}%:"
+				%td.price= @order.discount_value
+		%tr
+			%td{colspan:3}
+				.pull-right Доставка:
+			%td.price= (@order.delivery_method.price || 0)
+		%tr
+			%td{colspan:3}
+				.pull-right Итог:
+			%td.price= @order.total_price
+
+	-if @need_pay
+		.panel-footer
+			-# %a.btn.btn-default << Корзина	
+			.pull-right
+				%form{action: Settings.kassa_form_action, method: :post}
+					%input{type: :hidden, name: :shopId, value: Settings.kassa_shopId}
+					%input{type: :hidden, name: :scid, value: Settings.kassa_scid}
+					%input{type: :hidden, name: :customerNumber, value: @order.phone}	
+					%input{type: :hidden, name: :sum, value: @order.total_price}
+					%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
+					%input{type: :hidden, name: :cps_email, value: @order.email}
+					%input{type: :hidden, name: :cps_phone, value: @order.phone}
+					
+					.input-group
+						.input-group-addon
+							Проверьте правильность введеных данных и оплатите заказ
+						%select.form-control{name: :paymentType}
+							%option{value: 'AC'} Банковская карта
+							%option{value: 'PC'} Yandex.Деньги
+						.input-group-btn
+							%input.btn.btn-primary{type: :submit, value: 'Оплатить'}
+			.clearfix
