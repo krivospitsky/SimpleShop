@@ -78,18 +78,22 @@ $(document).ready(function() {
 
 
     // Инициализация полей при обновлении
-    $("input[name='order[delivery_method]']:checked").attr('data-payment-ids').split(' ').forEach(function(e){
-        if (e != ''){
-            $('#order_payment_method_'+e).prop("disabled", false);
-        }
-    })
+    if ($("input[name='order[delivery_method]']:checked")){
+        $("input[name='order[delivery_method]']:checked").attr('data-payment-ids').split(' ').forEach(function(e){
+            if (e != ''){
+                $('#order_payment_method_'+e).prop("disabled", false);
+            }
+        })
+    }
 
     $(".may-hide").show()
-    $("input[name='order[delivery_method]']:checked").attr('data-hide').split(' ').forEach(function(e){
-        if (e != ''){
-            $('.'+e).hide();
-        }
-    })
+    if ($("input[name='order[delivery_method]']:checked")){
+        $("input[name='order[delivery_method]']:checked").attr('data-hide').split(' ').forEach(function(e){
+            if (e != ''){
+                $('.'+e).hide();
+            }
+        })
+    }
 
     $(".delivery-descr").hide()
     $("#delivery-descr-"+$("input[name='order[delivery_method]']:checked").val()).show()
