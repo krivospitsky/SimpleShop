@@ -84,10 +84,7 @@ $(document).ready(function() {
                 $('#order_payment_method_'+e).prop("disabled", false);
             }
         })
-    }
-
-    $(".may-hide").show()
-    if ($("input[name='order[delivery_method]']:checked")){
+        $(".may-hide").show()
         $("input[name='order[delivery_method]']:checked").attr('data-hide').split(' ').forEach(function(e){
             if (e != ''){
                 $('.'+e).hide();
@@ -98,13 +95,15 @@ $(document).ready(function() {
     $(".delivery-descr").hide()
     $("#delivery-descr-"+$("input[name='order[delivery_method]']:checked").val()).show()
 
-    if ($("input[name='order[payment_method]']:checked").attr('data-online') == 'true'){
-        $('.pay-tab').show()
-        $('.cart-tab').addClass('col-sm-4').removeClass('col-sm-6')
-        $('.checkout-tab').addClass('col-sm-4').removeClass('col-sm-6')
-    } else {
-        $('.pay-tab').hide()
-        $('.cart-tab').addClass('col-sm-6').removeClass('col-sm-4')
-        $('.checkout-tab').addClass('col-sm-6').removeClass('col-sm-4')
+    if ($("input[name='order[payment_method]']:checked")){
+        if ($("input[name='order[payment_method]']:checked").attr('data-online') == 'true'){
+            $('.pay-tab').show()
+            $('.cart-tab').addClass('col-sm-4').removeClass('col-sm-6')
+            $('.checkout-tab').addClass('col-sm-4').removeClass('col-sm-6')
+        } else {
+            $('.pay-tab').hide()
+            $('.cart-tab').addClass('col-sm-6').removeClass('col-sm-4')
+            $('.checkout-tab').addClass('col-sm-6').removeClass('col-sm-4')
+        }
     }
 })
