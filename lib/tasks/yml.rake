@@ -17,7 +17,7 @@ namespace :import do
 			url='http://www.novatour.ru/Services/ShopService/YMLGet?region=1608' if supplier == 'nova'
 			
 #			url='http://www.camping.ru/prices/yandex.php' if supplier == 'camp'
-			url='http://www.camping.ru/bitrix/catalog_export/yandex.php' if supplier == 'camp'
+			url='http://www.camping2000.ru/bitrix/catalog_export/users/evseev91@mail.ru_6ef68efe7db7a9ab35f4975c50e6e625.php' if supplier == 'camp'
 			url='http://www.salmoru.com/yandexshop.xml' if supplier == 'salmo'
 			url='http://www.220-volt.ru/xml/hw.xml' if supplier == '220'
 
