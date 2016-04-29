@@ -78,7 +78,7 @@ $(document).ready(function() {
 
 
     // Инициализация полей при обновлении
-    if ($("input[name='order[delivery_method]']:checked")){
+    if ($("input[name='order[delivery_method]']:checked").length){
         $("input[name='order[delivery_method]']:checked").attr('data-payment-ids').split(' ').forEach(function(e){
             if (e != ''){
                 $('#order_payment_method_'+e).prop("disabled", false);
@@ -90,12 +90,12 @@ $(document).ready(function() {
                 $('.'+e).hide();
             }
         })
+        $(".delivery-descr").hide()
+        $("#delivery-descr-"+$("input[name='order[delivery_method]']:checked").val()).show()
     }
 
-    $(".delivery-descr").hide()
-    $("#delivery-descr-"+$("input[name='order[delivery_method]']:checked").val()).show()
 
-    if ($("input[name='order[payment_method]']:checked")){
+    if ($("input[name='order[payment_method]']:checked").length ){
         if ($("input[name='order[payment_method]']:checked").attr('data-online') == 'true'){
             $('.pay-tab').show()
             $('.cart-tab').addClass('col-sm-4').removeClass('col-sm-6')
