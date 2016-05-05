@@ -1,12 +1,13 @@
 %header.header
-	-# .container-fixed.clearfix 
-	.container-fixed.second
-		=link_to root_path do
-			=image_tag 'logo_mama40_header.jpg', class: 'logo pull-left'
+	.row.second.container-fixed
+		.col-1
+			=link_to root_path do
+				=image_tag 'logo_mama40_header.jpg', class: 'logo'
+				-# =image_tag 'logo_mama40_header.jpg', class: 'logo pull-left'
 		-# .title-block.pull-left
 		-# 	.title.secondary-color Все для мам
 		-# 	.description.secondary-color Одежда для беременных и кормящих, слинги
-		.mama-contacts-outer
+		.col-2
 			.mama-contacts.secondary-color
 				.strong
 					%a{href: 'tel:8 (930) 754-00-54'}8 (930) 754-00-54
@@ -15,12 +16,13 @@
 				.strong
 					=render 'callback'
 
-		.shopping-cart.pull-right
-			-# .strong Ваша корзина
-			%a{href: new_order_path}
-				.glyphicon.glyphicon-shopping-cart.secondary-color
-				.cart-text.secondary-color
-					=t 'cart.count', count: @current_cart.total_count
+		.col-3
+			.shopping-cart
+				-# .strong Ваша корзина
+				%a{href: new_order_path}
+					.glyphicon.glyphicon-shopping-cart.secondary-color
+					.cart-text.secondary-color
+						=t 'cart.count', count: @current_cart.total_count
 
 -# .scroller_anchor
 .scroller
