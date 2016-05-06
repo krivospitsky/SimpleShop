@@ -215,12 +215,3 @@ span.new-price{
 }
 
 
-
-.price::after {
-    display: inline-block;
-    font: 0.6em Glyphicons Halflings;
-    text-rendering: auto;
-    transform: translate(0px, 0px);
-    content: "₽";
-    margin-left: 0.3em;
-}

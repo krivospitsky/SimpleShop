@@ -2,9 +2,9 @@
 
 #content{itemscope:'', itemtype:"http://schema.org/Product"}   
   .row.fly-to-cart
-    .main-img.pull-left
+    .col-sm-4.main-img
       = render 'products/images'
-    .right-block
+    .col-sm-8.right-block
       %h1{itemprop:"name"}= @product.name
       .price= raw @product.variants.first.price_str
       -if @product.sku.present?

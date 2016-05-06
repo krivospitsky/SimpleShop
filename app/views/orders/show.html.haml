@@ -88,7 +88,9 @@
 		%tr
 			%td Товар
 			%td Цена
-			%td Количество
+			%td 
+				.hidden-xs Количество
+				.visible-xs Кол-во
 			%td Сумма
 		-@order.order_items.all.each do |item|
 			%tr
@@ -132,7 +134,7 @@
 					%input{type: :hidden, name: :cps_phone, value: @order.phone}
 					
 					.input-group
-						.input-group-addon.hidden-sm
+						.input-group-addon.hidden-sm.hidden-xs
 							Проверьте правильность введеных данных и оплатите заказ
 						%select.form-control{name: :paymentType}
 							%option{value: 'AC'} Банковская карта

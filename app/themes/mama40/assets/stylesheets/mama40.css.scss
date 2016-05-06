@@ -144,6 +144,10 @@ $screen-lg-min: 1019px;
     .mama-contacts{
       width: 160px;
       margin: 25px auto;
+      @media (max-width: 480px) {
+        width: 140px;
+        margin: 0px auto;
+      }
       a{
         color: $brand-secondary;
       }
@@ -184,9 +188,17 @@ $screen-lg-min: 1019px;
       // right: 0px;
       // top: 15px;
       /*margin: -105px 0 15px 15px;*/
+      @media (max-width: 480px) {
+        margin: 10px auto;
+        width: 100%;
+      }
       .glyphicon-shopping-cart{
         font-size: 48px;
-        /*float: left;*/
+        @media (max-width: 480px) {
+          font-size: 36px;
+          float: left;
+        }
+        /**/
       }
       .cart-text{
         /*font-size: 13px;*/
@@ -262,6 +274,10 @@ $screen-lg-min: 1019px;
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 5px;
+    @media (max-width: 480px) {
+      font-size: 13px;
+      padding-bottom: 3px;
+    }
   }
 }
 
@@ -361,10 +377,10 @@ $screen-lg-min: 1019px;
 
 
 #content{
-  .main-img{
-    max-width: 250px;
-    margin: 20px;
-  }
+  // .main-img{
+  //   max-width: 250px;
+  //   margin: 20px;
+  // }
   .strong{
     float: left;
     text-transform: uppercase;
@@ -381,7 +397,7 @@ $screen-lg-min: 1019px;
     font-weight: 600;
   }
   .size{
-    height: 60px;
+    // height: 60px;
     .strong{
       padding: 5px 10px 5px 0;
       float: none;
@@ -505,4 +521,11 @@ h1.category_name{
 
 .navbar-nav{
   margin: 0px;
+}
+
+.navbar-form{
+  @media (max-width: $grid-float-breakpoint){
+    margin: 8px !important;
+    border: 0;
+  } 
 }
