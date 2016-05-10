@@ -25,6 +25,9 @@ module Shop
     config.assets.precompile += Ckeditor.assets
     config.assets.precompile += %w(ckeditor/*)
     config.assets.precompile += ['admin/admin.css', 'admin/admin.js']
+    # config.assets.precompile += %w( jquery.js jquery-ui.js )
+    
+    config.action_view.embed_authenticity_token_in_remote_forms=true
 
     config.active_job.queue_adapter = :delayed_job
     config.exceptions_app = self.routes

@@ -17,6 +17,10 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
+
+# gem 'jquery-rails-cdn'
+# gem 'jquery-ui-rails-cdn'
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 #gem 'rails3-jquery-autocomplete'

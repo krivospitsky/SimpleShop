@@ -12,12 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap
 //= require bootstrap-hover-dropdown
-//= require jquery.lightSlider.min
 //= require fancybox
-//= require cart
-//= require_tree .
+//= require_directory .
 
 
 // This function will be executed when the user scrolls the page.
