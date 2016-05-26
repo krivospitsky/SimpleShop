@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
   # before_filter :set_controller_and_action_names
 
 
-  layout 'application'
+  layout :layout_by_resource
+  # layout 'application'
 
   private
 
@@ -72,4 +73,13 @@ class ApplicationController < ActionController::Base
   def check_301_redirect
     redirect_to "http://xn----7sbababs6ccgf5c8b6f.xn--p1ai#{request.fullpath}", :status => 301  if request.host == 'fish-kaluga.ru' || request.host == 'www.fish-kaluga.ru'
   end
+
+    def layout_by_resource
+    if devise_controller?
+      "devise"
+    else
+      "application"
+    end
+  end
+
 end

@@ -7,7 +7,7 @@ class Admin::BaseController < ActionController::Base
     responders :flash, :http_cache
 
 	before_action :set_title
-#	before_action :authenticate_admin!
+	before_action :authenticate_admin!
 
 
 	def index
