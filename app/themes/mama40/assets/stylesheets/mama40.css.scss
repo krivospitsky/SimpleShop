@@ -60,6 +60,7 @@ $screen-lg-min: 1019px;
     background-color: $brand-light-primary;
     border: solid 1px $brand-primary;;
     border-radius: 4px;
+    padding-top: 10px !important;
     hr{
       color: $brand-primary;
       border-top: solid 1px $brand-primary;;
@@ -288,7 +289,10 @@ $screen-lg-min: 1019px;
   /*overflow: hidden;*/
   background: transparent linear-gradient(to bottom, lighten($brand-primary, 30%) 0%, $brand-primary 30%) repeat-x scroll 0% 0%;
   #search_form{
-    padding: 0px 0;    
+    padding: 0px 8px;    
+    @media (max-width: 480px) {
+      padding: 0px 0px;    
+    }
   }
   .navbar-form {
     padding: 10px 0;
