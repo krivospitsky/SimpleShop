@@ -14,11 +14,19 @@ class Admin::ProductsController < Admin::BaseController
     if cat_id && cat_id!=''
       @category=Category.find(cat_id)
       session[:admin_current_category]=cat_id
-      @products = Product.in_categories(@category.all_sub_cats).rank(:sort_order).page(params[:page])
+      @products = Product.in_categories(@category.all_sub_cats)
     else
       session[:admin_current_category]=nil
-      @products=Product.rank(:sort_order).all.page(params[:page]).per(50)
+      @products=Product.all
     end
+
+    @name_filter=params[:name_filter]
+    if @name_filter
+      @products=@products.where('lower(products.name) like ?', "%#{@name_filter.downcase}%")      
+    end
+
+    @products=@products.rank(:sort_order).page(params[:page]).per(50)
+
     @categories=Category.all
     respond_with @products
   end
