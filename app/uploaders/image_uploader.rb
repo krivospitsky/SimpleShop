@@ -42,6 +42,10 @@ class ImageUploader < CarrierWave::Uploader::Base
      process :resize_and_pad => [Settings[:list_width]||250, Settings[:list_height]||-1, background='#ffffff', gravity = 'Center']
   end
 
+  version :vk do
+     process :resize_and_pad => [400, 400, background='#ffffff', gravity = 'Center']
+  end
+
   version :product_page do
      process :resize_and_pad => [Settings[:show_width]||350, Settings[:show_height]||-1, background='#ffffff', gravity = 'Center']
   end

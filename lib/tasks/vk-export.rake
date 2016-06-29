@@ -23,8 +23,11 @@ namespace :vk do
 
 			Product.in_categories(cat.all_sub_cats).each do |prod|
 				if !prod.vk_id
+					
+					img_path=prod.images.present? ? prod.images.first.image.vk.path : "product_list_no_photo_#{Settings.theme}.png"
+
 					upload_url=vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
-					upload=VkontakteApi.upload(url: upload_url, photo: [prod.images.first.image.current_path, 'image/jpeg'])
+					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
 					photo=vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
 					res=vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: !prod.enabled)
 					prod.vk_id=res[:market_item_id]
