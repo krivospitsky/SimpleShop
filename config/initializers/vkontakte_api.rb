@@ -1,8 +1,8 @@
 VkontakteApi.configure do |config|
   # параметры, необходимые для авторизации средствами vkontakte_api
   # (не нужны при использовании сторонней авторизации)
-  config.app_id       = '5526187'
-  config.app_secret   = 'ECnVSdn5k9yybJXfq1gk'
+  # config.app_id       = '5526187'
+  # config.app_secret   = 'ECnVSdn5k9yybJXfq1gk'
   # config.redirect_uri = 'http://example.com/oauth/callback'
 
   # faraday-адаптер для сетевых запросов
