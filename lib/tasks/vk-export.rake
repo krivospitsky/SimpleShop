@@ -25,7 +25,7 @@ namespace :vk do
 			Product.in_categories(cat.all_sub_cats).each do |prod|
 				if !prod.vk_id
 					if prod.enabled					
-						img_path=prod.images.present? ? prod.images.first.image.vk.path : "product_list_no_photo_#{Settings.theme}.png"
+						img_path=prod.images.present? ? prod.images.first.image.vk.path : image_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
 						sleep(0.4)
 						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
