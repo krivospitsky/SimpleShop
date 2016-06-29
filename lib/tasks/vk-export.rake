@@ -27,6 +27,7 @@ namespace :vk do
 			Product.in_categories(cat.all_sub_cats).each do |prod|
 				if !prod.vk_id
 					if prod.enabled					
+						next if prod.images.empty?
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
 						sleep(1.1)
