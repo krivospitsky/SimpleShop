@@ -8,9 +8,9 @@ namespace :vk do
 		vk = VkontakteApi::Client.new(Settings.vk_access_token)
 	
 		if Rails.env == 'production'
-			cats=[1870]		
-		else
 			cats=[31, 37]					
+		else
+			cats=[1870]		
 		end
 
 		cats.each do |cat_id|
