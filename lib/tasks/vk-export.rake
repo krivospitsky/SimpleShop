@@ -4,8 +4,9 @@ require 'action_view'
 
 namespace :vk do
 	task :export => :environment do
-		include ActionView::Helpers::SanitizeHelper
+		# include ActionView::Helpers::SanitizeHelper
 		include ActionView::Helpers
+		
 		vk = VkontakteApi::Client.new(Settings.vk_access_token)
 	
 		if Rails.env == 'production'
