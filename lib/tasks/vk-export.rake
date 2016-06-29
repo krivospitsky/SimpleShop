@@ -28,6 +28,7 @@ namespace :vk do
 				if !prod.vk_id
 					if prod.enabled					
 						next if prod.images.empty?
+						next if prod.description.length<10
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
 						sleep(1.1)
