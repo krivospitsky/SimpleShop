@@ -47,10 +47,10 @@ namespace :vk do
 					end
 				else
 
-					vk.execute(code: "var prod=API.market.getById({\"item_ids\": \"-#{Settings.vk_group_id}_#{prod.vk_id}\", \"extended\": 1});API.market.edit({\"item_id\": \"#{prod.vk_id}\", \"owner_id\": \"-#{Settings.vk_group_id}\", \"name\": \"#{prod.name}\", \"description\": \"#{URI.encode(strip_tags(prod.description))}\",  \"category_id\": 1, \"price\": #{prod.variants.first.price}, \"main_photo_id\": prod.items[0].photos[0].id, \"deleted\": #{prod.enabled ? 0 : 1}});return 1;")
-					# vk_prod=vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
-					# sleep(1.1)
-					# vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
+					# vk.execute(code: "var prod=API.market.getById({\"item_ids\": \"-#{Settings.vk_group_id}_#{prod.vk_id}\", \"extended\": 1});API.market.edit({\"item_id\": \"#{prod.vk_id}\", \"owner_id\": \"-#{Settings.vk_group_id}\", \"name\": \"#{prod.name}\", \"description\": \"#{URI.encode(strip_tags(prod.description))}\",  \"category_id\": 1, \"price\": #{prod.variants.first.price}, \"main_photo_id\": prod.items[0].photos[0].id, \"deleted\": #{prod.enabled ? 0 : 1}});return 1;")
+					vk_prod=vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
+					sleep(1.1)
+					vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
 					sleep(1.1)
 				end
 			end
