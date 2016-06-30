@@ -27,7 +27,7 @@ Shop::Application.configure do
   # number of complex assets.
   # config.assets.enabled = false 
   config.assets.debug = false
-  config.assets.compile = false
+  config.assets.compile = true
   config.action_mailer.delivery_method = :smtp
 
 end
