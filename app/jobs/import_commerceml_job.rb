@@ -9,22 +9,27 @@ class ImportCommercemlJob < ActiveJob::Base
 		
 	doc = File.open(path) { |f| Nokogiri::XML(f) }
 
-	doc.xpath('КоммерческаяИнформация/Классификатор/Группы/Группа').each do |group|
-		process_group(group)    			
+	puts "#{name} открыт"
+
+	if Settings.theme != 'fish'
+		doc.xpath('КоммерческаяИнформация/Классификатор/Группы/Группа').each do |group|
+			process_group(group)    			
+		end
 	end
 
 	doc.xpath('КоммерческаяИнформация/Каталог/Товары/Товар').each do |prod|    			
+		puts "Товар"
 
 		if Settings.theme == 'fish'
-			variant=Variant.find_by(external_id: var.xpath('Ид').first.content.strip)	
-			variant|=Variant.find_by(sku: var.xpath('Штрихкод').first.content.strip)
-			variant|=Variant.find_by(sku: var.xpath('Артикул').first.content.strip)
+			variant=Variant.find_by(external_id: prod.xpath('Ид').first.content.strip)	
+			variant|=Variant.find_by(sku: prod.xpath('Штрихкод').first.content.strip)
+			variant|=Variant.find_by(sku: prod.xpath('Артикул').first.content.strip)
 
 			if variant
-				variant.external_id=var.xpath('Ид').first.content.strip
-				var.save
+				variant.external_id=prod.xpath('Ид').first.content.strip
+				variant.save
 			else
-				puts "variant #{var.xpath('Штрихкод').first.content.strip} - var.xpath('Артикул').first.content.strip not found"
+				puts "variant /#{var.xpath('Штрихкод').first.content.strip} - var.xpath('Артикул').first.content.strip not found"
 			end
 			
 		else
@@ -50,6 +55,7 @@ class ImportCommercemlJob < ActiveJob::Base
 	end
 
 	doc.xpath('КоммерческаяИнформация/ПакетПредложений/Предложения/Предложение').each do |var|    			
+		puts "предложение"
 		if Settings.theme == 'fish'
 			variant=Variant.find_by(external_id: var.xpath('Ид').first.content.strip)
 			if variant

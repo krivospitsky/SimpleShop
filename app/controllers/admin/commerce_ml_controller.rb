@@ -12,6 +12,8 @@ skip_before_filter :verify_authenticity_token
 			FileUtils.mkdir_p(dir) unless File.directory?(dir)
 			FileUtils.rm_f(File.join(dir, 'import.xml'))
 			FileUtils.rm_f(File.join(dir, 'offers.xml'))
+			FileUtils.rm_f(File.join(dir, 'import0_1.xml'))
+			FileUtils.rm_f(File.join(dir, 'offers0_1.xml'))
 			# FileUtils.rm_rf(dir)
 			render plain: "zip=no\nfile_limit=52428800"
 		end
