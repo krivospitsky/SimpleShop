@@ -10,26 +10,25 @@ class ImportCommercemlJob < ActiveJob::Base
 	path = File.join(dir, name)
 		
 	doc = File.open(path) { |f| Nokogiri::XML(f) }
-
-	ns='xmlns:' if Settings.theme == 'fish'
+	doc.remove_namespaces!
 
 	puts "#{name} открыт"
 
 	if Settings.theme != 'fish'
-		doc.xpath("#{ns}КоммерческаяИнформация/#{ns}Классификатор/#{ns}Группы/#{ns}Группа").each do |group|
+		doc.xpath("КоммерческаяИнформация/Классификатор/Группы/Группа").each do |group|
 			process_group(group)    			
 		end
 	end
 
-	doc.xpath("#{ns}КоммерческаяИнформация/#{ns}Каталог/#{ns}Товары/#{ns}Товар").each do |prod|    			
+	doc.xpath("КоммерческаяИнформация/Каталог/Товары/Товар").each do |prod|    			
 		# puts "Товар"
 
 		if Settings.theme == 'fish'
-			id=get_xpath_val(prod, "#{ns}Ид")
+			id=get_xpath_val(prod, "Ид")
 			variant=Variant.find_by(external_id: id)	
-			shtrih=get_xpath_val(prod, "#{ns}Штрихкод")
+			shtrih=get_xpath_val(prod, "Штрихкод")
 			variant|=Variant.find_by(sku: shtrih) if shtrih
-			sku=get_xpath_val(prod, "#{ns}Артикул")
+			sku=get_xpath_val(prod, "Артикул")
 			variant|=Variant.find_by(sku: sku) if sku
 
 			if variant
@@ -61,10 +60,10 @@ class ImportCommercemlJob < ActiveJob::Base
 	    end
 	end
 
-	doc.xpath("#{ns}КоммерческаяИнформация/#{ns}ПакетПредложений/#{ns}Предложения/#{ns}Предложение").each do |var|    			
+	doc.xpath("КоммерческаяИнформация/ПакетПредложений/Предложения/Предложение").each do |var|    			
 		# puts "предложение"
 		if Settings.theme == 'fish'
-			variant=Variant.find_by(external_id: var.xpath("#{ns}Ид").first.content.strip)
+			variant=Variant.find_by(external_id: var.xpath("Ид").first.content.strip)
 			if variant
 				variant.availability='В наличии'
 				variant.enabled=true
@@ -173,7 +172,7 @@ end
 def get_xpath_val(node, xpath)
 	res=node.xpath(xpath)
 	if res.length
-		return res.first.content.strip
+		return res.text
 	else
 		return nil
 	end
