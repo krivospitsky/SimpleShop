@@ -11,7 +11,7 @@ class ImportCommercemlJob < ActiveJob::Base
 		
 	doc = File.open(path) { |f| Nokogiri::XML(f) }
 
-	ns='/xmlns:' if Settings.theme == 'fish'
+	ns='xmlns:' if Settings.theme == 'fish'
 
 	puts "#{name} открыт"
 
