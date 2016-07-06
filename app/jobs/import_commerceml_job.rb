@@ -33,7 +33,7 @@ class ImportCommercemlJob < ActiveJob::Base
 				variant.external_id=prod.xpath("#{ns}Ид").first.content.strip
 				variant.save
 			else
-				puts "variant /#{var.xpath('Штрихкод').first.content.strip} - var.xpath('Артикул').first.content.strip not found"
+				puts "variant #{prod.xpath("#{ns}Штрихкод").first.content.strip} - #{prod.xpath("#{ns}Артикул").first.content.strip} not found"
 			end
 			
 		else
