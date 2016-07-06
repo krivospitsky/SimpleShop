@@ -25,15 +25,18 @@ class ImportCommercemlJob < ActiveJob::Base
 		# puts "Товар"
 
 		if Settings.theme == 'fish'
-			variant=Variant.find_by(external_id: prod.xpath("#{ns}Ид").first.content.strip)	
-			variant|=Variant.find_by(sku: prod.xpath("#{ns}Штрихкод").first.content.strip)
-			variant|=Variant.find_by(sku: prod.xpath("#{ns}Артикул").first.content.strip)
+			id=get_xpath_val(prod, "#{ns}Ид")
+			variant=Variant.find_by(external_id: id)	
+			shtrih=get_xpath_val(prod, "#{ns}Штрихкод")
+			variant|=Variant.find_by(sku: shtrih) if shtrih
+			sku=get_xpath_val(prod, "#{ns}Артикул")
+			variant|=Variant.find_by(sku: sku) if sku
 
 			if variant
-				variant.external_id=prod.xpath("#{ns}Ид").first.content.strip
+				variant.external_id=id
 				variant.save
 			else
-				puts "variant #{prod.xpath("#{ns}Штрихкод").first.content.strip} - #{prod.xpath("#{ns}Артикул").first.content.strip} not found"
+				puts "variant #{shtrih} - #{sku} not found"
 			end
 			
 		else
@@ -164,4 +167,14 @@ class ImportCommercemlJob < ActiveJob::Base
 		end
 	end
 
+end
+
+
+def get_xpath_val(node, xpath)
+	res=node.xpath(xpath)
+	if res.length
+		return res.first.content.strip
+	else
+		return nil
+	end
 end
