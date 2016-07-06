@@ -20,8 +20,13 @@ class ImportCommercemlJob < ActiveJob::Base
 		end
 	end
 
+	total=0
+	not_found=0
+
 	doc.xpath("КоммерческаяИнформация/Каталог/Товары/Товар").each do |prod|    			
 		# puts "Товар"
+
+		total+=1
 
 		if Settings.theme == 'fish'
 			id=get_xpath_val(prod, "Ид")
@@ -39,7 +44,8 @@ class ImportCommercemlJob < ActiveJob::Base
 				variant.external_id=id
 				variant.save
 			else
-				puts "variant #{shtrih} - #{sku} not found"
+				# puts "variant #{shtrih} - #{sku} not found"
+				not_found+=1
 			end			
 		else
 
@@ -63,8 +69,14 @@ class ImportCommercemlJob < ActiveJob::Base
 	    end
 	end
 
+	puts "prod total #{total}, not found #{not_found}"
+
+	total=0
+	not_found=0
+
 	doc.xpath("КоммерческаяИнформация/ПакетПредложений/Предложения/Предложение").each do |var|    			
 		# puts "предложение"
+		total+=1
 		if Settings.theme == 'fish'
 			variant=Variant.find_by(external_id: var.xpath("Ид").first.content.strip)
 			if variant
@@ -80,7 +92,8 @@ class ImportCommercemlJob < ActiveJob::Base
 		        end
 		        variant.save
 		    else
-		    	puts "variant #{var.xpath('Ид').first.content.strip} not found"
+		    	# puts "variant #{var.xpath('Ид').first.content.strip} not found"
+		    	not_found+=1
 		    end
 		else
 			variant=Variant.find_or_initialize_by(external_id: var.xpath('Ид').first.content.strip)
@@ -137,6 +150,9 @@ class ImportCommercemlJob < ActiveJob::Base
 			variant.save    			
 		end
 	end
+
+	puts "variants total #{total}, not found #{not_found}"
+
 
 	if name =='offers.xml' && Settings.theme != 'fish'
 		# Variant.where("updated_at < ? and updated_at >= ?", 1.day.ago, 2.week.ago, like_str).update_all(availability: 'Уточнить у менеджера')
