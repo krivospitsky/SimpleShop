@@ -58,6 +58,8 @@ Shop::Application.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  get '/check.txt', to: proc {[200, {}, ['simple_check']]}
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
