@@ -9,7 +9,7 @@ namespace :import do
 		EllevillProcessCategory("http://www.ellevill.org/category/ringsling/", -1, :only_subcat)
 		EllevillProcessCategory("http://www.ellevill.org/category/maysling/", -1, :only_products)
 		EllevillProcessCategory("http://www.ellevill.org/category/ergorukzak/", -1, :only_products)
-		EllevillProcessCategory("http://www.ellevill.org/category/accessories/", -1, :only_products)		
+		EllevillProcessCategory("http://www.ellevill.org/category/accessories/", -1, :only_subcat)		
 	end
 
 	def EllevillProcessCategory(url, id, type)
@@ -132,8 +132,8 @@ namespace :import do
 
 
 				if product.images.count == 0 
-					prod_images=prod.xpath('//a[@class="cm-thumbnails-mini  cloud-zoom-gallery cm-previewer"]/@href')
-					prod_images=prod.xpath('//a[@class="cloud-zoom cm-image-previewer cm-previewer"]/@href') if prod_images.empty?
+					prod_images=prod.xpath('//div[@class="product-thumbnails center"]/a/@href')
+					# prod_images=prod.xpath('//a[@class="cloud-zoom cm-image-previewer cm-previewer"]/@href') if prod_images.empty?
 					prod_images.each do |pic_url|
 						# sleep 3
 						begin
