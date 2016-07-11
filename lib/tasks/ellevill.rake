@@ -65,8 +65,6 @@ namespace :import do
 				if product.new_record?
 				 	product.name=prod.xpath('//h1').first.content.strip
 				 	puts product.name
-				 	product.categories.clear
-				 	product.categories << Category.find(id)
 				 	product.sku=sku				
 				 	if descr=prod.xpath('//div[@id="content_description"]').first
 						descr.css('img').each do |img|
@@ -85,6 +83,8 @@ namespace :import do
 					end
 				end
 	
+				 	product.categories.clear
+				 	product.categories << Category.find(id)
 				product.enabled=true
 				product.save
 
@@ -135,6 +135,7 @@ namespace :import do
 					prod_images=prod.xpath('//div[@class="product-thumbnails center"]/a/@href')
 					# prod_images=prod.xpath('//a[@class="cloud-zoom cm-image-previewer cm-previewer"]/@href') if prod_images.empty?
 					prod_images.each do |pic_url|
+						puts pic_url
 						# sleep 3
 						begin
 							image=product.images.new
