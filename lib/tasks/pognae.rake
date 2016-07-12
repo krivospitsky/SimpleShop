@@ -45,7 +45,7 @@ namespace :import do
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
 			 	product.sku=sku				
-			 # 	if descr=prod.xpath('//div[@id="idTab1"]').first
+			 	descr=prod.xpath('//div[@id="idTab1"]').first
 				# 	descr.css('img').each do |img|
 				# 		url=img.attr('src')
 				# 		unless image=DescriptionImage.find_by(original_url: url)
