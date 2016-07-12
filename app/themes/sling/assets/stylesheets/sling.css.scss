@@ -23,6 +23,11 @@ $navbar-default-link-active-color: #fff;
 
 @import "application";
 
+.container-fixed {
+    max-width: 1020px;
+}
+
+
 .breadcrumb{
   margin-bottom: 10px;
   border: 1px solid #DDD;
@@ -71,6 +76,7 @@ nav.navbar-default{
     // color: #fff;
     font-weight: 600;
     font-size: 1.1em;
+    padding: 10px 10px;
   }
   .divider-vertical {
     height: 50px;
