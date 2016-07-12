@@ -85,13 +85,13 @@ namespace :import do
 				prod_images.each do |pic_url|
 					# sleep 3
 					puts pic_url
-					begin
+					# begin
 						image=product.images.new
 						image.remote_image_url=pic_url
 						image.save
-					rescue
-						image.delete
-					end
+					# rescue
+					# 	image.delete
+					# end
 				end
 			end
 			# sleep 3
