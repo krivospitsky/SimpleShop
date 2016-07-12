@@ -72,6 +72,31 @@ nav.navbar-default{
     font-weight: 600;
     font-size: 1.1em;
   }
+  .divider-vertical {
+    height: 50px;
+    margin: 0;
+    border-right: 1px solid lighten($brand-primary, 30%);
+    border-left: 1px solid darken($brand-primary, 0%);
+    @media (max-width: $grid-float-breakpoint){
+      display: none;
+    }
+  }
+  .navbar-collapse{
+    padding: 0px;
+  }
+  .dropdown-menu{
+    li{
+      page-break-inside: avoid;
+      .level-3{
+        list-style: none;
+        font-weight: normal;
+      }
+    }
+  }
+  .dropdown-menu-columns{
+    -moz-column-count: 2;
+    column-count: 2;
+  }
 }
 
 

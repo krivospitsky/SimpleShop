@@ -5,8 +5,8 @@ namespace :import do
 		# $base_url='http://www.ellevill.org'
 		$sku_prefix='pognae_'
 
-		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%AD%D1%80%D0%B3%D0%BE-%D1%80%D1%8E%D0%BA%D0%B7%D0%B0%D0%BA%D0%B8-Pognae/", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-No5", -1)
+		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%AD%D1%80%D0%B3%D0%BE-%D1%80%D1%8E%D0%BA%D0%B7%D0%B0%D0%BA%D0%B8-Pognae", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/Hipsity-Pognae-ORGA", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-Smart", -1)
@@ -17,7 +17,7 @@ namespace :import do
 		cat = Nokogiri::HTML(open(url))
 
 		if id==-1
-			external_id=$sku_prefix + url[/\/([^\/]+)\/$/,1]
+			external_id=$sku_prefix + url[/\/([^\/]+)$/,1]
 			category=Category.find_or_initialize_by(external_id: external_id)
 			if category.new_record?
 				category.name=cat.xpath('//title').first.content.strip
@@ -85,13 +85,13 @@ namespace :import do
 				prod_images.each do |pic_url|
 					# sleep 3
 					puts pic_url
-					# begin
+					begin
 						image=product.images.new
 						image.remote_image_url=pic_url
 						image.save
-					# rescue
-					# 	image.delete
-					# end
+					rescue
+						image.delete
+					end
 				end
 			end
 			# sleep 3
