@@ -18,36 +18,36 @@
               %span &nbsp;
               %span.hidden-sm.shown-xs Главная
 
-          -Category.root.enabled.each_with_index do |cat, i|    
-            -if cat.children.enabled.present?
-              %li.dropdown
-                =link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle first-level', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
-                %ul.dropdown-menu{class: (cat.children.enabled.count>7) ? 'dropdown-menu-columns' : ''}
-                  -cat.children.enabled.each do |subcat|
-                    %li
-                      =link_to subcat.name, category_path(subcat.path, subcat.id)
-                      -if subcat.children.enabled.present?
-                        %ul.level-3
-                          -subcat.children.enabled.each do |subcat2|
-                            %li= link_to subcat2.name, category_path(subcat2.path, subcat2.id)
-            -else
-              %li= link_to cat.name, category_path(cat.path, cat.id), class: 'first-level'
-            -if i<Category.root.enabled.count-1
-              %li.divider-vertical
-
-          -# -Category.root.enabled.each do |cat|        
-          -#   -if cat.children.present?
+          -# -Category.root.enabled.each_with_index do |cat, i|    
+          -#   -if cat.children.enabled.present?
           -#     %li.dropdown
-          -#       %a.dropdown-toggle{href: "#", :'data-toggle'=>"dropdown", role: "button", :'aria-haspopup'=>"true", :'aria-expanded'=>"false"}
-          -#         =cat.name
-          -#         %span.caret
-          -#       %ul.dropdown-menu{role: :menu}
-          -#         -cat.children.enabled.each do |cat|        
+          -#       =link_to cat.name, category_path(cat.path, cat.id), class: 'dropdown-toggle first-level', data: {hover: 'dropdown'}, role: 'button', aria:{haspopup: true, expanded: false}
+          -#       %ul.dropdown-menu{class: (cat.children.enabled.count>7) ? 'dropdown-menu-columns' : ''}
+          -#         -cat.children.enabled.each do |subcat|
           -#           %li
-          -#             =link_to cat.name, category_path(cat.path, cat.id)
+          -#             =link_to subcat.name, category_path(subcat.path, subcat.id)
+          -#             -if subcat.children.enabled.present?
+          -#               %ul.level-3
+          -#                 -subcat.children.enabled.each do |subcat2|
+          -#                   %li= link_to subcat2.name, category_path(subcat2.path, subcat2.id)
           -#   -else
-          -#     %li
-          -#       =link_to cat.name, category_path(cat.path, cat.id)
+          -#     %li= link_to cat.name, category_path(cat.path, cat.id), class: 'first-level'
+          -#   -if i<Category.root.enabled.count-1
+          -#     %li.divider-vertical
+
+          -Category.root.enabled.each do |cat|        
+            -if cat.children.present?
+              %li.dropdown
+                %a.dropdown-toggle{href: "#", :'data-hover'=>"dropdown", role: "button", :'aria-haspopup'=>"true", :'aria-expanded'=>"false"}
+                  =cat.name
+                  %span.caret
+                %ul.dropdown-menu{role: :menu}
+                  -cat.children.enabled.each do |cat|        
+                    %li
+                      =link_to cat.name, category_path(cat.path, cat.id)
+            -else
+              %li
+                =link_to cat.name, category_path(cat.path, cat.id)
 
           
           -Page.in_menu.each do |page|
