@@ -1,7 +1,7 @@
 =render '/categories/breadcrumbs'
 .row
 	.col-sm-4.col-md-3
-		=render '/categories/tree'
+		=render '/categories/smart_tree'
 		-unless Settings::disable_filters
 			=render '/products/smart_filter'
 	.col-sm-8.col-md-9

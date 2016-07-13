@@ -9,7 +9,7 @@ namespace :import do
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%AD%D1%80%D0%B3%D0%BE-%D1%80%D1%8E%D0%BA%D0%B7%D0%B0%D0%BA%D0%B8-Pognae", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/Hipsity-Pognae-ORGA", -1)
 		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82", -1)
-		PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-Smart", -1)
+		# PognaeProcessCategory("http://pognaerussia.ru/catalog/%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82%D1%8B-Pognae-Smart", -1)
 	end
 
 	def PognaeProcessCategory(url, id)
@@ -36,6 +36,9 @@ namespace :import do
 			# next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first || prod.xpath('//table[@class="offers_table"]').first
 
 			sku=$sku_prefix + prod_link.content[/\/([^\/]+)$/,1]
+			sku.gsub!('%D0%A5%D0%B8%D0%BF%D1%81%D0%B8%D1%82-Pognae-', '')
+			sku.gsub!('-Pognae', '')
+
 			puts sku
 			#prod.xpath('//span[@class="code"]').first.content
 			product=Product.find_or_initialize_by(sku: sku)
@@ -45,7 +48,6 @@ namespace :import do
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
 			 	product.sku=sku				
-			 	descr=prod.xpath('//div[@id="idTab1"]').first
 				# 	descr.css('img').each do |img|
 				# 		url=img.attr('src')
 				# 		unless image=DescriptionImage.find_by(original_url: url)
@@ -62,10 +64,12 @@ namespace :import do
 				# end
 			end
 
+		 	descr=prod.xpath('//div[@id="idTab1"]').first
+
 			variant=product.variants.find_or_initialize_by(sku: sku)
 			variant.price=prod.xpath('//span[@class="price-new goodsDataMainModificationPriceNow"]//span[@class="num"]').first.content.strip.delete("\s").to_i
 			
-			if prod.xpath('//span[@itemprop="availability" and @content="in_stock"]').length
+			if prod.xpath('//span[@itemprop="availability" and @content="in_stock"]').length > 0
 				product.enabled=true
 				variant.enabled=true
 				variant.availability='Доставка 3-4 дня'
