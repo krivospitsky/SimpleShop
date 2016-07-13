@@ -1,14 +1,16 @@
 =render '/categories/breadcrumbs'
 
 #content{itemscope:'', itemtype:"http://schema.org/Product"} 
-  %h1{itemprop:"name"}= @product.name
+	.row
+		.col-sm-4.fly-to-cart
+			= render 'products/images'
+		.col-sm-8
+			%h1{itemprop:"name"}= @product.name
+			= render 'products/single_variant_properties', product: @product
+			%hr
+			.description{itemprop:"description"}= raw @product.description
+			-# = render 'products/tabs'       
 
-  .row
-    .col-sm-4.fly-to-cart
-      = render 'products/images'
-      = render 'products/single_variant_properties', product: @product
-    .col-sm-8= render 'products/tabs'       
+	=render 'products/variants_table', product: @product
 
-  =render 'products/variants_table', product: @product
-
-  =render 'products/linked_products', linked: @linked
+	=render 'products/linked_products', linked: @linked

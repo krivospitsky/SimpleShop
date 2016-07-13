@@ -31,10 +31,10 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-     process :resize_to_fit => [50, 50]
+     process :resize_and_pad => [50, 50, background='#ffffff', gravity = 'Center']
   end
 
-  version :expertfisher_product_list do
+  version :expertfisher_product_list, :if => :expertfisher?  do
      process :resize_to_fit => [300, 150]
   end
 
@@ -50,8 +50,14 @@ class ImageUploader < CarrierWave::Uploader::Base
      process :resize_and_pad => [Settings[:show_width]||350, Settings[:show_height]||-1, background='#ffffff', gravity = 'Center']
   end
 
-  version :expertfisher do
+  version :expertfisher, :if => :expertfisher? do
      process :resize_to_fit => [700, 349]
+  end
+
+  protected
+
+  def expertfisher? picture
+    Settings.theme == 'fish'
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

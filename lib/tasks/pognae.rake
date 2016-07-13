@@ -64,7 +64,14 @@ namespace :import do
 				# end
 			end
 
-		 	product.description=prod.xpath('//div[@id="idTab1"]').first
+			descr=prod.xpath('//div[@id="idTab1"]').first
+			descr.xpath('h3').remove
+			descr.xpath('div[@class="htmlDataBlock"]').remove
+			descr.xpath('//@style').remove
+			# descr.xpath('//a').remove
+			descr.xpath("//em").each { |em|  em.name= "span"; em.set_attribute("class" , "title") }
+
+		 	product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 
 			variant=product.variants.find_or_initialize_by(sku: sku)
 			variant.price=prod.xpath('//span[@class="price-new goodsDataMainModificationPriceNow"]//span[@class="num"]').first.content.strip.delete("\s").to_i
