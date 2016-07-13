@@ -1,17 +1,13 @@
-.col-md-6.col-xs-12.product_item.fly-to-cart
+.col-md-3.col-sm-4.col-xs-12.product_item.fly-to-cart
   .thumbnail
     .name.text-center
       =link_to product_path(product, category) do
         =product.name      
-    .row
-      .row-same-height
-        .col-sm-6.col-sm-height
-          =link_to product_path(product, category) do
-            =image_tag(product.main_image_url, class: 'image')
-        .col-sm-6.col-sm-height.col-middle
-          .old_price.text-center
-            =raw product.old_price_str
-          .price.text-center
-            =raw product.price_str
-          .text-center
-            =render 'product_list_add_to_cart', product: product, category: category
+    =link_to product_path(product, category) do
+      =image_tag(product.main_image_url, class: 'image')
+    .old_price.text-center
+      =raw product.old_price_str
+    .price.text-center
+      =raw product.price_str
+    .text-center
+      =render 'product_list_add_to_cart', product: product, category: category

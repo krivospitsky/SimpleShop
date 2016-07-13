@@ -38,7 +38,7 @@ namespace :import do
 		c=Variant.where("updated_at < ?", 1.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
 		puts "Нет в наличии #{c}"
 
-		Product.where('sku SIMILAR TO ?', like_str).all.each do |prod|
+		Product.all.each do |prod|
 			if prod.variants.enabled.empty?
 				puts "товар #{prod.name} недоступен"
 				prod.enabled=false
