@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:after_pay, :after_pay_error, :ya_kassa_check, :ya_kassa_payment]
+  skip_before_filter :verify_authenticity_token, only: [:after_pay, :after_pay_error, :ya_kassa_check, :ya_kassa_payment, :ya_money_payment]
 
 
   def checkout
@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
       @order = Order.find_by  secure_key: params[:label]
       @order.state="Оплачено"
       @order.save
-      
+
       render :nothing => true, :status => 200, :content_type => 'text/html'
   end
 
