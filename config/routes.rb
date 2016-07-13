@@ -34,6 +34,7 @@ Shop::Application.routes.draw do
     get :after_pay_error, on: :collection
     post :ya_kassa_check, on: :collection, defaults: { format: 'xml' }
     post :ya_kassa_payment, on: :collection, defaults: { format: 'xml' }
+    post :ya_money_payment, on: :collection
   end
   get '/order/checkout' => 'orders#checkout'
 

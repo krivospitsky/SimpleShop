@@ -1,9 +1,9 @@
 %form{action: "https://money.yandex.ru/quickpay/confirm.xml", method: :post}
 	%input{type: :hidden, name: :receiver, value: Settings.ya_money_receiver}
-	%input{type: :hidden, name: :formcomment, value: "#{Settings.site_title}: заказ #{@order.secure_key}"}
+	%input{type: :hidden, name: :formcomment, value: "#{Settings.site_title}"}
 	%input{type: :hidden, name: 'short-dest', value: "#{Settings.site_title}: заказ #{@order.secure_key}"}
-	%input{type: :hidden, name: 'quickpay-form ', value: :shop}
-	%input{type: :hidden, name: :targets, value: "#{Settings.site_title}: оплата заказа #{@order.secure_key}"}
+	%input{type: :hidden, name: 'quickpay-form', value: :shop}
+	%input{type: :hidden, name: :targets, value: "Оплата заказа #{@order.secure_key}"}
 	%input{type: :hidden, name: :sum, value: @order.total_price}
 	%input{type: :hidden, name: :label, value: @order.secure_key}
 	-# %input{type: :hidden, name: :successURL, value: @order.secure_key}

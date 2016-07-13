@@ -18,8 +18,8 @@ class OrdersController < ApplicationController
 
   def after_pay
     @order = Order.find_by  secure_key: params[:orderNumber]
-    # @order.state="Ожидание поступления оплаты"
-    # @order.save
+    @order.state="Ожидание поступления оплаты" if @order.state=="Новый"
+    @order.save
     redirect_to "/orders/#{@order.secure_key}", flash: {info: 'Заказ успешно оплачен'}
   end
 
@@ -49,6 +49,14 @@ class OrdersController < ApplicationController
       @invoiceId=params[:invoiceId]
 
       # render 'check_ok.xml'
+  end
+
+  def ya_money_payment
+      @order = Order.find_by  secure_key: params[:label]
+      @order.state="Оплачено"
+      @order.save
+      
+      render :nothing => true, :status => 200, :content_type => 'text/html'
   end
 
 
