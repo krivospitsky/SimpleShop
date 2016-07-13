@@ -1,0 +1,17 @@
+%form{action: Settings.kassa_form_action, method: :post}
+	%input{type: :hidden, name: :shopId, value: Settings.kassa_shopId}
+	%input{type: :hidden, name: :scid, value: Settings.kassa_scid}
+	%input{type: :hidden, name: :customerNumber, value: @order.phone}	
+	%input{type: :hidden, name: :sum, value: @order.total_price}
+	%input{type: :hidden, name: :orderNumber, value: @order.secure_key}
+	%input{type: :hidden, name: :cps_email, value: @order.email}
+	%input{type: :hidden, name: :cps_phone, value: @order.phone}
+	
+	.input-group
+		.input-group-addon.hidden-sm.hidden-xs
+			Проверьте правильность введеных данных и оплатите заказ
+		%select.form-control{name: :paymentType}
+			%option{value: 'AC'} Банковская карта
+			%option{value: 'PC'} Yandex.Деньги
+		.input-group-btn
+			%input.btn.btn-primary{type: :submit, value: 'Оплатить'}

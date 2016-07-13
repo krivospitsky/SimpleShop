@@ -64,7 +64,7 @@ namespace :import do
 				# end
 			end
 
-		 	descr=prod.xpath('//div[@id="idTab1"]').first
+		 	product.description=prod.xpath('//div[@id="idTab1"]').first
 
 			variant=product.variants.find_or_initialize_by(sku: sku)
 			variant.price=prod.xpath('//span[@class="price-new goodsDataMainModificationPriceNow"]//span[@class="num"]').first.content.strip.delete("\s").to_i

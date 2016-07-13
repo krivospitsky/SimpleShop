@@ -4,6 +4,6 @@ class Admin::PaymentMethodsController < Admin::BaseController
 	private
 
 	def permitted_params
-		params.require(:payment_method).permit(:name, :description, :hide, :use_online, :enabled)
+		params.require(:payment_method).permit(:name, :description, :hide, :use_online, :enabled, :online_type)
 	end
 end
