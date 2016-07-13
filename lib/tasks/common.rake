@@ -32,4 +32,25 @@ namespace :import do
 			end
 		end
 	end
+
+	task :finalize_sling => :environment  do |task, args|
+		# like_str=args.like_str || '%'
+		c=Variant.where("updated_at < ?", 1.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
+		puts "Нет в наличии #{c}"
+
+		Product.where('sku SIMILAR TO ?', like_str).all.each do |prod|
+			if prod.variants.enabled.empty?
+				puts "товар #{prod.name} недоступен"
+				prod.enabled=false
+				prod.save
+			end
+		end
+		
+		Category.all.each do |cat|
+			if cat.products.enabled.empty? and cat.categories.enabled.empty?
+				cat.enabled=false
+				cat.save			
+			end
+		end
+	end
 end
