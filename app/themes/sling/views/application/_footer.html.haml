@@ -18,7 +18,7 @@
 			.col-sm-2
 				.strong Помощь
 				%ul.footer-articles
-					-Page.in_menu.each do |page|
+					-Page.in_footer.each do |page|
 						%li
 							=link_to page.name, page_path(page)
 
