@@ -121,15 +121,16 @@ nav.navbar-default{
 }
 
 
-footer{
-  background: linear-gradient(#e7e7e7 0px, #ffffff 40%);
-  color: #000;
+footer.footer{
+  // background: linear-gradient(#e7e7e7 0px, #ffffff 40%);
+  color: #fff;
  .strong{
     text-transform: uppercase;
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 5px;
-    color: #000;
+    color: #fff;
+    text-align: left;
     // @media (max-width: 480px) {
     //   font-size: 13px;
     //   padding-bottom: 3px;
@@ -138,11 +139,12 @@ footer{
 
   .footer-articles{
     list-style: none;
-    margin-left: 10px;
+    // margin-left: 10px;
     padding-left: 0px;
     color: #fff;
     a{
-      color: $brand-primary;
+      color: #fff;
+      // color: $brand-primary;
     }
   }
   .footer-cats{
@@ -152,15 +154,16 @@ footer{
     margin: 0;
     li{
       a{
-        color: #000;
+        color: #fff;
       }
       page-break-inside: avoid;      
       ul{
         list-style: none;
-        margin-left: 10px;
+        // margin-left: 10px;
         padding-left: 0px;
         a{
-          color: $brand-primary;
+          color: #fff;
+          // color: $brand-primary;
         }
       }
     }
