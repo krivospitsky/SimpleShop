@@ -236,6 +236,7 @@
     cursor: pointer;
     /** скрываем кнопку в начале **/
     display:none;
+    z-index: 1000;
 }
 
 .callback-btn{
