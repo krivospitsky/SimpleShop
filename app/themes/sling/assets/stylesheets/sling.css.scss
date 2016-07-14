@@ -119,3 +119,50 @@ nav.navbar-default{
 .thumbs{
   width: 100%;
 }
+
+
+footer{
+  background: linear-gradient(#e7e7e7 0px, #ffffff 40%);
+  color: #000;
+ .strong{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: #000;
+    // @media (max-width: 480px) {
+    //   font-size: 13px;
+    //   padding-bottom: 3px;
+    // }
+  }
+
+  .footer-articles{
+    list-style: none;
+    margin-left: 10px;
+    padding-left: 0px;
+    color: #fff;
+    a{
+      color: $brand-primary;
+    }
+  }
+  .footer-cats{
+    -moz-column-count: 3;
+    column-count: 3;
+    list-style: none;
+    margin: 0;
+    li{
+      a{
+        color: #000;
+      }
+      page-break-inside: avoid;      
+      ul{
+        list-style: none;
+        margin-left: 10px;
+        padding-left: 0px;
+        a{
+          color: $brand-primary;
+        }
+      }
+    }
+  }
+}
