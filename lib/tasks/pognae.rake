@@ -48,20 +48,6 @@ namespace :import do
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
 			 	product.sku=sku				
-				# 	descr.css('img').each do |img|
-				# 		url=img.attr('src')
-				# 		unless image=DescriptionImage.find_by(original_url: url)
-				# 			image=DescriptionImage.new
-				# 			image.original_url=url
-				# 			# url=url[/^\.\.(.*)$/,1] if url.start_with?('..')
-				# 			url = "#{$base_url}#{url}" unless url.start_with?($base_url)
-				# 			image.remote_image_url=url
-				# 			image.save
-				# 		end
-				# 		img.attributes['src'].value=image.image.url					
-				# 	end
-				# 	product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
-				# end
 			end
 
 			descr=prod.xpath('//div[@id="idTab1"]').first
@@ -75,6 +61,7 @@ namespace :import do
 
 			variant=product.variants.find_or_initialize_by(sku: sku)
 			variant.price=prod.xpath('//span[@class="price-new goodsDataMainModificationPriceNow"]//span[@class="num"]').first.content.strip.delete("\s").to_i
+			variant.touch unless variant.new_record?
 			
 			if prod.xpath('//span[@itemprop="availability" and @content="in_stock"]').length > 0
 				product.enabled=true

@@ -5,9 +5,9 @@ namespace :import do
 		$base_url='http://www.ellevill.org'
 		$sku_prefix=''
 
+		EllevillProcessCategory("http://www.ellevill.org/category/maysling/", -1, :only_products)
 		EllevillProcessCategory("http://www.ellevill.org/category/cotton/", -1, :only_subcat)
 		EllevillProcessCategory("http://www.ellevill.org/category/ringsling/", -1, :only_subcat)
-		EllevillProcessCategory("http://www.ellevill.org/category/maysling/", -1, :only_products)
 		EllevillProcessCategory("http://www.ellevill.org/category/ergorukzak/", -1, :only_products)
 		EllevillProcessCategory("http://www.ellevill.org/category/accessories/", -1, :only_subcat)		
 	end
@@ -83,8 +83,9 @@ namespace :import do
 					end
 				end
 	
-				 	product.categories.clear
-				 	product.categories << Category.find(id)
+				product.categories.clear
+				product.categories << Category.find(id)
+
 				product.enabled=true
 				product.save
 
@@ -97,6 +98,7 @@ namespace :import do
 					variant.enabled=true
 					variant.availability='Доставка 3-4 дня'
 					variant.price=base_price
+					variant.touch unless variant.new_record?
 					variant.save					
 				else
 					variants.each do |var|
