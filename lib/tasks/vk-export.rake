@@ -12,9 +12,11 @@ namespace :vk do
 
 		$vk = VkontakteApi::Client.new(Settings.vk_access_token)
 	
-		if Rails.env == 'production'
+		if Settings.theme == 'mama40'
 			cats=[14, 17, 18, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}]
-		else
+		elsif Settings.theme == 'sling'
+			cats=[1, 7, 13, 28, 17, 20]			
+		else			
 			cats=[{cats: [1669, 1672], name: 'рюкзаки и хипситы'}, 1870]		
 		end
 

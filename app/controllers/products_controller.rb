@@ -10,7 +10,12 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    @product = Product.find(params[:id])
+    @product = Product.where(id: params[:id]).first
+
+    @product = Product.where(sku: params[:id]).first unless @product
+
+    raise ActiveRecord::RecordNotFound  unless @product
+
     set_seo_variables(@product)
     @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
