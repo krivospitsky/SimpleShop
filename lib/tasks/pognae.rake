@@ -66,7 +66,7 @@ namespace :import do
 			if prod.xpath('//span[@itemprop="availability" and @content="in_stock"]').length > 0
 				product.enabled=true
 				variant.enabled=true
-				variant.availability='Доставка 3-4 дня'
+				variant.availability='На складе'
 			else
 				product.enabled=false
 				variant.enabled=false

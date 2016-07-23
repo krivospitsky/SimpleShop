@@ -96,7 +96,7 @@ namespace :import do
 					variant=product.variants.find_or_initialize_by(sku: sku)
 					variant.name=product.name
 					variant.enabled=true
-					variant.availability='Доставка 3-4 дня'
+					variant.availability='На складе'
 					variant.price=base_price
 					variant.touch unless variant.new_record?
 					variant.save					
@@ -122,7 +122,7 @@ namespace :import do
 						variant=product.variants.find_or_initialize_by(sku: var_sku)
 						variant.name="#{product.name} " + long_size
 						variant.enabled=true
-						variant.availability='Доставка 3-4 дня'
+						variant.availability='На складе'
 						variant.price=base_price + price_delta
 						as=variant.attrs.find_or_initialize_by(name: 'Размер')
 						as.value=long_size
