@@ -106,6 +106,10 @@ namespace :import do
 						var_string='4.7m (M)' if var_string == '4.7m'
 						var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300р.)'
 						var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300р.)'
+						var_string='5.2m (L)(+300 р.)' if var_string == '5.2m(+300руб.)'
+						var_string='4.2m (S)(-300 р.)' if var_string == '4.2m(-300руб.)'
+
+
 						if var_string[/\(([MSXL]+)\)/, 1]
 							long_size=var_string[/^(.*?\))/, 1]
 							short_size=var_string[/\(([MSXL]+)\)/, 1]

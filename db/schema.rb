@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713104453) do
+ActiveRecord::Schema.define(version: 20160727110238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160713104453) do
     t.datetime "updated_at"
     t.string   "external_id"
     t.integer  "vk_id"
+    t.integer  "vk_id2"
   end
 
   create_table "categories_discounts", force: :cascade do |t|
@@ -246,6 +247,7 @@ ActiveRecord::Schema.define(version: 20160713104453) do
     t.string   "external_id"
     t.datetime "returned_at"
     t.integer  "vk_id"
+    t.integer  "vk_id2"
   end
 
   add_index "products", ["external_id"], name: "index_products_on_external_id", using: :btree

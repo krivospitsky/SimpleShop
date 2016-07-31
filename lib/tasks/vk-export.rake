@@ -11,21 +11,22 @@ namespace :vk do
 		include ActionView::Helpers::AssetUrlHelper
 
 		$vk = VkontakteApi::Client.new(Settings.vk_access_token)
-	
-		if Settings.theme == 'mama40'
+		
+		if Rails.env.development?	
+			cats=[{cats: [1669, 1672], name: 'рюкзаки и хипситы'}, 1870]		
+		elsif Settings.theme == 'mama40'
 			cats=[14, 17, 18, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}]
 		elsif Settings.theme == 'sling'
-			cats=[1, 7, 13, 28, 17, 20]			
-		else			
-			cats=[{cats: [1669, 1672], name: 'рюкзаки и хипситы'}, 1870]		
+			cats=[1, 7, 13, 28, 17, 20]						
 		end
 
 		cats.each do |cat_item|
 			if cat_item.instance_of? Hash				
 				check_and_create_cat(cat_item[:cats][0], cat_item[:name])
 				cat_vk_id=Category.find(cat_item[:cats][0]).vk_id
+				cat_vk_id2=Category.find(cat_item[:cats][0]).vk_id2
 				cat_item[:cats].each do |cat_id|
-					proc_cat(cat_id, cat_vk_id)
+					proc_cat(cat_id, cat_vk_id, cat_vk_id2)
 				end
 			else
 				check_and_create_cat(cat_item)
@@ -35,9 +36,10 @@ namespace :vk do
 	end
 end
 
-def proc_cat(cat_id, album=nil)	
+def proc_cat(cat_id, album=nil, user_album=nil)	
 	cat=Category.find(cat_id)
 	album=cat.vk_id unless album
+	user_album=cat.vk_id2 unless user_album
 	Product.in_categories(cat.all_sub_cats).each do |prod|
 		if !prod.vk_id
 			if prod.enabled					
@@ -66,15 +68,42 @@ def proc_cat(cat_id, album=nil)
 					end
 				end
 			end
-		else
+		end
+		if !prod.vk_id2
+			if prod.enabled					
+				next if prod.images.empty?
 
-			# vk.execute(code: "var prod=API.market.getById({\"item_ids\": \"-#{Settings.vk_group_id}_#{prod.vk_id}\", \"extended\": 1});API.market.edit({\"item_id\": \"#{prod.vk_id}\", \"owner_id\": \"-#{Settings.vk_group_id}\", \"name\": \"#{prod.name}\", \"description\": \"#{URI.encode(strip_tags(prod.description))}\",  \"category_id\": 1, \"price\": #{prod.variants.first.price}, \"main_photo_id\": prod.items[0].photos[0].id, \"deleted\": #{prod.enabled ? 0 : 1}});return 1;")
-			puts "-#{Settings.vk_group_id}_#{prod.vk_id}"
+				loop do  
+					begin
+						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+						upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+						sleep(0.4)
+						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+						sleep(0.4)
+						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+						sleep(0.4)
+						puts photo
+						prod.vk_id2=photo[0][:id]
+						prod.save
+						break
+					rescue 
+						puts "API error!!!"
+					end
+				end
+			else
+				photo=$vk.photos.delete(photo_id: prod.vk_id2)
+				prod.vk_id2=nil
+				prod.save
+				sleep(0.4)
+			end
+		else
 			loop do  
 				begin
-					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
-					sleep(0.4)
-					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
+					# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
+					# sleep(0.4)
+					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+					$vk.photos.edit(photo_id: prod.vk_id, caption: strip_tags(prod.description))
 					sleep(0.4)
 					break
 				rescue 
@@ -91,6 +120,12 @@ def check_and_create_cat(cat_id, cat_name=nil)
 	if !cat.vk_id
 		res=$vk.market.addAlbum(owner_id: "-#{Settings.vk_group_id}", title: cat_name)
 		cat.vk_id=res[:market_album_id]
+		cat.save
+		sleep(0.4)
+	end
+	if !cat.vk_id2 && (Settings.theme == 'mama40' || Rails.env.development?)
+		res=$vk.photos.createAlbum(title: cat_name)
+		cat.vk_id2=res[:aid]
 		cat.save
 		sleep(0.4)
 	end
