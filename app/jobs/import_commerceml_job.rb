@@ -80,16 +80,22 @@ class ImportCommercemlJob < ActiveJob::Base
 		if Settings.theme == 'fish'
 			variant=Variant.find_by(external_id: var.xpath("Ид").first.content.strip)
 			if variant
-				variant.availability='В наличии'
-				variant.enabled=true
-				product=variant.product
+				variant.count=var.xpath('Количество').first.content.strip
+				if variant.count>0
+					variant.availability='В наличии'
+					variant.enabled=true
+					product=variant.product
 
-		        if product.enabled != true
-			        puts "enabling  #{product.name}"
-		        	product.enabled=true
-		        	product.returned_at=Time.now()
-		        	product.save
-		        end
+			        if product.enabled != true
+				        puts "enabling  #{product.name}"
+			        	product.enabled=true
+			        	product.returned_at=Time.now()
+			        	product.save
+			        end
+			    else
+					variant.availability='Нет в наличии'
+					variant.enabled=false			    	
+				end			    	
 		        variant.save
 		    else
 		    	# puts "variant #{var.xpath('Ид').first.content.strip} not found"

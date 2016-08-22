@@ -11,9 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.where(id: params[:id]).first
-
     @product = Product.where(sku: params[:id]).first unless @product
-
     raise ActiveRecord::RecordNotFound  unless @product
 
     set_seo_variables(@product)
