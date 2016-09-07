@@ -1,5 +1,7 @@
 # coding: utf-8
 
+#https://oauth.vk.com/authorize?client_id=3682744&v=5.7&scope=photos,groups,offline&redirect_uri=http://oauth.vk.com/blank.html&display=page&response_type=token
+
 require 'action_view'
 require 'uri'
 
@@ -69,45 +71,54 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				end
 			end
 		end
-		if !prod.vk_id2
-			if prod.enabled					
-				next if prod.images.empty?
+		if !prod.vk_id2 &&	prod.enabled					
+			# создаем новую фоту
+			next if prod.images.empty?
 
+			loop do  
+				begin
+					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+					upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+					sleep(0.4)
+					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+					sleep(0.4)
+					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+					photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+					sleep(0.4)
+					puts photo
+					prod.vk_id2=photo[0][:id]
+					prod.save
+					break
+				rescue 
+					puts "API error!!!"
+				end
+			end
+		else
+			# редактируем или удаляем
+			if prod.enabled
 				loop do  
 					begin
-						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-						upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
-						sleep(0.4)
-						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-						sleep(0.4)
+						# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
+						# sleep(0.4)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+						$vk.photos.edit(photo_id: prod.vk_id, caption: strip_tags(prod.description))
 						sleep(0.4)
-						puts photo
-						prod.vk_id2=photo[0][:id]
-						prod.save
 						break
 					rescue 
 						puts "API error!!!"
 					end
 				end
 			else
-				photo=$vk.photos.delete(photo_id: prod.vk_id2)
-				prod.vk_id2=nil
-				prod.save
-				sleep(0.4)
-			end
-		else
-			loop do  
-				begin
-					# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
-					# sleep(0.4)
-					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-					$vk.photos.edit(photo_id: prod.vk_id, caption: strip_tags(prod.description))
-					sleep(0.4)
-					break
-				rescue 
-					puts "API error!!!"
+				loop do  
+					begin
+						$vk.photos.delete(photo_id: prod.vk_id2)
+						prod.vk_id2=nil
+						prod.save
+						sleep(0.4)
+						break
+					rescue 
+						puts "API error!!!"
+					end
 				end
 			end
 		end
