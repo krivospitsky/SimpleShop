@@ -70,27 +70,44 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					end
 				end
 			end
-		end
-		if !prod.vk_id2 &&	prod.enabled					
-			# создаем новую фоту
-			next if prod.images.empty?
-
+		else
+			# puts "-#{Settings.vk_group_id}_#{prod.vk_id}"
 			loop do  
 				begin
-					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-					upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 					sleep(0.4)
-					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
 					sleep(0.4)
-					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-					photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
-					sleep(0.4)
-					puts photo
-					prod.vk_id2=photo[0][:id]
-					prod.save
 					break
 				rescue 
 					puts "API error!!!"
+				end
+			end		
+		end
+
+
+		if !prod.vk_id2 
+			if prod.enabled					
+				# создаем новую фоту
+				next if prod.images.empty?
+
+				loop do  
+					begin
+						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+						upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+						sleep(0.4)
+						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+						sleep(0.4)
+						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+						sleep(0.4)
+						puts photo
+						prod.vk_id2=photo[0][:id]
+						prod.save
+						break
+					rescue 
+						puts "API error!!!"
+					end
 				end
 			end
 		else
@@ -101,7 +118,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
 						# sleep(0.4)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-						$vk.photos.edit(photo_id: prod.vk_id, caption: strip_tags(prod.description))
+						$vk.photos.edit(photo_id: prod.vk_id2, caption: strip_tags(prod.description))
 						sleep(0.4)
 						break
 					rescue 
