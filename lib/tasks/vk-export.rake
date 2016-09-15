@@ -102,8 +102,9 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
 						sleep(0.4)
 						puts photo
-						prod.vk_id2=photo[0][:id]
+						prod.vk_id2=photo[0][:pid]
 						prod.save
+						puts  prod.vk_id2
 						break
 					rescue 
 						puts "API error!!!"
