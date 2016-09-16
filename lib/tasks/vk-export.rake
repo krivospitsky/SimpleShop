@@ -52,18 +52,18 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=$vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
-						sleep(0.6)
+						sleep(0.8)
 						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-						sleep(0.6)
+						sleep(0.8)
 						photo=$vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
-						sleep(0.6)
+						sleep(0.8)
 
 						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
-						sleep(0.6)
+						sleep(0.8)
 						prod.vk_id=res[:market_item_id]
 						prod.save
 						$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
-						sleep(0.6)
+						sleep(0.8)
 						break
 					rescue 
 						puts "API error!!!"
@@ -76,9 +76,9 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 			loop do  
 				begin
 					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
-					sleep(0.6)
+					sleep(0.8)
 					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
-					sleep(0.6)
+					sleep(0.8)
 					break
 				rescue 
 					puts "API error!!!"
@@ -97,12 +97,12 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
-						sleep(0.6)
+						sleep(0.8)
 						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-						sleep(0.6)
+						sleep(0.8)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
 						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
-						sleep(0.6)
+						sleep(0.8)
 						puts photo
 						prod.vk_id2=photo[0][:pid]
 						prod.save
@@ -120,10 +120,10 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				loop do  
 					begin
 						# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
-						# sleep(0.6)
+						# sleep(0.8)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
 						$vk.photos.edit(photo_id: prod.vk_id2, caption: strip_tags(prod.description))
-						sleep(0.6)
+						sleep(0.8)
 						break
 					rescue 
 						puts "API error!!!"
@@ -136,7 +136,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						$vk.photos.delete(photo_id: prod.vk_id2)
 						prod.vk_id2=nil
 						prod.save
-						sleep(0.6)
+						sleep(0.8)
 						break
 					rescue 
 						puts "API error!!!"
@@ -155,12 +155,12 @@ def check_and_create_cat(cat_id, cat_name=nil)
 		res=$vk.market.addAlbum(owner_id: "-#{Settings.vk_group_id}", title: cat_name)
 		cat.vk_id=res[:market_album_id]
 		cat.save
-		sleep(0.6)
+		sleep(0.8)
 	end
 	if !cat.vk_id2 && (Settings.theme == 'mama40' || Rails.env.development?)
 		res=$vk.photos.createAlbum(title: cat_name)
 		cat.vk_id2=res[:aid]
 		cat.save
-		sleep(0.6)
+		sleep(0.8)
 	end
 end
