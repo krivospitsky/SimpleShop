@@ -61,6 +61,7 @@ def ok_proc_cat(cat_id, album=nil)
 						photos= JSON.parse(response)['photos']
 						photo_id=photos.keys[0]
 						token=photos[photo_id]['token']
+						puts "photo id #{photo_id}, token #{token}, coment #{caption}"
 						res=$ok.photos_v2.commit(photo_id: photo_id, token: token, comment: caption)
 						puts res
 						pid=res['photos'][0]['assigned_photo_id']
