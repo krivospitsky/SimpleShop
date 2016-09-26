@@ -57,10 +57,12 @@ def ok_proc_cat(cat_id, album=nil)
 						sleep(0.8)
 						puts upload_url
 						response = RestClient.post(upload_url,  :pic1 => File.new(img_path))
+						puts response
 						photos= JSON.parse(response)['photos']
 						photo_id=photos.keys[0]
 						token=photos[photo_id]['token']
 						res=$ok.photos_v2.commit(photo_id: photo_id, token: token, comment: caption)
+						puts res
 						pid=res['photos'][0]['assigned_photo_id']
 						sleep(0.8)
 
@@ -83,6 +85,7 @@ def ok_proc_cat(cat_id, album=nil)
 						# sleep(0.8)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
 						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
+						puts "edited"
 						sleep(0.8)
 					# 	break
 					# rescue Exception => e  
@@ -97,6 +100,7 @@ def ok_proc_cat(cat_id, album=nil)
 						$ok.photos.delete_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id)
 						prod.ok_id=nil
 						prod.save
+						puts "deleted"
 						sleep(0.8)
 						break
 					rescue Exception => e  
