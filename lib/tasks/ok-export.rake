@@ -67,8 +67,9 @@ def ok_proc_cat(cat_id, album=nil)
 						prod.ok_id=pid
 						prod.save
 						break
-					rescue 
+					rescue Exception => e  
 						puts "API error!!!"
+						puts e.message
 						sleep(10)
 					end
 				end
@@ -84,8 +85,9 @@ def ok_proc_cat(cat_id, album=nil)
 						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
 						sleep(0.8)
 					# 	break
-					# rescue 
+					# rescue Exception => e  
 					# 	puts "API error!!!"
+					#   puts e.message
 					# 	sleep(10)
 					# end
 				# end
@@ -97,8 +99,9 @@ def ok_proc_cat(cat_id, album=nil)
 						prod.save
 						sleep(0.8)
 						break
-					rescue 
+					rescue Exception => e  
 						puts "API error!!!"
+						puts e.message
 						sleep(10)
 					end
 				end
