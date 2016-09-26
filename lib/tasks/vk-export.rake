@@ -7,8 +7,8 @@ require 'uri'
 
 $vk
 
-namespace :vk do
-	task :export => :environment do
+namespace :export do
+	task :vk => :environment do
 		include ActionView::Helpers::SanitizeHelper
 		include ActionView::Helpers::AssetUrlHelper
 
@@ -36,7 +36,6 @@ namespace :vk do
 			end
 		end		
 	end
-end
 
 def proc_cat(cat_id, album=nil, user_album=nil)	
 	cat=Category.find(cat_id)
@@ -122,7 +121,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
 						# sleep(0.8)
 						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-						$vk.photos.edit(photo_id: prod.vk_id2, caption: strip_tags(prod.description))
+						$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
 						sleep(0.8)
 						break
 					rescue 
@@ -163,4 +162,6 @@ def check_and_create_cat(cat_id, cat_name=nil)
 		cat.save
 		sleep(0.8)
 	end
+end
+
 end

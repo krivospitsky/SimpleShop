@@ -106,3 +106,6 @@ gem 'amoeba'
 gem 'delayed_job_active_record'
 
 gem 'vkontakte_api', github: '7even/vkontakte_api'
+gem 'school_friend'
+
+gem 'rest-client'

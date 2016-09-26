@@ -7,6 +7,7 @@ class Admin::SettingsController < Admin::BaseController
                         {title: 'Yandex Kassa', settings: [:kassa_shopId, :kassa_scid, :kassa_form_action]},
                         {title: 'Yandex Кошелек', settings: [:ya_money_receiver]},
                         {title: 'Магазин VK', settings: [:vk_access_token, :vk_group_id]},
+                        {title: 'Магазин OK', settings: [:ok_access_token, :ok_session_secret_key, :ok_group_id, :ok_application_id, :ok_application_key, :ok_secret_key]},
                         {title: 'Аналитика', settings: [{metrika: :text}, :metrika_id, :metrika_cart_goal, :metrika_order_goal, :google_verification, :yandex_verification]},
                         {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {disable_discount_card: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}]}]
 
