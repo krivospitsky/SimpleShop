@@ -93,7 +93,8 @@ def ok_proc_cat(cat_id, album=nil)
 
 						if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
 							sleep(0.8)
-							$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+							res=$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+							puts res
 							puts "comment added"
 						end
 						sleep(0.8)
