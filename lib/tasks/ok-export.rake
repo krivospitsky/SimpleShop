@@ -8,6 +8,7 @@ namespace :export do
 	task :ok => :environment do
 		include ActionView::Helpers::SanitizeHelper
 		include ActionView::Helpers::AssetUrlHelper
+		include ActionView::Helpers::TextHelper
 
 		# $ok = VkontakteApi::Client.new(Settings.ok_access_token)
 
