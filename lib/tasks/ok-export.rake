@@ -50,7 +50,7 @@ def ok_proc_cat(cat_id, album=nil)
 			if prod.enabled					
 				# создаем новую фоту
 				next if prod.images.empty?
-						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}", length: 254)
+						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.", length: 254)
 				loop do  
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -67,6 +67,10 @@ def ok_proc_cat(cat_id, album=nil)
 
 						prod.ok_id=pid
 						prod.save
+
+						$ok.discussion.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
+						puts "comment added"
+						sleep(0.8)
 						break
 					rescue Exception => e  
 						puts "API error!!!"
@@ -82,9 +86,17 @@ def ok_proc_cat(cat_id, album=nil)
 				# 	begin
 						# ok_prod=$ok.photo.getById(photos: prod.ok_id)
 						# sleep(0.8)
-						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}", length: 254)
+						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.", length: 254)
 						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
 						puts "edited"
+						sleep(0.8)
+
+						if ($ok.discussion.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
+						{
+							sleep(0.8)
+							$ok.discussion.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+							puts "comment added"
+						}
 						sleep(0.8)
 					# 	break
 					# rescue Exception => e  
