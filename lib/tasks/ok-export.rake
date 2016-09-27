@@ -49,7 +49,7 @@ def ok_proc_cat(cat_id, album=nil)
 			if prod.enabled					
 				# создаем новую фоту
 				next if prod.images.empty?
-						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}", length: 254)
 				loop do  
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -57,13 +57,10 @@ def ok_proc_cat(cat_id, album=nil)
 						sleep(0.8)
 						puts upload_url
 						response = RestClient.post(upload_url,  :pic1 => File.new(img_path))
-						puts response
 						photos= JSON.parse(response)['photos']
 						photo_id=photos.keys[0]
 						token=photos[photo_id]['token']
-						puts "photo id #{photo_id}, token #{token}, coment #{caption}"
 						res=$ok.photos_v2.commit(photo_id: photo_id, token: token, comment: caption)
-						puts res
 						pid=res['photos'][0]['assigned_photo_id']
 						sleep(0.8)
 
@@ -84,7 +81,7 @@ def ok_proc_cat(cat_id, album=nil)
 				# 	begin
 						# ok_prod=$ok.photo.getById(photos: prod.ok_id)
 						# sleep(0.8)
-						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}", length: 254)
 						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
 						puts "edited"
 						sleep(0.8)
