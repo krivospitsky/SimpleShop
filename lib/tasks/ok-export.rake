@@ -68,7 +68,7 @@ def ok_proc_cat(cat_id, album=nil)
 						prod.ok_id=pid
 						prod.save
 
-						$ok.discussion.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
+						$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
 						puts "comment added"
 						sleep(0.8)
 						break
@@ -91,9 +91,9 @@ def ok_proc_cat(cat_id, album=nil)
 						puts "edited"
 						sleep(0.8)
 
-						if ($ok.discussion.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
+						if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
 							sleep(0.8)
-							$ok.discussion.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+							$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
 							puts "comment added"
 						end
 						sleep(0.8)
