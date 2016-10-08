@@ -50,7 +50,7 @@ def ok_proc_cat(cat_id, album=nil)
 	cat=Category.find(cat_id)
 	album=cat.ok_id unless album
 	Product.in_categories(cat.all_sub_cats).each do |prod|
-		caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n'#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
+		caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
 		if !prod.ok_id 
 			if prod.enabled					
 				# создаем новую фоту
