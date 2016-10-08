@@ -1,5 +1,8 @@
 # coding: utf-8
 
+#https://connect.ok.ru/oauth/authorize?client_id=1248238080&scope=VALUABLE_ACCESS,LONG_ACCESS_TOKEN,PHOTO_CONTENT,GROUP_CONTENT,MESSAGING&response_type=code&redirect_uri=http://localhost
+#https://api.ok.ru/oauth/token.do?code=1U984vxoi4bJvPe1l8afCZKEz5uvnowMQgRDIVuvMZSfRvuZn7NbNPrMVq6mxS2FPIziVrDgAzi5mAkLxj8av3uMKEVr5OE0sZ47mAxpRsAu70u1KN7I4ty82MJQW05otIkRjZFl0vVoUpYrcJkePwltv8avlBpA4fZruYxvtBwRlQf&client_id=1248238080&client_secret=6B2752F47F37F56084CD58A1&redirect_uri=http://localhost&grant_type=authorization_code
+
 require 'action_view'
 require 'uri'
 require 'rest_client'
@@ -9,6 +12,7 @@ namespace :export do
 		include ActionView::Helpers::SanitizeHelper
 		include ActionView::Helpers::AssetUrlHelper
 		include ActionView::Helpers::TextHelper
+		include ActionView::Helpers::UrlHelper	
 
 		# $ok = VkontakteApi::Client.new(Settings.ok_access_token)
 
@@ -46,11 +50,11 @@ def ok_proc_cat(cat_id, album=nil)
 	cat=Category.find(cat_id)
 	album=cat.ok_id unless album
 	Product.in_categories(cat.all_sub_cats).each do |prod|
+		caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n'#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
 		if !prod.ok_id 
 			if prod.enabled					
 				# создаем новую фоту
 				next if prod.images.empty?
-						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.", length: 254)
 				loop do  
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -68,9 +72,9 @@ def ok_proc_cat(cat_id, album=nil)
 						prod.ok_id=pid
 						prod.save
 
-						$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
-						puts "comment added"
-						sleep(0.8)
+						# $ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
+						# puts "comment added"
+						# sleep(0.8)
 						break
 					rescue Exception => e  
 						puts "API error!!!"
@@ -86,18 +90,17 @@ def ok_proc_cat(cat_id, album=nil)
 				# 	begin
 						# ok_prod=$ok.photo.getById(photos: prod.ok_id)
 						# sleep(0.8)
-						caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.", length: 254)
 						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
 						puts "edited"
 						sleep(0.8)
 
-						if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
-							sleep(0.8)
-							res=$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
-							puts res
-							puts "comment added"
-						end
-						sleep(0.8)
+						# if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
+						# 	sleep(0.8)
+						# 	res=$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+						# 	puts res
+						# 	puts "comment added"
+						# end
+						# sleep(0.8)
 					# 	break
 					# rescue Exception => e  
 					# 	puts "API error!!!"
