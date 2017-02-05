@@ -163,7 +163,9 @@ puts "finding products"
 
 
 				if product.images.count == 0 
+					puts "findind images"
 					prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
+						puts pic_url
 						sleep 3
 						begin
 							image=product.images.new
@@ -173,8 +175,9 @@ puts "finding products"
 							image.delete
 						end
 					end
-					prod.xpath('//img[@width=500]/@src').each do |pic_url|
+					prod.xpath('//div[@class="catalog_element_photos clearfix"]/img/@src').each do |pic_url|
 						sleep 3
+						puts pic_url
 						begin
 							image=product.images.new
 							image.remote_image_url=$base_url+pic_url
