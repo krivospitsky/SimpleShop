@@ -111,12 +111,8 @@ puts "finding products"
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
-				if product.new_record?
 				 	product.name=prod.xpath('//h1').first.content.strip
 				 	puts product.name
-				 	product.categories.clear
-				 	product.categories << Category.find(id)
-				 	product.sku=sku				
 				 	if descr=prod.xpath('//div[@class="catalog_element_text_description"]').first
 						descr.css('img').each do |img|
 							url=img.attr('src')
@@ -136,6 +132,10 @@ puts "finding products"
 					# else
 						# product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 					end
+				if product.new_record?
+				 	product.categories.clear
+				 	product.categories << Category.find(id)
+				 	product.sku=sku				
 				end
 	
 				product.enabled=true
