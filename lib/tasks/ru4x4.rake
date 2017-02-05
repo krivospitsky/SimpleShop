@@ -100,13 +100,14 @@ namespace :import do
 				Ru4x4ProcessCategory($base_url+next_url.content, id, :only_products)
 			end
 		# if has_subcat==false
+		puts "finding products"
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each do |prod_link|
+				puts prod_link
 				next if prod_link == '/shop/farkopy/'
 				prod = Nokogiri::HTML(open($base_url+prod_link), nil)
 
 				next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first || prod.xpath('//table[@class="offers_table"]').first
 
-				puts prod_link
 				sku=$sku_prefix + prod_link.content[/\/([^\/]+)\/$/,1]
 				#prod.xpath('//span[@class="code"]').first.content
 				product=Product.find_or_initialize_by(sku: sku)
