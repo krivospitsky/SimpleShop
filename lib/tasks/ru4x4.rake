@@ -60,7 +60,7 @@ namespace :import do
 	end
 
 	def Ru4x4ProcessCategory(url, id, type)
-		cat = Nokogiri::HTML(open(url))
+		cat = Nokogiri::HTML(open(url+'?ncc=1'))
 
 		if id==-1
 			external_id=$sku_prefix + url[/\/([^\/]+)\/$/,1]
@@ -92,7 +92,7 @@ namespace :import do
 				category.enabled=true
 				category.save!
 			end
-
+puts "process subcat"
 			Ru4x4ProcessCategory(sub_url, category.id, :only_products)
 		end
 
@@ -100,11 +100,11 @@ namespace :import do
 				Ru4x4ProcessCategory($base_url+next_url.content, id, :only_products)
 			end
 		# if has_subcat==false
-		puts "finding products"
+puts "finding products"		
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each do |prod_link|
 				puts prod_link
 				next if prod_link == '/shop/farkopy/'
-				prod = Nokogiri::HTML(open($base_url+prod_link), nil)
+				prod = Nokogiri::HTML(open($base_url+prod_link+'?ncc=1'), nil)
 
 				next unless prod.xpath('//span[@class="catalog_element_price_value"]/b').first || prod.xpath('//table[@class="offers_table"]').first
 
