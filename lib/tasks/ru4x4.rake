@@ -169,7 +169,7 @@ puts "finding products"
 						sleep 3
 						begin
 							image=product.images.new
-							image.remote_image_url=$base_url+pic_url
+							image.remote_image_url=pic_url
 							image.save
 						rescue
 							image.delete
@@ -180,7 +180,7 @@ puts "finding products"
 						puts pic_url
 						begin
 							image=product.images.new
-							image.remote_image_url=$base_url+pic_url
+							image.remote_image_url=pic_url
 							image.save
 						rescue
 							image.delete
