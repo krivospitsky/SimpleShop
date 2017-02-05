@@ -165,7 +165,7 @@ puts "finding products"
 				if product.images.count == 0 
 					puts "findind images"
 					prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
-						pic_url.gsub!(/^\/\//, '')
+						pic_url=pic_url.content.strip.gsub!(/^\/\//, '')
 						puts pic_url
 						sleep 3
 						begin
@@ -177,7 +177,7 @@ puts "finding products"
 						end
 					end
 					prod.xpath('//div[@class="catalog_element_photos clearfix"]/img/@src').each do |pic_url|
-						pic_url.gsub!(/^\/\//, '')
+						pic_url=pic_url.content.strip.gsub!(/^\/\//, '')
 						puts pic_url
 						sleep 3
 						begin
