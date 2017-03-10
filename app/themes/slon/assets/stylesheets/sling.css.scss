@@ -1,0 +1,174 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+
+
+$brand-primary: #ea651a;
+$navbar-default-bg: $brand-primary;
+// $navbar-default-bg: darken($brand-primary, 10%);
+$navbar-default-link-hover-bg: darken($brand-primary, 10%);
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-link-active-color: #fff;
+
+// @import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:700);
+
+@import "application";
+
+.container-fixed {
+    max-width: 1020px;
+}
+
+
+.breadcrumb{
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
+
+h1{
+  margin-top: 10px;
+}
+
+.product_item {
+  .thumbnail{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    .name{
+      height: auto;
+      padding-bottom: 5px;
+    }
+  }
+  .buy-btn{
+    padding-bottom: 10px;
+  }
+}
+
+// .site_title {
+//   font: 50px/1.1em "Stardos Stencil";
+//   color: white;
+//   .small {
+//     font: 29px/1.3em "Stardos Stencil";
+//   }
+// }
+
+.header{
+  background-color: white;
+ .contacts{
+    color: $brand-primary;
+    font-size: 12pt;
+    font-weight: 600;
+    a{
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+  }
+}
+
+nav.navbar-default{
+  background-color: $brand-primary;
+  a{
+    // color: #fff;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 10px 10px;
+    margin: 1px;
+    line-height: 24px;
+  }
+  .divider-vertical {
+    height: 50px;
+    margin: 0;
+    border-right: 1px solid lighten($brand-primary, 30%);
+    border-left: 1px solid darken($brand-primary, 0%);
+    @media (max-width: $grid-float-breakpoint){
+      display: none;
+    }
+  }
+  .navbar-collapse{
+    padding: 0px;
+  }
+  .dropdown-menu{
+    li{
+      page-break-inside: avoid;
+      .level-3{
+        list-style: none;
+        font-weight: normal;
+      }
+    }
+  }
+  .dropdown-menu-columns{
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+
+
+.image_thumb{
+  margin-bottom: 0px;
+}
+
+.img-responsive{
+  margin-bottom: 10px;  
+}
+
+.thumbs{
+  width: 100%;
+}
+
+
+footer.footer{
+  // background: linear-gradient(#e7e7e7 0px, #ffffff 40%);
+  color: #fff;
+ .strong{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: #fff;
+    text-align: left;
+    // @media (max-width: 480px) {
+    //   font-size: 13px;
+    //   padding-bottom: 3px;
+    // }
+  }
+
+  .footer-articles{
+    list-style: none;
+    // margin-left: 10px;
+    padding-left: 0px;
+    color: #fff;
+    a{
+      color: #fff;
+      // color: $brand-primary;
+    }
+  }
+  .footer-cats{
+    -moz-column-count: 3;
+    column-count: 3;
+    list-style: none;
+    margin: 0;
+    li{
+      a{
+        color: #fff;
+      }
+      page-break-inside: avoid;      
+      ul{
+        list-style: none;
+        // margin-left: 10px;
+        padding-left: 0px;
+        a{
+          color: #fff;
+          // color: $brand-primary;
+        }
+      }
+    }
+  }
+}

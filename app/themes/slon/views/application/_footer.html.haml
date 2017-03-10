@@ -1,0 +1,26 @@
+%footer.footer
+	.container-fixed
+		.row
+			.col-sm-10
+				%ul.footer-cats
+					-Category.root.enabled.each do |cat|    
+						-if cat.children.enabled.present?
+							%li
+								=link_to cat.name, category_path(cat.path, cat.id), class: 'strong'
+								%ul
+									-cat.children.enabled.each do |subcat|
+										%li
+											=link_to subcat.name, category_path(subcat.path, subcat.id)
+						-else
+							%li
+								=link_to cat.name, category_path(cat.path, cat.id), class: 'strong'
+
+			.col-sm-2
+				.strong Помощь
+				%ul.footer-articles
+					-Page.in_footer.each do |page|
+						%li
+							=link_to page.name, page_path(page)
+
+	%hr
+		=raw Settings.copy1

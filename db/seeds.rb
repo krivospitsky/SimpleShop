@@ -1,12 +1,12 @@
-RailsSettings::Settings.create!([
-  {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
-  {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
-  {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
-  {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
-  {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
-  {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
-])
+# RailsSettings::Settings.create!([
+#   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
+#   {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
+#   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
+#   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
+#   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
+#   {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
+#   {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
+# ])
 
 Admin.create(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password')
 
@@ -18,31 +18,31 @@ Product.create!([
   {name: "Диск отрезной по металлу Т41-115 х 1,2 х 22,2 (10/50/400)", description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.2</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 31, sku: "11512", count: nil, enabled: true, sort_order: nil},
   {name: "Диск отрезной по металлу Т41-125 х 1,0 х 22,2 (10/50/400)", description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.0</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 33, sku: "12510", count: nil, enabled: true, sort_order: nil}
 ])
-Promotion.create!([
-  {name: "test promotion", description: "", sort_order: nil, enabled: true, has_banner: false, banner: nil, send_mail: false, start_at: "2014-08-07", end_at: "2014-02-07", discount: nil}
-])
-Image.create!([
-  {product_id: 3, image: "54252466_348238264.jpg"},
-  {product_id: 4, image: "54252466_348238264.jpg"}
-])
-RailsSettings::ScopedSettings.create!([
-  {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
-  {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
-  {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
-  {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
-  {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
-  {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
-])
-RailsSettings::CachedSettings.create!([
-  {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
-  {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
-  {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
-  {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
-  {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
-  {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
-  {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
-])
+# Promotion.create!([
+#   {name: "test promotion", description: "", sort_order: nil, enabled: true, has_banner: false, banner: nil, send_mail: false, start_at: "2014-08-07", end_at: "2014-02-07", discount: nil}
+# ])
+# Image.create!([
+#   {product_id: 3, image: "54252466_348238264.jpg"},
+#   {product_id: 4, image: "54252466_348238264.jpg"}
+# ])
+# RailsSettings::ScopedSettings.create!([
+#   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
+#   {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
+#   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
+#   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
+#   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
+#   {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
+#   {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
+# ])
+# RailsSettings::CachedSettings.create!([
+#   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
+#   {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
+#   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
+#   {var: "owner_email", value: "tools_kaluga@mail.ru", thing_id: nil, thing_type: nil},
+#   {var: "disable_categories", value: "true", thing_id: nil, thing_type: nil},
+#   {var: "builder", value: "!ruby/class 'SimpleForm::FormBuilder'\n", thing_id: nil, thing_type: nil},
+#   {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
+# ])
 Settings.create!([
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
   {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
