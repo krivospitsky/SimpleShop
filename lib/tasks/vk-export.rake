@@ -1,6 +1,8 @@
 # coding: utf-8
 
+#https://oauth.vk.com/authorize?client_id=5922415&display=page&redirect_uri=https%3A//oauth.vk.com/blank.html&scope=photos,groups,market,offline&response_type=token&v=5.62&state=123456
 #https://oauth.vk.com/authorize?client_id=3682744&v=5.7&scope=photos,groups,offline&redirect_uri=http://oauth.vk.com/blank.html&display=page&response_type=token
+#f721071b64021c8e709c6d1e46cea86cb4e74feec51116a0872cce8cec06993c2ba83e09c29256e83549e
 
 require 'action_view'
 require 'uri'
@@ -17,7 +19,7 @@ namespace :export do
 		if Rails.env.development?	
 			cats=[{cats: [1669, 1672], name: 'рюкзаки и хипситы'}, 1870]		
 		elsif Settings.theme == 'mama40'
-			cats=[14, 17, 18, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}]
+			cats=[14, 17, 18, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}, {cats: 6, 8, 9, 10], name: "Детские товары"}, {cats: [20, 21, 22], name: "Подгузники, пеленки и трусики GlorYes!"}]
 		elsif Settings.theme == 'sling'
 			cats=[1, 7, 13, 28, 17, 20]						
 		end
