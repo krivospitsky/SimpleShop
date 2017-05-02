@@ -23,7 +23,7 @@ namespace :export do
 		elsif Settings.theme == 'sling'
 			cats=[1, 7, 13, 28, 17, 20]						
 		else
-			cats=[]
+			cats=[260, 301, 331, 2253, 395, 423, 426, 433, 445, 448, 477, 478, 488, 504, 505, 516, 538, 546, 547, 553, 554, 564, 566]
 		end
 
 		cats.each do |cat_item|
