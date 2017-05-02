@@ -165,15 +165,15 @@ span.new-price{
 			padding-top: 5px;
 			padding-bottom: 25px;   	
 			font-weight: 400;
+			a{
+				color: #000;
+			}
 		}
     }
     li{
 		-webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
 		page-break-inside: avoid; /* Firefox */
 		break-inside: avoid; /* IE 10+ */
-		a{
-			color: #000;
-		}
     }
  }
 
