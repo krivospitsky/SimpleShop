@@ -45,6 +45,10 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 	cat=Category.find(cat_id)
 	album=cat.vk_id unless album
 	user_album=cat.vk_id2 unless user_album
+	name=prod.name
+	if (name.length > 100)
+		name=name[0, 97]+'...'
+	end
 	Product.in_categories(cat.all_sub_cats).each do |prod|
 		if !prod.vk_id
 			if prod.enabled					
@@ -61,7 +65,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						photo=$vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
 						sleep(0.8)
 
-						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
+						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
 						sleep(0.8)
 						prod.vk_id=res[:market_item_id]
 						prod.save
@@ -81,7 +85,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				begin
 					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 					sleep(0.8)
-					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: prod.name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
+					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
 					sleep(0.8)
 					break
 				rescue Exception => e  
