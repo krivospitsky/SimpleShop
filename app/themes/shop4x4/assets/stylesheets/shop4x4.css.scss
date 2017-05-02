@@ -12,11 +12,19 @@
 
 
 $brand-primary: #ef7f1a;
+
+$navbar-default-bg: #fff;
+$navbar-default-link-color: #000;
+$navbar-default-link-hover-bg: #fff;
+$navbar-default-link-hover-color: $brand-primary;
+$navbar-default-link-active-color: $brand-primary;
+/*
 $navbar-default-bg: $brand-primary;
 $navbar-default-link-hover-bg: $brand-primary;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-active-color: #fff;
+*/
 
 // @import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:700);
 
