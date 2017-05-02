@@ -12,7 +12,7 @@
 
 
 $brand-primary: #ef7f1a;
-$navbar-default-bg: #e31e24;
+$navbar-default-bg: $brand-primary;
 $navbar-default-link-hover-bg: $brand-primary;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
@@ -41,13 +41,17 @@ $navbar-default-link-active-color: #fff;
 //   }
 // }
 
-.header .contacts{
-  font-size: 10pt;
-  font-weight: 600;
-  a{
-    font-size: inherit;
-    font-weight: inherit;
-    color: inherit;
+.header {
+  background-color: #fff;
+  .contacts{
+    font-size: 16pt;
+    font-weight: 600;
+    color: $brand-primary;
+    a{
+      font-size: inherit;
+      font-weight: inherit;
+      color: $brand-primary;
+    }
   }
 }
 
