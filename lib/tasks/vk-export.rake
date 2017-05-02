@@ -45,11 +45,12 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 	cat=Category.find(cat_id)
 	album=cat.vk_id unless album
 	user_album=cat.vk_id2 unless user_album
-	name=prod.name
-	if (name.length > 100)
-		name=name[0, 97]+'...'
-	end
 	Product.in_categories(cat.all_sub_cats).each do |prod|
+		name=prod.name
+		if (name.length > 100)
+			name=name[0, 97]+'...'
+		end
+
 		if !prod.vk_id
 			if prod.enabled					
 				next if prod.images.empty?
