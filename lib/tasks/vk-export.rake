@@ -93,7 +93,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 		end
 
 
-		if (Settings.theme == 'mama40' || Rails.env.development?){
+		if (Settings.theme == 'mama40' || Rails.env.development?)
 			if !prod.vk_id2 
 				if prod.enabled					
 					# создаем новую фоту
