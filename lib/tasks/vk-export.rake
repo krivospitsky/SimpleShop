@@ -48,7 +48,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 	Product.in_categories(cat.all_sub_cats).each do |prod|
 		name=prod.name
 		if (name.length > 100)
-			name=name[0, 96]+'...'
+			name=prod.name[0, 96]+'...'
 		end
 
 		if !prod.vk_id
