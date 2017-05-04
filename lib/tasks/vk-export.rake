@@ -56,6 +56,8 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				next if prod.images.empty?
 				next if prod.description.length<10
 
+				puts prod.id
+
 				loop do  
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
