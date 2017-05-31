@@ -5,7 +5,7 @@ namespace :moysklad do
 		loop do 
 			puts "https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000"
 	    	doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000",
-	    		http_basic_authentication: ["admin@mama40", "dbnzdbnz"]))
+	    		http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
 	        doc.xpath('/collection/good').each do |good|
 	        	product=Product.find_by(external_id: good.xpath('externalcode').first.content.strip)
 	            if product && product.images.empty?
