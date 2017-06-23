@@ -5,13 +5,13 @@ namespace :moysklad do
 		loop do 
 			puts "https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000"
 	    	doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000",
-	    		http_basic_authentication: ["admin@mama40", "dbnzdbnz"]))
+	    		http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
 	        doc.xpath('/collection/good').each do |good|
 	        	product=Product.find_by(external_id: good.xpath('externalcode').first.content.strip)
 	            if product && product.images.empty?
 	            	good.xpath('images/image').each do |img|
 	            		img_url="https://online.moysklad.ru/app/download/#{img.xpath('uuid').first.content}"
-						`wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=admin@mama40&j_password=dbnzdbnz&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
+						`wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=#{Settings.ms_login}&j_password=#{Settings.ms_password}&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
 						sleep 2
 	            		image=product.images.new          
 	            		File.open('tmp/product_image.jpg') do |f|
@@ -27,7 +27,7 @@ namespace :moysklad do
 	end
 	task :import_users => :environment do
     	doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Company/list",
-    		http_basic_authentication: ["admin@mama40", "dbnzdbnz"]))
+    		http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
         doc.xpath('/collection/company').each do |user|
         	card=user.attr('discountCardNumber')
         	if card && card!=''

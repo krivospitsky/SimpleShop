@@ -4,6 +4,7 @@ class Admin::SettingsController < Admin::BaseController
     @@settings_list=[   {title: 'Общее', settings: [:site_title, :site_title_2, :site_url, :owner_phone, :owner_email, :theme, {contacts: :text}, :copy1, :copy2]}, 
                         {title: 'Почта', settings: [:smtp_host, :smtp_port, :smtp_domain, :smtp_user_name, :smtp_password, :smtp_authentication]},
                         {title: 'Фото', settings: [:list_width, :list_height, :show_width, :show_height]},
+                        {title: 'МойСклад', settings: [:ms_login, :ms_password]},
                         {title: 'Yandex Kassa', settings: [:kassa_shopId, :kassa_scid, :kassa_form_action]},
                         {title: 'Yandex Кошелек', settings: [:ya_money_receiver]},
                         {title: 'Магазин VK', settings: [:vk_access_token, :vk_group_id]},

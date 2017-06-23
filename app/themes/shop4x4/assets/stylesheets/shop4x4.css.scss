@@ -11,12 +11,20 @@
  */
 
 
-$brand-primary: #419641;
-$navbar-default-bg: darken($brand-primary, 10%);
+$brand-primary: #ef7f1a;
+
+$navbar-default-bg: #fff;
+$navbar-default-link-color: #000;
+$navbar-default-link-hover-bg: #fff;
+$navbar-default-link-hover-color: $brand-primary;
+$navbar-default-link-active-color: $brand-primary;
+/*
+$navbar-default-bg: $brand-primary;
 $navbar-default-link-hover-bg: $brand-primary;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: #fff;
 $navbar-default-link-active-color: #fff;
+*/
 
 // @import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:700);
 
@@ -41,13 +49,17 @@ $navbar-default-link-active-color: #fff;
 //   }
 // }
 
-.header .contacts{
-  font-size: 10pt;
-  font-weight: 600;
-  a{
-    font-size: inherit;
-    font-weight: inherit;
-    color: inherit;
+.header {
+  background-color: #fff;
+  .contacts{
+    font-size: 16pt;
+    font-weight: 600;
+    color: $brand-primary;
+    a{
+      font-size: inherit;
+      font-weight: inherit;
+      color: $brand-primary;
+    }
   }
 }
 
