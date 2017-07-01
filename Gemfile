@@ -109,3 +109,5 @@ gem 'vkontakte_api', github: '7even/vkontakte_api'
 gem 'school_friend', github:'krivospitsky/school_friend'
 
 gem 'rest-client'
+
+gem 'rubyzip'
