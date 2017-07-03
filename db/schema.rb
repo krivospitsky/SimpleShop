@@ -242,7 +242,6 @@ ActiveRecord::Schema.define(version: 20160921150339) do
     t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "attr"
     t.integer  "min_price"
     t.integer  "max_price"
     t.string   "external_id"
@@ -292,9 +291,9 @@ ActiveRecord::Schema.define(version: 20160921150339) do
     t.string   "url"
     t.date     "start_at"
     t.date     "end_at"
+    t.integer  "sort_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "sort_order"
   end
 
   create_table "text_blocks", force: :cascade do |t|
