@@ -13,9 +13,12 @@
 							.form-group
 								%label.control-label Номер телефона
 								=text_field_tag :phone #, nil, class:'form-control input-block-level'
+					.row
+						.col-md-12.small
+							Нажимая на кнопку "Заказать звонок", вы даете согласие на 
+							%a.callback_a{href: '/pages/10'} обработку своих персональных данных
+
 				.modal-footer
-					Нажимая на кнопку "Заказать звонок", вы даете согласие на 
-					%a{href: '/pages/10'} обработку своих персональных данных
 					%button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"} Отменить
 					%button.btn.btn-primary{type:'submit'} Заказать звонок
 #callback-success.modal
