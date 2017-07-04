@@ -44,6 +44,7 @@ Product.create!([
 #   {var: "html", value: "{}\n", thing_id: nil, thing_type: nil}
 # ])
 Settings.create!([
+  {var: "theme", value: "mama", thing_id: nil, thing_type: nil},
   {var: "site_title", value: "Диск — всему голова", thing_id: nil, thing_type: nil},
   {var: "site_url", value: "http://localhost", thing_id: nil, thing_type: nil},
   {var: "owner_phone", value: "8(930)8444448", thing_id: nil, thing_type: nil},
