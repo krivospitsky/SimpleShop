@@ -31,3 +31,5 @@
           -Page.in_menu.each do |page|
             %li
               =link_to page.name, page_path(page)
+          %li
+            %a{href: '/blog'} Блог
