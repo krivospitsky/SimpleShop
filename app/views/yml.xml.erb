@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2017-02-05 17:22">
+	<shop>
+    	<name><%=Settings.site_title%></name>    	
+    	<url><%=Settings.site_url%></url>
+    	<company>OFFROAD40PRO</company>>
+    	<currencies>
+      		<currency id="RUR" rate="1"/>
+	    </currencies>
+		<categories>
+			<% Category.enabled.each do |cat| %>
+				<%- if cat.parent_id %>
+					<category id="<%= cat.id %>" parentId="<%= cat.parent_id %>"><%= cat.name %></category>
+				<%- else %>
+					<category id="<%= cat.id %>"><%= cat.name %></category>
+				<%- end %>				
+			<% end %>
+		</categories>
+		<offers>
+			<% Product.enabled.each do |prod| %>
+				<%- next if prod.variants.enabled.empty? %>
+				<offer id="<%= prod.id %>" available="true">
+					<url><%= Settings.site_url + canonical_product_path(prod) %></url>
+			        <price><%= prod.variants.enabled.first.price %></price>
+			        <currencyId>RUR</currencyId>
+			        <categoryId>101</categoryId>
+			        <%- if prod.images.present? %>
+			        	<picture><%= Settings.site_url + prod.images.first.image.url %></picture>
+			        <%- end %>
+			        <store>false</store>
+			        <pickup>false</pickup>
+			        <delivery>true</delivery>
+			        <name><%= prod.name %></name>
+			        <description>
+			        <![CDATA[
+			          <%= raw prod.description %>
+			        ]]>
+			        </description>
+			        <sales_notes>Необходима предоплата.</sales_notes>
+			        <manufacturer_warranty>true</manufacturer_warranty>
+			     </offer>
+			<% end %>			
+		</offers>
+	</shop>
+</yml_catalog>

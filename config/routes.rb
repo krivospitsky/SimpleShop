@@ -3,6 +3,8 @@ Shop::Application.routes.draw do
   devise_for :admins
 
   mount Ckeditor::Engine => '/ckeditor'
+  
+  Blogo::Routes.mount_to(self, at: '/blog')
 
   resources :pages#, as: :original_page
   # resources :promotions

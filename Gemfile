@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.4'
+ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~>4.2.0'
@@ -111,3 +111,9 @@ gem 'school_friend', github:'krivospitsky/school_friend'
 gem 'rest-client'
 
 gem 'rubyzip'
+
+gem 'coffee-script-source'
+
+gem 'bb-ruby'
+
+gem 'blogo', github: 'krivospitsky/blogo'
