@@ -78,7 +78,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					rescue Exception => e  
   						puts e.message  
 						puts "API error!!!"
-						sleep(10)
+						sleep(15)
 					end
 				end
 			end
@@ -94,7 +94,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				rescue Exception => e  
   					puts e.message  
 					puts "API error!!!"
-					sleep(10)
+					sleep(15)
 				end
 			end		
 		end
@@ -124,7 +124,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						rescue Exception => e  
 	  						puts e.message  
 							puts "API error!!!"
-							sleep(10)
+							sleep(15)
 						end
 					end
 				end
@@ -142,7 +142,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						rescue Exception => e  
 	  						puts e.message  
 							puts "API error!!!"
-							sleep(10)
+							sleep(15)
 						end
 					end
 				else
@@ -156,7 +156,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 						rescue Exception => e  
 	  						puts e.message  
 							puts "API error!!!"
-							sleep(10)
+							sleep(15)
 						end
 					end
 				end
