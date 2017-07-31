@@ -171,8 +171,6 @@ namespace :import do
 					variant.save
 				end
 
-puts "sdfsdgahg"
-puts product.images.count
 				if product.images.count == 0 
 					puts "findind images"
 					prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
@@ -189,32 +187,32 @@ puts product.images.count
 							image.delete
 						end
 					end
-					prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
-						pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
-						puts pic_url
-						sleep 3
-						begin
-							image=product.images.new
-							image.remote_image_url=pic_url
-							image.save
-						rescue Exception => e  
-  							puts e.message  
-							image.delete
-						end
-					end
-					prod.xpath('//div[@class="catalog_element_photos clearfix"]/img/@src').each do |pic_url|
-						pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
-						puts pic_url
-						sleep 3
-						begin
-							image=product.images.new
-							image.remote_image_url=pic_url
-							image.save
-						rescue Exception => e  
-  							puts e.message  
-							image.delete
-						end
-					end
+					# prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
+					# 	pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
+					# 	puts pic_url
+					# 	sleep 3
+					# 	begin
+					# 		image=product.images.new
+					# 		image.remote_image_url=pic_url
+					# 		image.save
+					# 	rescue Exception => e  
+  			# 				puts e.message  
+					# 		image.delete
+					# 	end
+					# end
+					# prod.xpath('//div[@class="catalog_element_photos clearfix"]/img/@src').each do |pic_url|
+					# 	pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
+					# 	puts pic_url
+					# 	sleep 3
+					# 	begin
+					# 		image=product.images.new
+					# 		image.remote_image_url=pic_url
+					# 		image.save
+					# 	rescue Exception => e  
+  			# 				puts e.message  
+					# 		image.delete
+					# 	end
+					# end
 				end
 				sleep 3
 			end
