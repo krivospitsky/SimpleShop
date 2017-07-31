@@ -4,7 +4,7 @@ Shop::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
   
-  Blogo::Routes.mount_to(self, at: '/blog') if Settings.use_blog
+  Blogo::Routes.mount_to(self, at: '/blog')
 
   resources :pages#, as: :original_page
   # resources :promotions
