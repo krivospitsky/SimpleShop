@@ -42,6 +42,10 @@ ru:
       index: "Методы оплаты"
       new: "Создание нового метода оплаты"
       edit: "Редактирование метода оплаты"
+    blogo_posts:
+      index: "Записи"
+      new: "Создание новой записи"
+      edit: "Редактирование записи"
     settings:
       edit: "Настройки магазина"
   helpers:
@@ -130,11 +134,11 @@ ru:
       truncate: '...'
   blogo:
     user:
-      comments: 'Comments'
+      comments: 'Коментарии'
       please_enable_javascript: 'Please enable JavaScript to view the comments.'
-      post_by: 'By'
-      read_post: 'Read ➞'
-      recent_posts: 'Recent posts'
+      post_by: ''
+      read_post: 'Читать ➞'
+      recent_posts: 'Последнии записи'
       tags: 'Tags'
 
     admin:

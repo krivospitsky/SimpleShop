@@ -1,0 +1,9 @@
+<section class="blogo-article article-overview">
+  <%= render partial: 'blogo/posts/post_header', locals: {post: post} %>
+
+  <div class="content">
+    <%= raw post_overview(post) %>
+  </div>
+
+  <%= link_to t('blogo.user.read_post'), blogo_post_path(post), class: 'btn btn-default' %>
+</section>

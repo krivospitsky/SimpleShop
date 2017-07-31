@@ -105,6 +105,13 @@
                 &nbsp;
                 Методы оплаты
 
+            -if Settings.use_blog
+              %li{class: controller_name=='blogo_posts' ? 'active' : ''}
+                =link_to admin_blogo_posts_path do
+                  %span.glyphicon.glyphicon.glyphicon-book
+                  &nbsp;
+                  Блог
+
             -if Settings.theme == 'fish'
               %li{class: controller_name=='moscanella' ? 'active' : ''}
                 =link_to 'Импорт Moscanella', '/admin/moscanella/new'

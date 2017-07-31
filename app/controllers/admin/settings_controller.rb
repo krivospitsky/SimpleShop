@@ -10,7 +10,7 @@ class Admin::SettingsController < Admin::BaseController
                         {title: 'Магазин VK', settings: [:vk_access_token, :vk_group_id]},
                         {title: 'Магазин OK', settings: [:ok_access_token, :ok_session_secret_key, :ok_group_id, :ok_application_id, :ok_application_key, :ok_secret_key]},
                         {title: 'Аналитика', settings: [{metrika: :text}, :metrika_id, :metrika_cart_goal, :metrika_order_goal, :google_verification, :yandex_verification]},
-                        {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {disable_discount_card: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}]}]
+                        {title: 'Опции', settings: [{disable_categories: :bool}, {disable_filters: :bool}, {disable_cart: :bool}, {disable_discount_card: :bool}, {hide_count_in_product: :bool}, {enable_variants: :bool}, {use_blog: :bool}]}]
 
     def edit
         @settings_list=@@settings_list

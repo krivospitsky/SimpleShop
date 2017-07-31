@@ -116,4 +116,5 @@ gem 'coffee-script-source'
 
 gem 'bb-ruby'
 
-gem 'blogo', github: 'krivospitsky/blogo'
+gem 'blogo', github: 'krivospitsky/blogo' , group: :production
+#gem 'blogo', path: '/blogo' , group: :development

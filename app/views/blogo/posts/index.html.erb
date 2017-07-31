@@ -1,0 +1,11 @@
+<%- if @tag %>
+	<h1>Записи с меткой <%= @tag%></h1>
+	<hr/>
+<%- end %>
+<div id="main">
+  <% @paginator.items.each do |post| %>
+    <%= render partial: 'post_overview', locals: {post: post} %>
+    <hr class="hr-main-color">
+  <% end %>
+</div>
+<%= render partial: 'paginator' %>

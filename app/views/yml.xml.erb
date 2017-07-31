@@ -3,7 +3,7 @@
 	<shop>
     	<name><%=Settings.site_title%></name>    	
     	<url><%=Settings.site_url%></url>
-    	<company>OFFROAD40PRO</company>>
+    	<company>OFFROAD40PRO</company>
     	<currencies>
       		<currency id="RUR" rate="1"/>
 	    </currencies>
@@ -23,7 +23,7 @@
 					<url><%= Settings.site_url + canonical_product_path(prod) %></url>
 			        <price><%= prod.variants.enabled.first.price %></price>
 			        <currencyId>RUR</currencyId>
-			        <categoryId>101</categoryId>
+			        <categoryId><%= prod.categories.first.id %></categoryId>
 			        <%- if prod.images.present? %>
 			        	<picture><%= Settings.site_url + prod.images.first.image.url %></picture>
 			        <%- end %>

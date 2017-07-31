@@ -1,0 +1,12 @@
+= simple_form_for [:admin, @blogo_post],  :url => @url, html: { class: 'form-horizontal' } do |f|
+
+  = f.input :title
+
+  = f.input :raw_content, as: :ckeditor
+
+  = f.input :published
+  = f.input :permalink
+  = f.input :tags_string
+
+  = f.button :submit
+  = link_to 'Cancel', admin_blogo_posts_path, class: 'btn btn-default'

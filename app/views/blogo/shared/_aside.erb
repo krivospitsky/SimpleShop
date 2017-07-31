@@ -1,0 +1,24 @@
+<aside>
+  <% if @recent_posts %>
+    <header>
+      <h3><%= t('blogo.user.recent_posts') %></h1>
+    </header>
+    <ul class="blogo-recent-posts">
+      <% @recent_posts.each do |post| %>
+        <li>
+          <%= link_to post.title, blogo_post_path(post) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
+  <header>
+    <h3><%= t('blogo.user.tags') %></h1>
+  </header>
+  <div class="tags">
+    <% @tags.each do |tag| %>
+      <%= link_to tag.name, blogo_tag_path(tag), class: 'tag pure-button button-secondary' %>
+    <% end %>
+  </div>
+</aside>

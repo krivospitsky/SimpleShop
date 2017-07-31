@@ -1,10 +1,10 @@
 # coding: utf-8
-namespace :sitemap do
-	task :generate => :environment do 
-		 include Rails.application.routes.url_helpers # brings ActionDispatch::Routing::UrlFor
+namespace :export do
+	task :sitemap => :environment do 
+		include Rails.application.routes.url_helpers # brings ActionDispatch::Routing::UrlFor 
 		# include ActionView::Helpers::TagHelper
-		 include ActionView::Helpers
-		 include ApplicationHelper
+		 # include ActionView::Helpers !!!
+		 # include ApplicationHelper  !!!
 		 # include ActionView::Helpers::UrlHelpers
 		# av = ActionView::Base.new(Rails.root.join('app', 'views'))
 		# # av.assign({

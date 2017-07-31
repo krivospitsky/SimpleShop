@@ -4,7 +4,7 @@ Shop::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
   
-  Blogo::Routes.mount_to(self, at: '/blog')
+  Blogo::Routes.mount_to(self, at: '/blog') if Settings.use_blog
 
   resources :pages#, as: :original_page
   # resources :promotions
@@ -126,6 +126,7 @@ Shop::Application.routes.draw do
     resources :users
     resources :delivery_methods
     resources :payment_methods
+    resources :blogo_posts
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
     get '/moscanella/new' => '/admin/moscanella#new'

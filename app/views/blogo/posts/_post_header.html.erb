@@ -1,0 +1,24 @@
+<header>
+  <h1><%= link_to post.title, blogo_post_path(post) %></h1>
+  <%- if post.tag_names.present? %>
+  <div class="article-tags">
+    Метки:
+    <% post.tag_names.each do |tag_name| %>
+      <%= link_to tag_name, blogo_tag_path(tag_name), class: 'tag pure-button button-secondary' %>
+    <% end %>
+  </div>
+  <%- end%>
+
+  <div class="posted">
+    <span>
+      <%= t('blogo.user.post_by') %> <%= post.user.name %>
+    </span> |
+    <span>
+      <time datetime="<%= post.published_at %>">
+        <%= I18n.localize(post.published_at.to_date, format: :long) %>
+      </time>
+    </span>
+
+  </div>
+<hr>
+</header>

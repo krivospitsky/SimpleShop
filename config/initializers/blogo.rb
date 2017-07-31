@@ -7,7 +7,7 @@ Blogo.configure do |config|
   config.markup_lang = :bb
 
   config.paginator_size = 3
-  config.posts_per_page = 2
+  config.posts_per_page = 5
   config.recent_posts =  3
 
   # Maybe you do not want to use CKEditor, if you use markdown

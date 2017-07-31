@@ -28,6 +28,12 @@
     -# <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
     = stylesheet_link_tag "#{Settings::theme}", :media => "all"
     -# = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "//vk.com/js/api/openapi.js?146"
+
+    :javascript
+      VK.init({apiId: 5646181, onlyWidgets: true});
+   
+    -# = stylesheet_link_tag "blogo/blog", :media => "all"
 
 
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'

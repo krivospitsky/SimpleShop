@@ -1,0 +1,2 @@
+module Admin::BlogoPostsHelper
+end

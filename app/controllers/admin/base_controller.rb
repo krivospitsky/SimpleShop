@@ -11,11 +11,11 @@ class Admin::BaseController < ActionController::Base
 
 
 	def index
-		@class_obj=controller_name.classify.constantize
+		@class_obj=class_name.classify.constantize
 		if @class_obj.respond_to?('rank')
-			@objects = controller_name.classify.constantize.rank(:sort_order).page(params[:page]).per(50)
+			@objects = class_name.classify.constantize.rank(:sort_order).page(params[:page]).per(50)
 		else
-			@objects = controller_name.classify.constantize.page(params[:page]).per(50)
+			@objects = class_name.classify.constantize.page(params[:page]).per(50)
 		end
     	instance_variable_set("@#{controller_name}", @objects)
     	@index_attributes=get_index_attributes
@@ -25,7 +25,8 @@ class Admin::BaseController < ActionController::Base
 
 
 	def new
-		@object = controller_name.singularize.classify.constantize.new
+		@object = class_name.singularize.classify.constantize.new
+		puts controller_name.singularize
 		instance_variable_set("@#{controller_name.singularize}", @object)
 		# form
 		# @tabs=@@tabs
@@ -34,12 +35,12 @@ class Admin::BaseController < ActionController::Base
     end
 
 	def create
-		object = controller_name.singularize.classify.constantize.create permitted_params
+		object = class_name.singularize.classify.constantize.create permitted_params
     	redirect_to [:admin, controller_name]
 	end
 
 	def edit  
-		@object = controller_name.singularize.classify.constantize.find(params[:id])  
+		@object = class_name.singularize.classify.constantize.find(params[:id])  
 		instance_variable_set("@#{controller_name.singularize}", @object)
 		# form
 		# @tabs=@@tabs
@@ -48,19 +49,24 @@ class Admin::BaseController < ActionController::Base
 	end  
 
 	def update  
-		object = controller_name.singularize.classify.constantize.find(params[:id])  
+		object = class_name.singularize.classify.constantize.find(params[:id])  
 		object.update_attributes permitted_params
     	redirect_to [:admin, controller_name]
 	end  
 
 	def destroy  
-		object = controller_name.singularize.classify.constantize.find(params[:id])  
+		object = class_name.singularize.classify.constantize.find(params[:id])  
 		object.destroy  
     	redirect_to [:admin, controller_name]
 	end  
 
 
 	private
+
+	def class_name
+		controller_name		
+	end
+
 
 	def set_title
 		@title = t("title.#{controller_name}.#{action_name}")

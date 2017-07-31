@@ -27,8 +27,13 @@ GIT
     state_machine (1.2.0)
 
 GIT
-  remote: git://github.com/krivospitsky/blogo.git
-  revision: 654098368d67cae3b08ddf7a80aad08eb2a0ae9e
+  remote: git://github.com/krivospitsky/school_friend.git
+  revision: 7d054a7ff7c7ea697f90dedb9cb0c116ce62910f
+  specs:
+    school_friend (0.1.1)
+
+PATH
+  remote: /blogo
   specs:
     blogo (0.1.3)
       bcrypt (~> 3.0)
@@ -36,12 +41,6 @@ GIT
       jquery-rails
       rails (~> 4.0)
       sass-rails (>= 4)
-
-GIT
-  remote: git://github.com/krivospitsky/school_friend.git
-  revision: 7d054a7ff7c7ea697f90dedb9cb0c116ce62910f
-  specs:
-    school_friend (0.1.1)
 
 GEM
   remote: http://rubygems.org/
