@@ -19,6 +19,7 @@
 		<offers>
 			<% Product.enabled.each do |prod| %>
 				<%- next if prod.variants.enabled.empty? %>
+				<%- next if prod.categories.empty? %>
 				<offer id="<%= prod.id %>" available="true">
 					<url><%= Settings.site_url + canonical_product_path(prod) %></url>
 			        <price><%= prod.variants.enabled.first.price %></price>
