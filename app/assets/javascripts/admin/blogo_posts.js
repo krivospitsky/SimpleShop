@@ -28,7 +28,7 @@ var transliterate = function(text) {
         .replace(/\u0449/g, 'sch')
         .replace(/\u0437/g, 'z')
         .replace(/\u0445/g, 'h')
-        .replace(/\u044A/g, "'")
+        .replace(/\u044A/g, '')
         .replace(/\u0424/g, 'F')
         .replace(/\u042B/g, 'I')
         .replace(/\u0412/g, 'V')
@@ -57,7 +57,7 @@ var transliterate = function(text) {
         .replace(/\u041C/g, 'M')
         .replace(/\u0418/g, 'I')
         .replace(/\u0422/g, 'T')
-        .replace(/\u042C/g, "'")
+        .replace(/\u042C/g, '')
         .replace(/\u0411/g, 'B')
         .replace(/\u042E/g, 'YU')
         .replace(/\u044F/g, 'ya')
@@ -66,7 +66,7 @@ var transliterate = function(text) {
         .replace(/\u043C/g, 'm')
         .replace(/\u0438/g, 'i')
         .replace(/\u0442/g, 't')
-        .replace(/\u044C/g, "'")
+        .replace(/\u044C/g, '')
         .replace(/\u0431/g, 'b')
         .replace(/\u044E/g, 'yu');
 
@@ -75,6 +75,6 @@ var transliterate = function(text) {
 
 $(document).ready(function() {  
   $('input#post_title').change(function(){
-  	$('input#post_permalink').val(transliterate($('input#post_title').val()).toLowerCase().replace(/\s+/g,'_'))
+  	$('input#post_permalink').val(transliterate($('input#post_title').val()).toLowerCase().replace(/\s+/g,'_').replace(/\.|\,/g,'_'))
   });
 });
