@@ -1,7 +1,7 @@
 class Admin::SettingsController < Admin::BaseController
     actions [:edit]
     
-    @@settings_list=[   {title: 'Общее', settings: [:site_title, :site_title_2, :site_url, :owner_phone, :owner_email, :theme, {contacts: :text}, :copy1, :copy2]}, 
+    @@settings_list=[   {title: 'Общее', settings: [:site_title, :site_title_2, :site_url, :owner_phone, :owner_email, :theme, {contacts: :text}, :copy1, :copy2, :pers_data_url]}, 
                         {title: 'Почта', settings: [:smtp_host, :smtp_port, :smtp_domain, :smtp_user_name, :smtp_password, :smtp_authentication]},
                         {title: 'Фото', settings: [:list_width, :list_height, :show_width, :show_height]},
                         {title: 'МойСклад', settings: [:ms_login, :ms_password]},
