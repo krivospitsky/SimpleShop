@@ -1,5 +1,5 @@
 <%- if @paginator.pages.count>1 %>
-<div class="pull-left" style="margin: 26px 0;">Страницы:</div><ul class="pagination pull-left">
+<div class="pull-left" style="margin: 26px 0;"><%= t('blogo.pages') %></div><ul class="pagination pull-left">
   <% if @paginator.prev_page %>
     <% prev_link = path_to_page(@paginator.prev_page, @tag) %>
     <li> <a class="pure-button prev" href="<%= prev_link %>">&#171;</a> </li>

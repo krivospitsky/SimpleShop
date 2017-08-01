@@ -133,6 +133,8 @@ ru:
       next: '>'
       truncate: '...'
   blogo:
+    with_tags: 'Записи с тегами '
+    pages: Страницы
     user:
       comments: 'Коментарии'
       please_enable_javascript: 'Please enable JavaScript to view the comments.'
