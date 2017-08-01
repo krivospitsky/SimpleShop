@@ -8,7 +8,7 @@ Blogo.configure do |config|
 
   config.paginator_size = 3
   config.posts_per_page = 5
-  config.recent_posts =  3
+  config.recent_posts =  10
 
   # Maybe you do not want to use CKEditor, if you use markdown
   config.use_ckeditor = true

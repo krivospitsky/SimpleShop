@@ -7,6 +7,7 @@
     .col-sm-4.fly-to-cart
       = render 'products/images'
       = render 'products/single_variant_properties', product: @product
+      .ya-share2{:'data-services' => "vkontakte,facebook,odnoklassniki,gplus,twitter"}
     .col-sm-8= render 'products/tabs'       
 
   =render 'products/variants_table', product: @product
