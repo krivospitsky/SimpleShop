@@ -78,5 +78,18 @@ nav.navbar-default{
     p{
       text-align: justify;      
     }
+    img {
+        height: auto;
+        max-width: 100%;
+    }
   }
+}
+
+
+.hr-main-color{
+  height: 1px;
+  color: $brand-primary;
+  background-color: $brand-primary;
+  border: none;
+
 }
