@@ -11,7 +11,7 @@
  */
 
 
-$brand-primary: #ef7f1a;
+$brand-primary: #67311c;
 
 $navbar-default-bg: #fff;
 $navbar-default-link-color: #000;
@@ -92,4 +92,9 @@ nav.navbar-default{
   background-color: $brand-primary;
   border: none;
 
+}
+
+
+.brand-red{
+  color: #E31E24 !important; 
 }
