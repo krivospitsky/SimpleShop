@@ -177,7 +177,7 @@ namespace :import do
 						# pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
 						pic_url="#{$base_url}#{pic_url}"
 						puts pic_url
-						sleep 3
+						sleep 2
 						begin
 							image=product.images.new
 							image.remote_image_url=pic_url
@@ -190,7 +190,7 @@ namespace :import do
 					# prod.xpath('//a[@class="fancyImg"]/@href').each do |pic_url|
 					# 	pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
 					# 	puts pic_url
-					# 	sleep 3
+					# 	sleep 2
 					# 	begin
 					# 		image=product.images.new
 					# 		image.remote_image_url=pic_url
@@ -203,7 +203,7 @@ namespace :import do
 					# prod.xpath('//div[@class="catalog_element_photos clearfix"]/img/@src').each do |pic_url|
 					# 	pic_url=pic_url.content.strip.gsub!(/^\/\//, 'http://')
 					# 	puts pic_url
-					# 	sleep 3
+					# 	sleep 2
 					# 	begin
 					# 		image=product.images.new
 					# 		image.remote_image_url=pic_url
@@ -214,7 +214,28 @@ namespace :import do
 					# 	end
 					# end
 				end
-				sleep 3
+				sleep 2
+			end
+		end
+	end
+
+	task :finalize_ru4x4 => :environment  do |task, args|
+		# like_str=args.like_str || '%'
+		c=Variant.where("updated_at < ?", 5.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
+		puts "Нет в наличии #{c}"
+
+		Product.all.each do |prod|
+			if prod.variants.enabled.empty?
+				puts "товар #{prod.name} недоступен"
+				prod.enabled=false
+				prod.save
+			end
+		end
+		
+		Category.all.each do |cat|
+			if cat.products.enabled.empty? and cat.categories.enabled.empty?
+				cat.enabled=false
+				cat.save			
 			end
 		end
 	end
