@@ -118,3 +118,4 @@ gem 'bb-ruby'
 
 gem 'blogo', github: 'krivospitsky/blogo'
 #gem 'blogo', path: '/blogo' , group: :development
+ 

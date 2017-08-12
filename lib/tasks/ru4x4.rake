@@ -78,10 +78,12 @@ namespace :import do
 		end
 
 
-		puts type
-		if type != 'only_products'
+		sub_cats_present=false
+		# puts type
+		# if type != 'only_products'
 			puts "finding subcats"
 			cat.xpath('//div[@class="catalog-sections-list"]//a').each_with_index do |subcat, index|
+				sub_cats_present=true
 				break if Rails.env.development? && index>2
 				has_subcat=true
 				sub_url=$base_url+subcat.attr('href')
@@ -100,14 +102,14 @@ namespace :import do
 				puts "process subcat"
 				Ru4x4ProcessCategory(sub_url, category.id, :only_products)
 			end
-		end
+		# end
 
 		if (next_url=cat.xpath('//a[@class="modern-page-next"]/@href').first) && !Rails.env.development?
 			Ru4x4ProcessCategory($base_url+next_url.content, id, :only_products)
 		end
 
-		puts type
-		if type != 'only_subcat'
+		# puts type
+		if  !sub_cats_present # type != 'only_subcat'
 			puts "finding products"		
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each_with_index do |prod_link, index|
 				break if Rails.env.development? && index>2
