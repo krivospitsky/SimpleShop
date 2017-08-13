@@ -104,7 +104,7 @@ namespace :import do
 			end
 		# end
 
-		if (next_url=cat.xpath('//a[@class="modern-page-next"]/@href').first) && !Rails.env.development?
+		if (next_url=cat.xpath('//a[@class="modern-page-next"]/@href').first) && !Rails.env.development? && !sub_cats_present
 			Ru4x4ProcessCategory($base_url+next_url.content, id, :only_products)
 		end
 
