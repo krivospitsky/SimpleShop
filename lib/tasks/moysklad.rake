@@ -16,7 +16,7 @@ namespace :moysklad do
 	        json['rows'].each do |good|
 	        	product=Product.find_by(external_id: good['externalCode'])
 	            if product && product.images.empty?
-	            	if img_url=good['image']['meta']['href']
+	            	if good['image'] && img_url=good['image']['meta']['href']
 						puts img_url
 						image=product.images.new
 						`wget --no-check-certificate --http-user=#{Settings.ms_login} --http-password=#{Settings.ms_password} -O tmp/product_image.jpg #{img_url}`
