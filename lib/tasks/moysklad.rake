@@ -1,28 +1,45 @@
 # coding: utf-8
+
+require 'json'
+
 namespace :moysklad do
 	task :import_photos => :environment do
-		start=0
+		# start=0
+		href="https://online.moysklad.ru/api/remap/1.1/entity/product?limit=100"
 		loop do 
-			puts "https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000"
-	    	doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000",
-	    		http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
-	        doc.xpath('/collection/good').each do |good|
-	        	product=Product.find_by(external_id: good.xpath('externalcode').first.content.strip)
+			puts href
+	    	
+	    	# doc = Nokogiri::XML(open("https://online.moysklad.ru/exchange/rest/ms/xml/Good/list?start=#{start}&count=1000",
+	    	# 	http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
+			json = JSON.load(open(href, http_basic_authentication: [Settings.ms_login, Settings.ms_password]))
+
+	        json['rows'].each do |good|
+	        	product=Product.find_by(external_id: good['externalCode'])
 	            if product && product.images.empty?
-	            	good.xpath('images/image').each do |img|
-	            		img_url="https://online.moysklad.ru/app/download/#{img.xpath('uuid').first.content}"
-						`wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=#{Settings.ms_login}&j_password=#{Settings.ms_password}&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
+	            	if img_url=good['image']['meta']['href']
+						puts img_url
+						image=product.images.new
+						`wget --no-check-certificate --http-user=#{Settings.ms_login} --http-password=#{Settings.ms_password} -O tmp/product_image.jpg #{img_url}`
 						sleep 2
-	            		image=product.images.new          
-	            		File.open('tmp/product_image.jpg') do |f|
-								image.image = f
+            			File.open('tmp/product_image.jpg') do |f|
+							image.image = f
 						end
-	            		image.save
+						image.save
 	            	end
+	     #        	good.xpath('images/image').each do |img|
+	     #        		img_url="https://online.moysklad.ru/app/download/#{img.xpath('uuid').first.content}"
+						# `wget --no-check-certificate -O tmp/product_image.jpg --post-data="j_username=#{Settings.ms_login}&j_password=#{Settings.ms_password}&returnPath=#{img_url}" https://online.moysklad.ru/doLogin`
+						# sleep 2
+	     #        		image=product.images.new          
+	     #        		File.open('tmp/product_image.jpg') do |f|
+						# 		image.image = f
+						# end
+	     #        		image.save
+	     #        	end
 	            end
 	        end
-	        start+=1000
-	        break if doc.xpath('/collection/@total').first.content.strip.to_i < start
+	        # start+=100
+	        break unless href=json['meta']['nextHref']
 	    end 
 	end
 	task :import_users => :environment do
