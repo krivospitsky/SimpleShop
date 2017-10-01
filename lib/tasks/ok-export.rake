@@ -50,17 +50,19 @@ def ok_proc_cat(cat_id, album=nil)
 	cat=Category.find(cat_id)
 	album=cat.ok_id unless album
 	Product.in_categories(cat.all_sub_cats).each do |prod|
+		puts prod.name
 		caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
 		if !prod.ok_id 
 			if prod.enabled					
 				# создаем новую фоту
 				next if prod.images.empty?
-				retr_count =0
+				retr_count =1
 				last_retr=false
 				loop do  
 					break if last_retr
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+						puts img_path
 						upload_url=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)['upload_url']
 						sleep(0.8)
 						puts upload_url
@@ -114,7 +116,7 @@ def ok_proc_cat(cat_id, album=nil)
 					# end
 				# end
 			else
-				retr_count =0
+				retr_count =1
 				last_retr=false
 
 				loop do  
