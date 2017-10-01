@@ -55,6 +55,7 @@ def ok_proc_cat(cat_id, album=nil)
 			if prod.enabled					
 				# создаем новую фоту
 				next if prod.images.empty?
+				retr_count =0
 				loop do  
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -80,6 +81,8 @@ def ok_proc_cat(cat_id, album=nil)
 						puts "API error!!!"
 						puts e.message
 						sleep(10)
+						retr_count++
+						break if retr_count>0
 					end
 				end
 			end
@@ -109,6 +112,7 @@ def ok_proc_cat(cat_id, album=nil)
 					# end
 				# end
 			else
+				retr_count =0
 				loop do  
 					begin
 						$ok.photos.delete_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id)
@@ -121,6 +125,8 @@ def ok_proc_cat(cat_id, album=nil)
 						puts "API error!!!"
 						puts e.message
 						sleep(10)
+						retr_count++
+						break if retr_count>0						
 					end
 				end
 			end
