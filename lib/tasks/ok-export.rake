@@ -63,9 +63,11 @@ def ok_proc_cat(cat_id, album=nil)
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						puts img_path
-						upload_url=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)['upload_url']
+						resp=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)
+						puts resp
+						upload_url=resp['upload_url']
 						sleep(0.8)
-						puts upload_url
+						puts "upload_url - " + upload_url
 						response = RestClient.post(upload_url,  :pic1 => File.new(img_path))
 						photos= JSON.parse(response)['photos']
 						photo_id=photos.keys[0]
