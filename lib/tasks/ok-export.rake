@@ -56,7 +56,9 @@ def ok_proc_cat(cat_id, album=nil)
 				# создаем новую фоту
 				next if prod.images.empty?
 				retr_count =0
+				last_retr=false
 				loop do  
+					break if last_retr
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
 						upload_url=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)['upload_url']
@@ -82,7 +84,7 @@ def ok_proc_cat(cat_id, album=nil)
 						puts e.message
 						sleep(10)
 						retr_count++
-						break if retr_count>0
+						last_retr=true if (retr_count>5)
 					end
 				end
 			end
@@ -113,7 +115,10 @@ def ok_proc_cat(cat_id, album=nil)
 				# end
 			else
 				retr_count =0
+				last_retr=false
+
 				loop do  
+					break if last_retr					
 					begin
 						$ok.photos.delete_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id)
 						prod.ok_id=nil
@@ -126,7 +131,7 @@ def ok_proc_cat(cat_id, album=nil)
 						puts e.message
 						sleep(10)
 						retr_count++
-						break if retr_count>0						
+						last_retr=true if (retr_count>5)
 					end
 				end
 			end
