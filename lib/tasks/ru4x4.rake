@@ -4,60 +4,33 @@ namespace :import do
 
 		$base_url='http://www.4x4ru.ru'
 		$sku_prefix='ru_'
-		 # Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_perednie_oj/", -1, 'only_subcat')
 
-
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bagazhniki/", -1, 'only_subcat')
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bampera_i_farkopy/", -1, 'only_subcat')
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/porogi_silovye/", -1, 'only_subcat')
-		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/silovaya_zashchita/", -1, 'only_subcat')
-
+		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/akkumulyatory_gelevye/", -1, 'only_subcat')
+		Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/benzobaki_uvelichennoy_yemkosti/", -1, 'only_subcat')
 		unless Rails.env.development?
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/diski_kolyesnye/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/deflyatory/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tayrloki/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/prostavki_kolyesnye_/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tsepi_i_braslety_protivoskolzheniya/", -1, 'only_subcat')
-
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebyedki_avtomobilnye/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebyedki_dlya_atv_i_snegokhodov/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebyedki_perenosnye/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/oborudovanie_dlya_lebedok/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/trosa_sinteticheskie/", -1, 'only_subcat')
-
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/podveska/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/amortizatory_rancho/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dempfery_rulevoe/", -1, 'only_subcat')
-
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/akkumulyatory_gelevye/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/zaryadnye_ustroystva/", -1, 'only_subcat')
-
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_atv/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/bortovye_kompyutery/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_zimy/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya-atv/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_nivy_i_shevi_nivy/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya-snegokhodov/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_uaz_1/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/domkraty_i_aksessuary/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_khraneniya_i_perevozki/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dlya_ekspeditsiy_puteshestviy_i_off_road/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/domkraty_1/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/dopolnitelnyy_svet/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/raptor/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kanistry_ekspeditsionnye/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/kompressory/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/konsoli_potolochnye/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/aksessuary-dlya-pikapov/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/benzobaki_uvelichennoy_yemkosti/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/blokirovki/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/podogrevateli_dvigatelya_dizelnogo_topliva/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lebedki/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/lodki/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/navesnoe_i_silovoe_oborudovanie/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/rasshiriteli_arok/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/stropy_i_takelazh/", -1, 'only_subcat')
 			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/send_traki/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tovary_dlya_turizma/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/universalnye_krepleniya_quick_fist_samokhvat/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/khaby_kolyesnye_/", -1, 'only_subcat')
-			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shnorkeli/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/tekhnika_dlya_bezdorozhya/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/transmissiya_i_podveska_1/", -1, 'only_subcat')
+			Ru4x4ProcessCategory("http://www.4x4ru.ru/shop/shiny_diski_i_aksessuary_k_nim/", -1, 'only_subcat')
 		end
-
-
-		# http://www.4x4ru.ru/shop/shturmanskoe_oborudovanie/
-		# http://www.autoventuri.ru/catalog-bodi_lift/brand-rif/
-		# вент, генератор, хабы		
 	end
 
 	def Ru4x4ProcessCategory(url, id, type)
@@ -99,6 +72,8 @@ namespace :import do
 					category.enabled=true
 					category.save!
 				end
+					category.parent_id=id
+					category.save!
 				puts "process subcat"
 				Ru4x4ProcessCategory(sub_url, category.id, :only_products)
 			end

@@ -62,9 +62,9 @@ def ok_proc_cat(cat_id, album=nil)
 					break if last_retr
 					begin
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-						puts img_path
+						# puts img_path
 						resp=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)
-						puts resp
+						# puts resp
 						upload_url=resp['upload_url']
 						sleep(0.8)
 						puts "upload_url - " + upload_url
@@ -86,6 +86,7 @@ def ok_proc_cat(cat_id, album=nil)
 					rescue Exception => e  
 						puts "API error!!!"
 						puts e.message
+						puts resp
 						sleep(10)
 						retr_count++
 						last_retr=true if (retr_count>5)
