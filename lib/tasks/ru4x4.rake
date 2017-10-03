@@ -84,7 +84,7 @@ namespace :import do
 		end
 
 		# puts type
-		if  !sub_cats_present # type != 'only_subcat'
+		if  !sub_cats_present && false# type != 'only_subcat'
 			puts "finding products"		
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each_with_index do |prod_link, index|
 				break if Rails.env.development? && index>2
