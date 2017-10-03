@@ -47,6 +47,8 @@ namespace :import do
 				category.enabled=true
 				category.save!
 			end
+				# category.parent_id=0
+				# category.save!
 			id=category.id
 		end
 
@@ -72,8 +74,8 @@ namespace :import do
 					category.enabled=true
 					category.save!
 				end
-					category.parent_id=id
-					category.save!
+					# category.parent_id=id
+					# category.save!
 				puts "process subcat"
 				Ru4x4ProcessCategory(sub_url, category.id, :only_products)
 			end
@@ -84,7 +86,7 @@ namespace :import do
 		end
 
 		# puts type
-		if  !sub_cats_present && false# type != 'only_subcat'
+		if  !sub_cats_present # type != 'only_subcat'
 			puts "finding products"		
 			cat.xpath('//div[@class="catalog_item"]/div[@class="catalog_items_title"]/a/@href').each_with_index do |prod_link, index|
 				break if Rails.env.development? && index>2
