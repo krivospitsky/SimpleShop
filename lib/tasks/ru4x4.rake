@@ -117,11 +117,11 @@ namespace :import do
 					product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 				end
 
-				if product.new_record?
+				# if product.new_record?
 				 	product.categories.clear
 				 	product.categories << Category.find(id)
 				 	product.sku=sku				
-				end
+				# end
 	
 				product.enabled=true
 				product.save
