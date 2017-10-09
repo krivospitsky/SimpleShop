@@ -1,4 +1,4 @@
--if product.variants.count>1
+-if product.variants.enabled.count>1
   %table.table.table-striped
     %tr
       -if product.variants.first.image?

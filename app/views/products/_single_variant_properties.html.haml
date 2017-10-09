@@ -1,4 +1,4 @@
--if @product.variants.count==1
+-if @product.variants.enabled.count==1
   %strong Артикул:
   =@product.variants.first.sku
   = form_for @cart_item, remote: true do |f|

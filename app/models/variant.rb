@@ -15,7 +15,7 @@ class Variant < ActiveRecord::Base
 
   def recalc_min_max_prices
     if product
-      prices=product.variants.map {|v| v.price}   
+      prices=product.variants.enabled.map {|v| v.price}   
       product.min_price=prices.min
       product.max_price=prices.max
       product.save
