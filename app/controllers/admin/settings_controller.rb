@@ -1,12 +1,13 @@
 class Admin::SettingsController < Admin::BaseController
     actions [:edit]
     
-    @@settings_list=[   {title: 'Общее', settings: [:site_title, :site_title_2, :site_url, :owner_phone, :owner_email, :theme, {contacts: :text}, :copy1, :copy2, :pers_data_url]}, 
+    @@settings_list=[   {title: 'Общее', settings: [:site_title, :site_title_2, :site_url, :company, :owner_phone, :owner_email, :theme, {contacts: :text}, :copy1, :copy2, :pers_data_url]}, 
                         {title: 'Почта', settings: [:smtp_host, :smtp_port, :smtp_domain, :smtp_user_name, :smtp_password, :smtp_authentication]},
                         {title: 'Фото', settings: [:list_width, :list_height, :show_width, :show_height]},
                         {title: 'МойСклад', settings: [:ms_login, :ms_password]},
                         {title: 'Yandex Kassa', settings: [:kassa_shopId, :kassa_scid, :kassa_form_action]},
                         {title: 'Yandex Кошелек', settings: [:ya_money_receiver]},
+                        {title: 'Yandex Market', settings: [{ya_market_store: :bool}, {ya_market_pickup: :bool}, {ya_market_delivery: :bool}, :ya_market_sales_notes]},
                         {title: 'Магазин VK', settings: [:vk_access_token, :vk_group_id]},
                         {title: 'Магазин OK', settings: [:ok_access_token, :ok_session_secret_key, :ok_group_id, :ok_application_id, :ok_application_key, :ok_secret_key]},
                         {title: 'Аналитика', settings: [{metrika: :text}, :metrika_id, :metrika_cart_goal, :metrika_order_goal, :google_verification, :yandex_verification]},

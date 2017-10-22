@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<yml_catalog date="2017-02-05 17:22">
+<yml_catalog date="<%= Time.now().strftime("%Y-%m-%d %H:%M") %>">
 	<shop>
     	<name><%=Settings.site_title%></name>    	
     	<url><%=Settings.site_url%></url>
-    	<company>OFFROAD40PRO</company>
+    	<company><%=Settings.company%></company>
     	<currencies>
       		<currency id="RUR" rate="1"/>
 	    </currencies>
@@ -25,19 +25,21 @@
 			        <price><%= prod.variants.enabled.first.price %></price>
 			        <currencyId>RUR</currencyId>
 			        <categoryId><%= prod.categories.first.id %></categoryId>
-			        <%- if prod.images.present? %>
-			        	<picture><%= Settings.site_url + prod.images.first.image.url %></picture>
+			        <%- prod.images[0..9].each do |i| %>
+			        	<picture><%= Settings.site_url + i.image.url %></picture>
 			        <%- end %>
-			        <store>false</store>
-			        <pickup>false</pickup>
-			        <delivery>true</delivery>
+			        <store><%= (Settings.ya_market_store)? 'true':'false' %></store>
+			        <pickup><%= (Settings.ya_market_pickup)? 'true':'false' %></pickup>
+			        <delivery><%= (Settings.ya_market_delivery)? 'true':'false' %></delivery>
 			        <name><%= prod.name %></name>
 			        <description>
 			        <![CDATA[
 			          <%= raw prod.description %>
 			        ]]>
 			        </description>
-			        <sales_notes>Необходима предоплата.</sales_notes>
+			        <%- if Settings.ya_market_sales_notes != '' %>
+			        	<sales_notes><%=Settings.ya_market_sales_notes%></sales_notes>
+			        <%-end%>
 			        <manufacturer_warranty>true</manufacturer_warranty>
 			     </offer>
 			<% end %>			
