@@ -126,9 +126,9 @@ class Product < ActiveRecord::Base
         c=(100-discount)/100.0
       end
       if min_price == max_price
-        "#{to_price((min_price*c).to_i)}"
+        "#{to_price((min_price.to_i*c).to_i)}"
       else
-        "#{to_price((min_price*c).to_i)}&nbsp;-&nbsp;#{to_price((max_price*c).to_i)}"
+        "#{to_price((min_price.to_i*c).to_i)}&nbsp;-&nbsp;#{to_price((max_price.to_i*c).to_i)}"
       end
     end
   end
