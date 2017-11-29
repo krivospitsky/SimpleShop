@@ -20,28 +20,33 @@
 			<% @products.each do |prod| %>
 				<%- next if prod.variants.enabled.empty? %>
 				<%- next if prod.categories.empty? %>
-				<offer id="<%= prod.id %>" available="true">
-					<url><%= Settings.site_url + canonical_product_path(prod) %></url>
-			        <price><%= prod.variants.enabled.first.price %></price>
-			        <currencyId>RUR</currencyId>
-			        <categoryId><%= prod.categories.first.id %></categoryId>
-			        <%- prod.images[0..9].each do |i| %>
-			        	<picture><%= Settings.site_url + i.image.url %></picture>
-			        <%- end %>
-			        <store><%= (Settings.ya_market_store)? 'true':'false' %></store>
-			        <pickup><%= (Settings.ya_market_pickup)? 'true':'false' %></pickup>
-			        <delivery><%= (Settings.ya_market_delivery)? 'true':'false' %></delivery>
-			        <name><%= prod.name %></name>
-			        <description>
-			        <![CDATA[
-			          <%= raw prod.description %>
-			        ]]>
-			        </description>
-			        <%- if Settings.ya_market_sales_notes != '' %>
-			        	<sales_notes><%=Settings.ya_market_sales_notes%></sales_notes>
-			        <%-end%>
-			        <manufacturer_warranty>true</manufacturer_warranty>
-			     </offer>
+				<%- prod.variants.enabled.each do |var|%>
+					<offer id="<%= var.id %>" available="true">
+						<url><%= Settings.site_url + canonical_product_path(prod) %></url>
+				        <price><%= var.price %></price>
+				        <currencyId>RUR</currencyId>
+				        <categoryId><%= prod.categories.first.id %></categoryId>
+				        <%- prod.images[0..9].each do |i| %>
+				        	<picture><%= Settings.site_url + i.image.url %></picture>
+				        <%- end %>
+				        <store><%= (Settings.ya_market_store)? 'true':'false' %></store>
+				        <pickup><%= (Settings.ya_market_pickup)? 'true':'false' %></pickup>
+				        <delivery><%= (Settings.ya_market_delivery)? 'true':'false' %></delivery>
+				        <name><%= prod.name %></name>
+				        <description>
+				        <![CDATA[
+				          <%= raw prod.description %>
+				        ]]>
+				        </description>
+				        <%- if Settings.ya_market_sales_notes != '' %>
+				        	<sales_notes><%=Settings.ya_market_sales_notes%></sales_notes>
+				        <%-end%>
+				        <manufacturer_warranty>true</manufacturer_warranty>
+				        <%- var.attrs.each do |attr| %>
+				        	<param name="<%= attr.name %>"><%= attr.value %></param>
+				        <% end %>
+				     </offer>
+				<% end %>
 			<% end %>			
 		</offers>
 	</shop>
