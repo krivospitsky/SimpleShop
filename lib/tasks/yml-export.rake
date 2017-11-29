@@ -17,17 +17,6 @@ namespace :export do
 		# # })
 
 		f = File.new('public/uploads/export.yml', 'w')
-		if Settings.theme == 'mama40' || Rails.env.development?
-			cat_ids=[]
-			[31, 12, 4, 19, 41, 51].each do |c|
-				cat_ids << c
-				cat_ids << Category.find(c).all_sub_cats.map{|c| c.id}
-			end
-			@categories=Category.enabled.where(id: cat_ids)
-		else
-			@categories=Category.enabled
-		end
-		@products=Product.enabled.in_categories(@categories)
 		f.puts(ActionView::Base.new('app/views').render(file: 'yml'))	 
 		f.close
 	end

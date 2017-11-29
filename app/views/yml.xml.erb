@@ -1,3 +1,17 @@
+<%- 	
+	if Settings.theme == 'mama40' || Rails.env.development?
+		cat_ids=[]
+		[31, 12, 4, 19, 41, 51].each do |c|
+			cat_ids << c
+			cat_ids << Category.find(c).all_sub_cats.map{|c| c.id}
+		end
+		@categories=Category.enabled.where(id: cat_ids)
+	else
+		@categories=Category.enabled
+	end
+	@products=Product.enabled.in_categories(@categories)
+%>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="<%= Time.now().strftime("%Y-%m-%d %H:%M") %>">
 	<shop>
