@@ -8,7 +8,7 @@
       		<currency id="RUR" rate="1"/>
 	    </currencies>
 		<categories>
-			<% Category.enabled.each do |cat| %>
+			<% @categories.each do |cat| %>
 				<%- if cat.parent_id %>
 					<category id="<%= cat.id %>" parentId="<%= cat.parent_id %>"><%= cat.name %></category>
 				<%- else %>
@@ -17,7 +17,7 @@
 			<% end %>
 		</categories>
 		<offers>
-			<% Product.enabled.each do |prod| %>
+			<% @products.each do |prod| %>
 				<%- next if prod.variants.enabled.empty? %>
 				<%- next if prod.categories.empty? %>
 				<offer id="<%= prod.id %>" available="true">
