@@ -1,6 +1,7 @@
 <%- if Settings.theme == 'mama40' || Rails.env.development?
 		cat_ids=[]
-		[31, 12, 4, 19, 41, 51].each do |c|
+		# [31, 12, 4, 19, 41, 51].each do |c|
+		[31].each do |c|
 			cat_ids << c
 			cat_ids << Category.find(c).all_sub_cats.map{|c| c.id}
 		end
