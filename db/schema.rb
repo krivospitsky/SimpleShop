@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719102957) do
+ActiveRecord::Schema.define(version: 20180109120610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,7 +294,13 @@ ActiveRecord::Schema.define(version: 20170719102957) do
     t.datetime "returned_at"
     t.integer  "vk_id"
     t.integer  "vk_id2"
-    t.integer  "ok_id",       limit: 8
+    t.integer  "ok_id",        limit: 8
+    t.string   "typePrefix"
+    t.string   "vendor"
+    t.string   "model"
+    t.string   "color"
+    t.string   "yml_name"
+    t.string   "picture_type"
   end
 
   add_index "products", ["external_id"], name: "index_products_on_external_id", using: :btree

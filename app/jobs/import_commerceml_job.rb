@@ -65,6 +65,24 @@ class ImportCommercemlJob < ActiveJob::Base
 	        prod.xpath('Группы/Ид').each do |cat|
 	        	product.categories << Category.find_by(external_id: cat.content.strip)
 	        end
+
+			prod.xpath('ЗначенияСвойств/ЗначенияСвойства').each do |prop|
+				case prop.xpath('Ид')
+				when '1ecf26b9-f45d-11e7-7a31-d0fd000fcb45'
+					prod.yml_name=prop.xpath('Значение')
+				when '2316502d-f3ab-11e7-7a34-5acf0009c818'
+					prod.typePrefix=prop.xpath('Значение')
+				when '5c36885e-f212-11e7-6b01-4b1d00370175'
+					prod.vendor=prop.xpath('Значение')
+				when '23165371-f3ab-11e7-7a34-5acf0009c819'
+					prod.model=prop.xpath('Значение')
+				when '690a2d08-f20a-11e7-7a34-5acf003582ed'
+					prod.color=prop.xpath('Значение')
+				when '231655a3-f3ab-11e7-7a34-5acf0009c81a'
+					prod.picture_type=prop.xpath('Значение')
+				end
+			end
+
 	        product.save
 	    end
 	end

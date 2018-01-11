@@ -119,3 +119,5 @@ gem 'bb-ruby'
 gem 'blogo', github: 'krivospitsky/blogo'
 #gem 'blogo', path: '/blogo' , group: :development
  
+gem 'omniauth-odnoklassniki'
+gem 'omniauth-vkontakte'

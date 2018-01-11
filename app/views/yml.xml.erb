@@ -1,5 +1,4 @@
-<%- 	
-	if Settings.theme == 'mama40' || Rails.env.development?
+<%- if Settings.theme == 'mama40' || Rails.env.development?
 		cat_ids=[]
 		[31, 12, 4, 19, 41, 51].each do |c|
 			cat_ids << c
@@ -11,7 +10,6 @@
 	end
 	@products=Product.enabled.in_categories(@categories)
 %>
-
 <?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="<%= Time.now().strftime("%Y-%m-%d %H:%M") %>">
 	<shop>
@@ -46,7 +44,7 @@
 				        <store><%= (Settings.ya_market_store)? 'true':'false' %></store>
 				        <pickup><%= (Settings.ya_market_pickup)? 'true':'false' %></pickup>
 				        <delivery><%= (Settings.ya_market_delivery)? 'true':'false' %></delivery>
-				        <name><%= prod.name %></name>
+				        <name><%= prod.yml_name %></name>
 				        <description>
 				        <![CDATA[
 				          <%= raw prod.description %>
@@ -59,6 +57,21 @@
 				        <%- var.attrs.each do |attr| %>
 				        	<param name="<%= attr.name %>"><%= attr.value %></param>
 				        <% end %>
+
+						<typePrefix><%= prod.typePrefix %></typePrefix>
+						<vendor><%= prod.vendor %></vendor>
+						<model><%= prod.model %></model>
+
+						<%= if prod.color 
+								"param name='Цвет'>#{prod.color}</param>"
+							end %>
+						<%= if prod.picture_type
+								"<param name='Тип рисунка'>#{prod.picture_type}</param>"
+							end %>
+						<%= if prod.name.include? 'one size'
+								"<param name='Размер'>UNI</param>"
+							end %>
+
 				     </offer>
 				<% end %>
 			<% end %>			
