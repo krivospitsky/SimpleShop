@@ -67,6 +67,8 @@ class ImportCommercemlJob < ActiveJob::Base
 	        end
 
 			prod.xpath('ЗначенияСвойств/ЗначенияСвойства').each do |prop|
+				puts prop.xpath('Ид')
+				puts prop.xpath('Значение')
 				case prop.xpath('Ид')
 				when '1ecf26b9-f45d-11e7-7a31-d0fd000fcb45'
 					prod.yml_name=prop.xpath('Значение')
