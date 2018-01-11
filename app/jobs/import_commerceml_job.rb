@@ -67,21 +67,19 @@ class ImportCommercemlJob < ActiveJob::Base
 	        end
 
 			prod.xpath('ЗначенияСвойств/ЗначенияСвойства').each do |prop|
-				puts prop.xpath('Ид')
-				puts prop.xpath('Значение')
-				case prop.xpath('Ид')
+				case prop.xpath('Ид').first.content.strip
 				when '1ecf26b9-f45d-11e7-7a31-d0fd000fcb45'
-					prod.yml_name=prop.xpath('Значение')
+					prod.yml_name=prop.xpath('Значение').first.content.strip
 				when '2316502d-f3ab-11e7-7a34-5acf0009c818'
-					prod.typePrefix=prop.xpath('Значение')
+					prod.typePrefix=prop.xpath('Значение').first.content.strip
 				when '5c36885e-f212-11e7-6b01-4b1d00370175'
-					prod.vendor=prop.xpath('Значение')
+					prod.vendor=prop.xpath('Значение').first.content.strip
 				when '23165371-f3ab-11e7-7a34-5acf0009c819'
-					prod.model=prop.xpath('Значение')
+					prod.model=prop.xpath('Значение').first.content.strip
 				when '690a2d08-f20a-11e7-7a34-5acf003582ed'
-					prod.color=prop.xpath('Значение')
+					prod.color=prop.xpath('Значение').first.content.strip
 				when '231655a3-f3ab-11e7-7a34-5acf0009c81a'
-					prod.picture_type=prop.xpath('Значение')
+					prod.picture_type=prop.xpath('Значение').first.content.strip
 				end
 			end
 
