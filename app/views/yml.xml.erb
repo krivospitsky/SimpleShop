@@ -63,15 +63,15 @@
 						<vendor><%= prod.vendor %></vendor>
 						<model><%= prod.model %></model>
 
-						<%= if prod.color 
-								"param name='Цвет'>#{prod.color}</param>"
-							end %>
-						<%= if prod.picture_type
-								"<param name='Тип рисунка'>#{prod.picture_type}</param>"
-							end %>
-						<%= if prod.name.include? 'one size'
-								"<param name='Размер'>UNI</param>"
-							end %>
+						<%- if prod.color %>
+							<param name='Цвет'><%= prod.color %></param>
+						<%-	end %>
+						<%- if prod.picture_type %>
+							<param name='Тип рисунка'><%= prod.picture_type %></param>
+						<%-	end %>
+						<%- if prod.name.include? 'one size' %>
+							<param name='Размер'>UNI</param>
+						<%-	end %>
 
 				     </offer>
 				<% end %>
