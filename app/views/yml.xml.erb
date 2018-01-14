@@ -56,7 +56,16 @@
 				        <%-end%>
 				        <manufacturer_warranty>true</manufacturer_warranty>
 				        <%- var.attrs.each do |attr| %>
-				        	<param name="<%= attr.name %>"><%= attr.value %></param>
+				        	<%- if attr.name=='Размер'
+				        		if /\d+/.match(attr.value) 
+				        			unit='RU'
+				        		end
+				        	%>
+
+					        	<param  name="<%= attr.name %>" unit="<%= unit %>"><%= attr.value %></param>
+				        	<%- else %>
+					        	<param name="<%= attr.name %>"><%= attr.value %></param>
+							<%-	end %>
 				        <% end %>
 
 						<vendor><%= prod.vendor %></vendor>
