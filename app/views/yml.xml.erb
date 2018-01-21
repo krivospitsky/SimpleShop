@@ -22,10 +22,9 @@
 	    </currencies>
 		<categories>
 			<% @categories.each do |cat| %>
-				<%-  if cat.name ='Верхняя одежда'
-						name='Верхняя одежда для будущих мам'
-					else
-						name=cat.name
+				<%- name = cat.name
+					if cat.name = 'Верхняя одежда'
+						name = 'Верхняя одежда для будущих мам'						
 					end %>
 				<%- if cat.parent_id %>
 					<category id="<%= cat.id %>" parentId="<%= cat.parent_id %>"><%= name %></category>
