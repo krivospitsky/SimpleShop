@@ -22,14 +22,10 @@
 	    </currencies>
 		<categories>
 			<% @categories.each do |cat| %>
-				<%- name = cat.name
-					if cat.name = 'Верхняя одежда'
-						name = 'Верхняя одежда для будущих мам'						
-					end %>
 				<%- if cat.parent_id %>
-					<category id="<%= cat.id %>" parentId="<%= cat.parent_id %>"><%= name %></category>
+					<category id="<%= cat.id %>" parentId="<%= cat.parent_id %>"><%= cat.name %></category>
 				<%- else %>
-					<category id="<%= cat.id %>"><%= name %></category>
+					<category id="<%= cat.id %>"><%= cat.name %></category>
 				<%- end %>				
 			<% end %>
 		</categories>
