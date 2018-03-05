@@ -31,5 +31,5 @@ VkontakteApi.configure do |config|
   # config.log_responses = false # удачные ответы
 
   # используемая версия API
-  # config.api_version = '5.21'
+  config.api_version = '5.21'
 end
