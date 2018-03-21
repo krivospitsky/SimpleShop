@@ -23,7 +23,7 @@ namespace :export do
 		elsif Settings.theme == 'sling'
 			cats=[1, 7, 13, 28, 17, 20]						
 		else
-			cats=[260, 301, 331, 2253, 395, 423, 426, 433, 445, 448, 477, 478, 488, 504, 505, 516, 538, 546, 547, 553, 554, 564, 566]
+			cats=[254, 270, 293, 294, 295, 566, 2341, 2346, 2349, 2647, 3030, 3031, 3032, 3033, 301, 331, 2253, 395, 423, 426, 433, 445, 448, 477, 478, 488, 504, 505, 516, 538, 546, 547, 553, 554, 564, 566]
 		end
 
 		cats.each do |cat_item|
@@ -90,6 +90,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					sleep(0.8)
 					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: 1, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
 					sleep(0.8)
+					$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
 					break
 				rescue Exception => e  
   					puts e.message  
