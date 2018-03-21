@@ -343,7 +343,7 @@ namespace :import do
 
 	task :finalize_ru4x4 => :environment  do |task, args|
 		# like_str=args.like_str || '%'
-		c=Variant.where("updated_at < ?", 1.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
+		c=Variant.where("updated_at < ?", 5.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
 		puts "Нет в наличии #{c}"
 
 		Product.all.each do |prod|
