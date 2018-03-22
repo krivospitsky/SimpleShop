@@ -8,6 +8,7 @@ require 'action_view'
 require 'uri'
 
 $vk
+$vk_cat_id
 
 namespace :export do
 	task :vk => :environment do
@@ -18,17 +19,17 @@ namespace :export do
 		
 		if Rails.env.development?	
 			cats=[{cats: [1669, 1672], name: 'рюкзаки и хипситы'}, 1870]		
-			vk_cat_id=1
+			$vk_cat_id=1
 		end
 
 		case Settings.theme
 		when 'sling'
 			cats=[1, 7, 13, 28, 17, 20]									
 		when 'shop4x4'
-			vk_cat_id=404
+			$vk_cat_id=404
 			cats=[331, 2253, 395, 423, 426, 433, 445, 448, 477, 478, 488, 504, 505, 516, 538, 546, 547, 553, 554, 564, 566,      254, 270, 293, 294, 295, 566, 2341, 2346, 2349, 2647, 3030, 3031, 3032, 3033, 301]
 		when 'mama40'
-			vk_cat_id=1
+			$vk_cat_id=1
 			cats=[14, 17, 18, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}, {cats: [6, 8, 9, 10], name: "Детские товары"}, {cats: [20, 21, 22], name: "Подгузники, пеленки и трусики GlorYes!"}]
 		end 
 
