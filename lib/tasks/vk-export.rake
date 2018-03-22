@@ -96,8 +96,6 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 					sleep(0.8)
 					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
-					sleep(0.8)
-					$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
 					break
 				rescue Exception => e  
   					puts e.message  
@@ -105,6 +103,15 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					sleep(15)
 				end
 			end		
+
+			begin
+				sleep(0.8)
+				$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
+				rescue Exception => e  
+  					puts e.message  
+					puts "API error!!!"
+				end
+			end
 		end
 
 
