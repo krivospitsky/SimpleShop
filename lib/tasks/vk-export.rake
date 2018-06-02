@@ -117,13 +117,13 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				end
 			end		
 
-			begin
-				sleep(0.8)
-				$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
-			rescue Exception => e  
-				puts e.message  
-				puts "API error!!!"
-			end
+			# begin
+			# 	sleep(0.8)
+			# 	$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
+			# rescue Exception => e  
+			# 	puts e.message  
+			# 	puts "API error!!!"
+			# end
 		end
 
 
