@@ -98,7 +98,7 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					sleep(0.8)
 					if !vk_prod[1]
 						if prod.enabled
-							$vk.market.undelete(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}")
+							$vk.market.restore(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
 							sleep(0.8)
 							vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)						
 							sleep(0.8)
