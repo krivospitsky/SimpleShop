@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
 
   end
 
+
   def index
     @products=[]
     if params[:category_id]
@@ -71,6 +72,8 @@ class ProductsController < ApplicationController
         tmp=tmp.parent
       end
       @breadcrumbs=@breadcrumbs.reverse
+    elsif params[:discounted]
+      @products = Product.discounted
     else
       @products=Product.enabled
     end
