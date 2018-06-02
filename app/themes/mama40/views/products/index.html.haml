@@ -1,7 +1,10 @@
 =render '/categories/breadcrumbs'
 .row
 	.col-md-12.col-lg-8
-		%h1.category_name= @category.name
+		-if @category
+			%h1.category_name= @category.name
+		-if params[:discounted]
+			%h1.category_name= Распродажа
 	.col-md-12.col-lg-4
 		%form.form-inline.pull-right
 			.form-group
