@@ -38,25 +38,25 @@ class ProductsController < ApplicationController
 
   def index
     @products=[]
+    @sort_order=params[:sort_order] || 'date'
+    case @sort_order
+      when 'default'
+        sort_key=:sort_order
+        sort_dir=:asc
+      when 'name'
+        sort_key=:name
+        sort_dir=:asc
+      when 'price_min'
+        sort_key=:min_price
+        sort_dir=:asc
+      when 'price_max'
+        sort_key=:max_price
+        sort_dir=:desc
+      when 'date'
+        sort_key=:returned_at
+        sort_dir=:desc
+    end
     if params[:category_id]
-      @sort_order=params[:sort_order] || 'date'
-      case @sort_order
-        when 'default'
-          sort_key=:sort_order
-          sort_dir=:asc
-        when 'name'
-          sort_key=:name
-          sort_dir=:asc
-        when 'price_min'
-          sort_key=:min_price
-          sort_dir=:asc
-        when 'price_max'
-          sort_key=:max_price
-          sort_dir=:desc
-        when 'date'
-          sort_key=:returned_at
-          sort_dir=:desc
-      end
         
       @category = Category.find(params[:category_id])
       # if @category.parent || @category.products.count>0
