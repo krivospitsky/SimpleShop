@@ -96,6 +96,12 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 				begin
 					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 					sleep(0.8)
+					if !vk_prod[1]{
+						$vk.market.undelite(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}")
+						sleep(0.8)
+						vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)						
+						sleep(0.8)
+					}
 					$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
 					break
 				rescue Exception => e  
