@@ -18,40 +18,23 @@
 					%option{value: 'price_max', selected: @sort_order=='price_max'} По уменьшению цены
 					-# %option По дате поступления
 .row
-	.col-sm-12.col-md-4.col-lg-3
-		-if @category
+	-if @category
+		.col-sm-12.col-md-4.col-lg-3
 			=render '/categories/smart_tree'
 			-unless Settings::disable_filters || @category.id == 40 || @category.id == 13 || @category.id == 4 || @category.id == 5 || @category.id == 6 || @category.id == 8 || @category.id == 8 || @category.id == 10
 				=render '/products/smart_filter'
 			.hidden-sm.hidden-xs
 				=render '/products/discount'
-
-	.col-sm-12.col-md-8.col-lg-9
-
-		-# -if @category
-		-# 	-if @category.image.present? || @category.description.present?
-		-# 		.panel.panel-default
-		-# 			-if @category.image.present?
-		-# 				.row
-		-# 					.col-md-3= image_tag(@category.image.url(:product_list))
-		-# 					.col-md-9= raw @category.description
-		-# 			-else
-		-# 				= raw @category.description
-
-		-# -if @category && !@category.parent && @category.children.enabled.present?
-		-# 	.categories_list
-		-# 		%ul
-		-# 			- @category.children.enabled.each do |child|					
-		-# 				%li
-		-# 					= link_to child.name, category_path(child.path, child.id)
-		-# 					-if child.children.count>0
-		-# 						%ul
-		-# 							- child.children.enabled.each do |sub_child|					
-		-# 								%li
-		-# 									= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
-		-# -elsif @products && ! @products.empty?
-		.row.products_list
-			- @products.each do |product|
-				=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
-		#ajax-loader{style: 'display:none;text-align: center;', data: {pages: @products.total_pages}}
-			=image_tag 'ajax-loader.gif'
+		.col-sm-12.col-md-8.col-lg-9
+			.row.products_list
+				- @products.each do |product|
+					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+			#ajax-loader{style: 'display:none;text-align: center;', data: {pages: @products.total_pages}}
+				=image_tag 'ajax-loader.gif'
+	-else
+		.col-sm-12.col-md-12.col-lg-12
+			.row.products_list
+				- @products.each do |product|
+					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+			#ajax-loader{style: 'display:none;text-align: center;', data: {pages: @products.total_pages}}
+				=image_tag 'ajax-loader.gif'
