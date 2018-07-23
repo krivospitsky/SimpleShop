@@ -139,19 +139,20 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					# создаем новую фоту
 					next if prod.images.empty?
 
-				try_n_times(5) do
-					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-					upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
-					sleep(1.0)
-					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-					sleep(1.0)
-					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-					photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
-					sleep(1.0)
-					puts photo
-					prod.vk_id2=photo[0][:pid]
-					prod.save
-					puts  prod.vk_id2
+					try_n_times(5) do
+						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+						upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+						sleep(1.0)
+						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+						sleep(1.0)
+						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+						sleep(1.0)
+						puts photo
+						prod.vk_id2=photo[0][:pid]
+						prod.save
+						puts  prod.vk_id2
+					end
 				end
 			else
 				# редактируем или удаляем
@@ -194,6 +195,4 @@ def check_and_create_cat(cat_id, cat_name=nil)
 		cat.save
 		sleep(1.0)
 	end
-end
-
 end
