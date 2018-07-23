@@ -48,6 +48,21 @@ namespace :export do
 		end		
 	end
 
+def try_n_times(n)
+	counter=0
+	loop do 
+		begin
+			yield
+			return true
+		rescue Exception => e  
+			puts "API error!!!"
+			sleep(15)
+			counter+=1
+			return false if counter==n
+		end
+	end
+end
+
 def proc_cat(cat_id, album=nil, user_album=nil)	
 	cat=Category.find(cat_id)
 	album=cat.vk_id unless album
@@ -66,75 +81,55 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 
 				puts prod.id
 
-				loop do  
-					begin
-						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-						upload_url=$vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
-						sleep(1.0)
-						upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-						sleep(1.0)
-						photo=$vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
-						sleep(1.0)
+				# создать новый товар
+				try_n_times(5) do
+					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+					upload_url=$vk.photos.getMarketUploadServer(group_id: Settings.vk_group_id, main_photo: 1).upload_url
+					sleep(1.0)
+					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+					sleep(1.0)
+					photo=$vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
+					sleep(1.0)
 
-						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
-						sleep(1.0)
-						prod.vk_id=res[:market_item_id]
-						prod.save
-						$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
-						sleep(1.0)
-						break
-					rescue Exception => e  
-  						puts e.message  
-						puts "API error!!!"
-						sleep(15)
-					end
+					res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
+					sleep(1.0)
+					prod.vk_id=res[:market_item_id]
+					prod.save
+					$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
+					sleep(1.0)
 				end
 			end
 		else
-			# puts "-#{Settings.vk_group_id}_#{prod.vk_id}"
 			if prod.enabled
-				loop do  
-					begin
-						vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
-						sleep(1.0)
-						if vk_prod[1]
-							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
-						else
-							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
-							prod.vk_id=nil
-							prod.save
-						end
-						sleep(1.0)						
-						break
-					rescue Exception => e  
-	  					puts e.message  
-						puts "API error!!!"
-						sleep(15)
-					end
-				end		
-			else
-				loop do  
-					begin
+				# обновить
+				res=try_n_times(5) do
+					vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
+					sleep(1.0)
+					if vk_prod[1]
+						$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
+					else
+						# vk не нашел товара, удалить
 						$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
-						sleep(1.0)						
 						prod.vk_id=nil
 						prod.save
-						break
-					rescue Exception => e  
-	  					puts e.message  
-						puts "API error!!!"
-						sleep(15)
 					end
+					sleep(1.0)						
+				end	
+				if !res 
+					puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+					prod.vk_id=nil
+					prod.save						
+				end
+	
+			else
+				# товар есть в VK но нет в магазини - удалить из VK
+				try_n_times(5) do
+					$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
+					sleep(1.0)						
+					prod.vk_id=nil
+					prod.save
 				end		
 			end
-
-			# begin
-			# 	sleep(1.0)
-			# 	$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
-			# rescue Exception => e  
-			# 	puts e.message  
-			# 	puts "API error!!!"
-			# end
 		end
 
 
@@ -144,58 +139,39 @@ def proc_cat(cat_id, album=nil, user_album=nil)
 					# создаем новую фоту
 					next if prod.images.empty?
 
-					loop do  
-						begin
-							img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-							upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
-							sleep(1.0)
-							upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-							sleep(1.0)
-							caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-							photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
-							sleep(1.0)
-							puts photo
-							prod.vk_id2=photo[0][:pid]
-							prod.save
-							puts  prod.vk_id2
-							break
-						rescue Exception => e  
-	  						puts e.message  
-							puts "API error!!!"
-							sleep(15)
-						end
-					end
+				try_n_times(5) do
+					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+					upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+					sleep(1.0)
+					upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+					sleep(1.0)
+					caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+					photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+					sleep(1.0)
+					puts photo
+					prod.vk_id2=photo[0][:pid]
+					prod.save
+					puts  prod.vk_id2
 				end
 			else
 				# редактируем или удаляем
 				if prod.enabled
-					loop do  
-						begin
-							# vk_prod=$vk.photo.getById(photos: prod.vk_id2)
-							# sleep(1.0)
-							caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-							$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
-							sleep(1.0)
-							break
-						rescue Exception => e  
-	  						puts e.message  
-							puts "API error!!!"
-							sleep(15)
-						end
+					res=try_n_times(5) do
+						caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+						$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
+						sleep(1.0)
+					end
+					if !res 
+						puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+						prod.vk_id2=nil
+						prod.save						
 					end
 				else
-					loop do  
-						begin
-							$vk.photos.delete(photo_id: prod.vk_id2)
-							prod.vk_id2=nil
-							prod.save
-							sleep(1.0)
-							break
-						rescue Exception => e  
-	  						puts e.message  
-							puts "API error!!!"
-							sleep(15)
-						end
+					try_n_times(5) do
+						$vk.photos.delete(photo_id: prod.vk_id2)
+						prod.vk_id2=nil
+						prod.save
+						sleep(1.0)
 					end
 				end
 			end
