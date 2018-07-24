@@ -56,6 +56,7 @@ namespace :export do
 				return true
 			rescue Exception => e  
 				puts "API error!!!"
+				puts e.to_s
 				sleep(15)
 				counter+=1
 				return false if counter==n

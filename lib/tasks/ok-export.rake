@@ -46,84 +46,87 @@ namespace :export do
 		end		
 	end
 
-def ok_proc_cat(cat_id, album=nil)	
-	cat=Category.find(cat_id)
-	album=cat.ok_id unless album
-	Product.in_categories(cat.all_sub_cats).each do |prod|
-		puts prod.name
-		caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
-		if !prod.ok_id 
-			if prod.enabled					
-				# создаем новую фоту
-				next if prod.images.empty?
-				try_n_times(5) do
-					img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-					resp=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)
-					upload_url=resp['upload_url']
-					sleep(0.8)
-					puts "upload_url - " + upload_url
-					response = RestClient.post(upload_url,  :pic1 => File.new(img_path))
-					photos= JSON.parse(response)['photos']
-					photo_id=photos.keys[0]
-					token=photos[photo_id]['token']
-					res=$ok.photos_v2.commit(photo_id: photo_id, token: token, comment: caption)
-					pid=res['photos'][0]['assigned_photo_id']
-					sleep(0.8)
+	def ok_proc_cat(cat_id, album=nil)	
+		cat=Category.find(cat_id)
+		album=cat.ok_id unless album
+		Product.in_categories(cat.all_sub_cats).each do |prod|
+			puts prod.name
+			caption=truncate("#{prod.name}\n#{prod.variants.first.price} руб.\n#{Settings.site_url}/catalog/product/#{prod.id}", length: 254)
+			if !prod.ok_id 
+				if prod.enabled					
+					# создаем новую фоту
+					next if prod.images.empty?
+					puts 'Создаем новую фотографию'
+					try_n_times(5) do
+						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+						resp=$ok.photos_v2.get_upload_url(aid: album, gid: Settings.ok_group_id)
+						upload_url=resp['upload_url']
+						sleep(0.8)
+						puts "upload_url - " + upload_url
+						response = RestClient.post(upload_url,  :pic1 => File.new(img_path))
+						photos= JSON.parse(response)['photos']
+						photo_id=photos.keys[0]
+						token=photos[photo_id]['token']
+						res=$ok.photos_v2.commit(photo_id: photo_id, token: token, comment: caption)
+						pid=res['photos'][0]['assigned_photo_id']
+						sleep(0.8)
 
-					prod.ok_id=pid
-					prod.save
+						prod.ok_id=pid
+						prod.save
 
-					# $ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
-					# puts "comment added"
-					# sleep(0.8)
-				end
-			end
-		else
-			# редактируем или удаляем
-			if prod.enabled
-				res=try_n_times(5) do
-					# ok_prod=$ok.photo.getById(photos: prod.ok_id)
-					# sleep(0.8)
-					$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
-					puts "edited"
-					sleep(0.8)
-
-					# if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
-					# 	sleep(0.8)
-					# 	res=$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
-					# 	puts res
-					# 	puts "comment added"
-					# end
-					# sleep(0.8)
-				end
-				if !res
-					puts 'не поулчилось отредактировать, наверное уже удалено в ОК'
-					prod.ok_id=nil
-					prod.save					
+						# $ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: pid, comment: prod.description, as_admin: true, frmt: 'HTML')
+						# puts "comment added"
+						# sleep(0.8)
+					end
 				end
 			else
-				# удаляем
-				try_n_times(5) do
-					$ok.photos.delete_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id)
-					prod.ok_id=nil
-					prod.save
-					puts "deleted"
-					sleep(0.8)
+				# редактируем или удаляем
+				if prod.enabled
+					puts 'Редактируем фотографию'
+					res=try_n_times(5) do
+						# ok_prod=$ok.photo.getById(photos: prod.ok_id)
+						# sleep(0.8)
+						$ok.photos.edit_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id, description: caption)
+						puts "edited"
+						sleep(0.8)
+
+						# if ($ok.discussions.get_discussion_comments_count(entityType: 'GROUP_PHOTO', entityId: prod.ok_id)['commentsCount'].to_i == 0)
+						# 	sleep(0.8)
+						# 	res=$ok.discussions.add_discussion_comment(entityType: 'GROUP_PHOTO', entityId: prod.ok_id, comment: prod.description, as_admin: true, frmt: 'HTML')								
+						# 	puts res
+						# 	puts "comment added"
+						# end
+						# sleep(0.8)
+					end
+					if !res
+						puts 'не поулчилось отредактировать, наверное уже удалено в ОК'
+						prod.ok_id=nil
+						prod.save					
+					end
+				else
+					# удаляем
+					puts 'Удаляем фотографию'
+					try_n_times(5) do
+						$ok.photos.delete_photo(photo_id: prod.ok_id, gid: Settings.ok_group_id)
+						prod.ok_id=nil
+						prod.save
+						puts "deleted"
+						sleep(0.8)
+					end
 				end
 			end
 		end
 	end
-end
 
-def ok_check_and_create_cat(cat_id, cat_name=nil)
-	cat=Category.find(cat_id)
-	cat_name=cat.name unless cat_name
-	if !cat.ok_id && (Settings.theme == 'mama40' || Rails.env.development?)
-		res=$ok.photos.create_album(title: cat_name, gid: Settings.ok_group_id)
-		cat.ok_id=res
-		cat.save
-		sleep(0.8)
+	def ok_check_and_create_cat(cat_id, cat_name=nil)
+		cat=Category.find(cat_id)
+		cat_name=cat.name unless cat_name
+		if !cat.ok_id && (Settings.theme == 'mama40' || Rails.env.development?)
+			res=$ok.photos.create_album(title: cat_name, gid: Settings.ok_group_id)
+			cat.ok_id=res
+			cat.save
+			sleep(0.8)
+		end
 	end
-end
 
 end
