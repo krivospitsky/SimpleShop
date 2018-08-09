@@ -15,8 +15,7 @@ namespace :cleanup do
 		$vk = VkontakteApi::Client.new(Settings.vk_access_token)
 		if (Settings.theme == 'mama40' || Rails.env.development?)
 			$vk.photos.getAlbums.each do |album|
-				puts album.title
-				puts album.id
+				puts album.inspect
 				if album.id && Category.find_by(vk_id2: album.id)
 					puts 'обрабатываем альбом'
 					photos=$vk.photos.get(album_id: album.id)
