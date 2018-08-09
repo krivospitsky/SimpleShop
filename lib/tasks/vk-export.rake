@@ -10,7 +10,33 @@ require 'uri'
 $vk
 $vk_cat_id
 
+namespace :cleanup do
+	task :vk  => :environment do
+		$vk = VkontakteApi::Client.new(Settings.vk_access_token)
+		if (Settings.theme == 'mama40' || Rails.env.development?)
+			$vk.photos.getAlbums.each do |album|
+				puts album.title
+				if Category.find_by(vk_id2: album.id)
+					puts 'обрабатываем альбом'
+					photos=$vk.photos.get(album_id: album.id)
+					photos.each do |photo|
+						if !Product.find_by(vk_id2: photo.id)
+							puts "Фото с id #{photo.id} не найдено, удаляем"
+							# $vk.photo.delete(photo_id: photo.id)
+						else
+							puts "Фото с id #{photo.id} найдено"
+						end
+					end
+				else
+					puts 'альбом не найден'
+				end
+			end
+		end
+	end
+end
+
 namespace :export do
+
 	task :vk => :environment do
 		include ActionView::Helpers::SanitizeHelper
 		include ActionView::Helpers::AssetUrlHelper
@@ -53,13 +79,13 @@ namespace :export do
 		loop do 
 			begin
 				yield
-				return true
+				return 0
 			rescue Exception => e  
-				puts "API error!!!"
-				puts e.to_s
+				puts "API error #{e.error_code} !!!"
+				# puts e.to_s
 				sleep(15)
 				counter+=1
-				return false if counter==n
+				return e.error_code if counter==n
 			end
 		end
 	end
@@ -116,11 +142,12 @@ namespace :export do
 						end
 						sleep(1.0)						
 					end	
-					if !res 
-						puts 'не поулчилось отредактировать, наверное уже удалено в VK'
-						prod.vk_id=nil
-						prod.save						
-					end
+					puts res
+					# if res == 1111
+					# 	puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+					# 	prod.vk_id=nil
+					# 	prod.save						
+					# end
 		
 				else
 					# товар есть в VK но нет в магазини - удалить из VK
@@ -163,11 +190,11 @@ namespace :export do
 							$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
 							sleep(1.0)
 						end
-						if !res 
-							puts 'не поулчилось отредактировать, наверное уже удалено в VK'
-							prod.vk_id2=nil
-							prod.save						
-						end
+						# if res == 1111
+						# 	puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+						# 	prod.vk_id2=nil
+						# 	prod.save						
+						# end
 					else
 						try_n_times(5) do
 							$vk.photos.delete(photo_id: prod.vk_id2)
