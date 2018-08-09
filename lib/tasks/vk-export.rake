@@ -16,6 +16,7 @@ namespace :cleanup do
 		if (Settings.theme == 'mama40' || Rails.env.development?)
 			$vk.photos.getAlbums.each do |album|
 				puts album.title
+				puts album.aid
 				if album.id && Category.find_by(vk_id2: album.aid)
 					puts 'обрабатываем альбом'
 					photos=$vk.photos.get(album_id: album.aid)
