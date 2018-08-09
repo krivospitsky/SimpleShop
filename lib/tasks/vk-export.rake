@@ -17,7 +17,7 @@ namespace :cleanup do
 			$vk.photos.getAlbums.each do |album|
 				puts album.title
 				puts album.id
-				if Category.find_by(vk_id2: album.id)
+				if album.id && Category.find_by(vk_id2: album.id)
 					puts 'обрабатываем альбом'
 					photos=$vk.photos.get(album_id: album.id)
 					photos.each do |photo|
