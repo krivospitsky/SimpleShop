@@ -23,7 +23,7 @@ namespace :cleanup do
 					photos.each do |photo|
 						if !Product.find_by(vk_id2: photo.pid)
 							puts "Фото с id #{photo.pid} не найдено, удаляем"
-							# $vk.photo.delete(photo_id: photo.id)
+							$vk.photo.delete(photo_id: photo.id)
 						else
 							puts "Фото с id #{photo.pid} найдено"
 						end
