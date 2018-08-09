@@ -15,10 +15,10 @@ namespace :cleanup do
 		$vk = VkontakteApi::Client.new(Settings.vk_access_token)
 		if (Settings.theme == 'mama40' || Rails.env.development?)
 			$vk.photos.getAlbums.each do |album|
-				puts album.inspect
-				if album.id && Category.find_by(vk_id2: album.id)
+				puts album.title
+				if album.id && Category.find_by(vk_id2: album.aid)
 					puts 'обрабатываем альбом'
-					photos=$vk.photos.get(album_id: album.id)
+					photos=$vk.photos.get(album_id: album.aid)
 					photos.each do |photo|
 						if !Product.find_by(vk_id2: photo.id)
 							puts "Фото с id #{photo.id} не найдено, удаляем"
