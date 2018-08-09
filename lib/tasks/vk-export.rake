@@ -17,15 +17,15 @@ namespace :cleanup do
 			$vk.photos.getAlbums.each do |album|
 				puts album.title
 				puts album.aid
-				if album.id && Category.find_by(vk_id2: album.aid)
+				if album.aid && Category.find_by(vk_id2: album.aid)
 					puts 'обрабатываем альбом'
 					photos=$vk.photos.get(album_id: album.aid)
 					photos.each do |photo|
-						if !Product.find_by(vk_id2: photo.id)
-							puts "Фото с id #{photo.id} не найдено, удаляем"
+						if !Product.find_by(vk_id2: photo.pid)
+							puts "Фото с id #{photo.pid} не найдено, удаляем"
 							# $vk.photo.delete(photo_id: photo.id)
 						else
-							puts "Фото с id #{photo.id} найдено"
+							puts "Фото с id #{photo.pid} найдено"
 						end
 					end
 				else
