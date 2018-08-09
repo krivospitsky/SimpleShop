@@ -23,8 +23,9 @@ namespace :cleanup do
 					photos.each do |photo|
 						if !Product.find_by(vk_id2: photo.pid)
 							puts "Фото с id #{photo.pid} не найдено, удаляем"
-							puts photo.inspect
+							# puts photo.inspect
 							$vk.photos.delete(photo_id: photo.pid)
+							sleep(1);
 						else
 							puts "Фото с id #{photo.pid} найдено"
 						end
