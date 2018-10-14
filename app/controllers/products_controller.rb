@@ -78,7 +78,7 @@ class ProductsController < ApplicationController
       @products=Product.enabled
     end
 
-    unless Settings::disable_filters || params[:category_id] == 23
+    unless Settings::disable_filters || params[:category_id] == '23'
       #генерация фильтров
       @filters=Hash.new
       @products.enabled.each do |prod|
