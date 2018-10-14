@@ -31,6 +31,12 @@
 					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
 			#ajax-loader{style: 'display:none;text-align: center;', data: {pages: @products.total_pages}}
 				=image_tag 'ajax-loader.gif'
+			-if @category.description.present?
+				.panel.panel-default
+					.panel-body
+						-if @category.image.present?
+							.thumbnail.pull-left= image_tag(@category.image.url(:product_list))
+						= raw @category.description
 	-else
 		.col-sm-12.col-md-12.col-lg-12
 			.row.products_list
