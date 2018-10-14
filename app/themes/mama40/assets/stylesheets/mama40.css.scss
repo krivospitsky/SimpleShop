@@ -538,3 +538,16 @@ h1.category_name{
   text-decoration: underline;
 }
 
+
+.footer-articles li a {
+    color: $brand-secondary;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+ 
+ .footer-articles li {
+    float: left;
+    padding: 5px;
+
+}

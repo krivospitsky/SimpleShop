@@ -21,7 +21,7 @@
 	-if @category
 		.col-sm-12.col-md-4.col-lg-3
 			=render '/categories/smart_tree'
-			-unless Settings::disable_filters || @category.id == 40 || @category.id == 13 || @category.id == 4 || @category.id == 5 || @category.id == 6 || @category.id == 8 || @category.id == 8 || @category.id == 10
+			-unless Settings::disable_filters || @category.id == 23 || @category.id == 40 || @category.id == 13 || @category.id == 4 || @category.id == 5 || @category.id == 6 || @category.id == 8 || @category.id == 8 || @category.id == 10
 				=render '/products/smart_filter'
 			.hidden-sm.hidden-xs
 				=render '/products/discount'
