@@ -63,8 +63,24 @@ $screen-lg-min: 1019px;
     padding-top: 10px !important;
     hr{
       color: $brand-primary;
-      border-top: solid 1px $brand-primary;;
+      border-top: solid 1px $brand-primary;
     }
+    a{
+      color: $brand-secondary;
+    }
+    .footer-articles{
+      li{
+        float: left;
+        padding: 10px 35px 0 35px;
+        a{
+          color: $brand-secondary;
+          font-size: 14px;
+          text-transform: uppercase;
+          font-weight: bold;
+          
+        }
+      }
+    }  
   }
 }
 
@@ -539,15 +555,3 @@ h1.category_name{
 }
 
 
-.footer-articles li a {
-    color: $brand-secondary;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
- 
- .footer-articles li {
-    float: left;
-    padding: 12px;
-
-}
