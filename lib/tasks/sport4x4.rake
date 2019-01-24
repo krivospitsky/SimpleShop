@@ -32,7 +32,7 @@ namespace :import do
 			end
 			id=category.id
 		else
-			id=0
+			id=nil
 		end
 
 		has_subcat=false
