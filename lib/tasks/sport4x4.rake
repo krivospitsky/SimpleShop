@@ -66,7 +66,7 @@ namespace :import do
 							image.remote_image_url=url
 							image.save
 						end
-						img.attributes['src'].value=image.image.url					
+						img.attributes['src'].value=image.image.url if img.attributes['src']
 					end
 					prod.xpath("//h1").each { |div|  div.name= "p" }
 
