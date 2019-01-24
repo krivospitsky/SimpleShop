@@ -1,7 +1,7 @@
 # coding: utf-8
 namespace :import do
 	task :sport4x4 => :environment do
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html", 0)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html", nil)
 		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=128", -1, :only_subcat)
 		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=2", -1, :only_subcat)
 		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=8", -1, :only_subcat)
