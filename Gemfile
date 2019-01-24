@@ -121,3 +121,4 @@ gem 'blogo', github: 'krivospitsky/blogo'
  
 gem 'omniauth-odnoklassniki'
 gem 'omniauth-vkontakte'
+

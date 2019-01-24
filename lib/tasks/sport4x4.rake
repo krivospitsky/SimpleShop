@@ -1,56 +1,57 @@
 # coding: utf-8
 namespace :import do
 	task :sport4x4 => :environment do
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=128", -1, :only_subcat)
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=2", -1, :only_subcat)
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=8", -1, :only_subcat)
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=793", -1, :only_subcat)
-		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=456", -1, :only_subcat)
+		Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html", 0)
+		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=128", -1, :only_subcat)
+		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=2", -1, :only_subcat)
+		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=8", -1, :only_subcat)
+		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=793", -1, :only_subcat)
+		# Sport4x4ProcessCategory("http://www.4x4sport.ru/catalogue.html?gr=456", -1, :only_subcat)
 		
 	end
 
-	def Sport4x4ProcessCategory(url, id, type)
-		cat = Nokogiri::HTML(open(url))
+	def Sport4x4ProcessCategory(url, parent_id)
+		puts url
+		if url=="http://www.4x4sport.ru/catalogue.html"
+			cat = Nokogiri::HTML(open(url))
+		else
+			cat = Nokogiri::HTML(open(url+'&full=1'))
+		end
 
-		if id==-1
+		if url!="http://www.4x4sport.ru/catalogue.html"
 			external_id="s4x4_" + url[/=(\d+)$/,1]
 			category=Category.find_or_initialize_by(external_id: external_id)
 			if category.new_record?
-				category.name=cat.xpath('//h1[@class="c"]').first.content.strip
+				category.name=cat.xpath('//h1[@class="great"]').first.content.strip
 				category.external_id=external_id
 				puts category.name
 				category.enabled=true
+				category.parent_id=parent_id
+			puts 'cat save'
 				category.save!
 			end
 			id=category.id
+		else
+			id=0
 		end
 
 		has_subcat=false
-		cat.xpath('//div[@class="catalogue"]/div/div/a').each do |subcat|
+		puts 'subcats'
+		cat.xpath('//div[@class="groupitem"]/a').each do |subcat|
 			has_subcat=true
 			sub_url='http://www.4x4sport.ru'+subcat.attr('href')
-			external_id="s4x4_" + sub_url[/=(\d+)$/,1]
-
-			category=Category.find_or_initialize_by(external_id: external_id)
-			if category.new_record?
-				category.parent_id=id
-				category.external_id=external_id
-				category.name=subcat.xpath('span').first.content.strip
-				puts category.name
-				category.enabled=true
-				category.save!
-			end
-
-			Sport4x4ProcessCategory(sub_url, category.id, :only_products)
+			Sport4x4ProcessCategory(sub_url, id)
 		end
 
 		if has_subcat==false
-			cat.xpath('//div[@class="good"]//a[@class="title"]/@href').each do |prod_link|
+			cat.xpath('//div[@class="item"]/a/@href').each do |prod_link|
+				puts prod_link
 				prod = Nokogiri::HTML(open('http://www.4x4sport.ru'+prod_link), nil)
-				sku="s4x4_" + prod.xpath('//span[@class="code"]').first.content
+				sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
+
 				product=Product.find_or_initialize_by(sku: sku)
 
-			 	product.name=prod.xpath('//div[@class="desc"]/h1').first.content.strip
+			 	product.name=prod.xpath('//h1[@class="great"]').first.content.strip
 			 	puts product.name
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
@@ -84,8 +85,7 @@ namespace :import do
 				variant.save
 
 				if product.images.count == 0 
-					prod.xpath("//div[@class='goodpage']/div[@class='photo']/@style").each do |pic|
-						pic_url=pic.content[/\((.+)\)/,1]
+					prod.xpath('//img[@itemprop="image"]/@src').each do |pic_url|
 						begin
 							image=product.images.new
 							image.remote_image_url='http://www.4x4sport.ru'+pic_url
@@ -95,8 +95,10 @@ namespace :import do
 						end
 					end
 				end
-
 			end
 		end
+	end
+
+	def Sport4x4ProcessProduct(url)
 	end
 end
