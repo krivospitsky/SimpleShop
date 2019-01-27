@@ -95,6 +95,7 @@ namespace :import do
 						end
 					end
 				end
+				sleep(1)
 			end
 		end
 	end
