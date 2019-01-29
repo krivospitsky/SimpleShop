@@ -39,7 +39,8 @@ namespace :import do
 		puts 'subcats'
 		cat.xpath('//div[@class="groupitem"]/a').each do |subcat|
 			has_subcat=true
-			sub_url='http://www.4x4sport.ru'+subcat.attr('href')
+			sub_url=subcat.attr('href')
+			sub_url='http://www.4x4sport.ru'+sub_url if !sub_url.start_with('http://')
 			Sport4x4ProcessCategory(sub_url, id)
 		end
 
