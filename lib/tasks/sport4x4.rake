@@ -11,6 +11,7 @@ namespace :import do
 	end
 
 	def Sport4x4ProcessCategory(url, parent_id)
+		return if ['http://www.4x4sport.ru/catalogue.html?gr=789', 'http://www.4x4sport.ru/publications.html?publications=publications4', 'http://www.4x4sport.ru/catalogue.html?gr=1417', 'http://www.4x4sport.ru/catalogue.html?gr=1245', 'http://www.4x4sport.ru/catalogue.html?gr=1111'].include?(url)
 		puts url
 		if url=="http://www.4x4sport.ru/catalogue.html"
 			cat = Nokogiri::HTML(open(url))
