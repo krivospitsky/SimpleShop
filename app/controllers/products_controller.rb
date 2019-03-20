@@ -81,25 +81,25 @@ class ProductsController < ApplicationController
     unless Settings::disable_filters || params[:category_id] == '23'
       #генерация фильтров
       @filters=Hash.new
-      @products.enabled.each do |prod|
-        prod.attrs.each do |attr|
-          @filters[attr.name]=[] unless @filters[attr.name]
+      
+      
+
+      Attr.where(product: @products).each do |attr|
+        @filters[attr.name]=[] unless @filters[attr.name]
+        @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
+      end
+
+      VariantAttr.where(variant: Variant.where(product: @products)).each do |attr|
+        @filters[attr.name]=[] unless @filters[attr.name]
+
+        if attr.value.match(/(\d+)\-(\d+)/) #48-50
+          @filters[attr.name] << Regexp.last_match[1] unless @filters[attr.name].include?(Regexp.last_match[1])
+          @filters[attr.name] << Regexp.last_match[2] unless @filters[attr.name].include?(Regexp.last_match[2])
+        else
           @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
         end
+      end          
 
-        prod.variants.enabled.each do |var|
-          var.attrs.each do |attr|
-            @filters[attr.name]=[] unless @filters[attr.name]
-
-            if attr.value.match(/(\d+)\-(\d+)/) #48-50
-              @filters[attr.name] << Regexp.last_match[1] unless @filters[attr.name].include?(Regexp.last_match[1])
-              @filters[attr.name] << Regexp.last_match[2] unless @filters[attr.name].include?(Regexp.last_match[2])
-            else
-              @filters[attr.name] << attr.value unless @filters[attr.name].include?(attr.value)
-            end
-          end          
-        end
-      end
       @filters.keys.each do |filter|
         @filters.delete(filter) if @filters[filter].size<2
       end
