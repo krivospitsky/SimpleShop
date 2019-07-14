@@ -121,7 +121,7 @@ namespace :export do
 						photo=$vk.photos.saveMarketPhoto(group_id: Settings.vk_group_id, photo: upload[:photo], server: upload[:server], hash: upload[:hash], crop_data: upload[:crop_data], crop_hash: upload[:crop_hash])
 						sleep(1.0)
 
-						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: photo[0][:pid], deleted: prod.enabled ? 0 : 1)
+						res=$vk.market.add(owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: photo[:response][0][:id], deleted: prod.enabled ? 0 : 1)
 						sleep(1.0)
 						prod.vk_id=res[:market_item_id]
 						prod.save
@@ -136,7 +136,7 @@ namespace :export do
 						vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 						sleep(1.0)
 						if vk_prod[1]
-							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[1].photos[0][:pid], deleted: prod.enabled ? 0 : 1)
+							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[:response][:items][0][:photos][0][:id], deleted: prod.enabled ? 0 : 1)
 						else
 							# vk не нашел товара, удалить
 							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
@@ -180,7 +180,7 @@ namespace :export do
 							photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
 							sleep(1.0)
 							puts photo
-							prod.vk_id2=photo[0][:pid]
+							prod.vk_id2=photo[:response][0][pid]
 							prod.save
 							puts  prod.vk_id2
 						end
