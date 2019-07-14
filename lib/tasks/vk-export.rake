@@ -180,7 +180,7 @@ namespace :export do
 							photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
 							sleep(1.0)
 							puts photo
-							prod.vk_id2=photo[0][pid]
+							prod.vk_id2=photo[0][:id]
 							prod.save
 							puts  prod.vk_id2
 						end
