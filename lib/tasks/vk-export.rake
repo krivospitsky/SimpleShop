@@ -16,18 +16,18 @@ namespace :cleanup do
 		if (Settings.theme == 'mama40' || Rails.env.development?)
 			$vk.photos.getAlbums.each do |album|
 				puts album.title
-				puts album.aid
-				if album.aid && Category.find_by(vk_id2: album.aid)
+				puts album.id
+				if album.id && Category.find_by(vk_id2: album.id)
 					puts 'обрабатываем альбом'
-					photos=$vk.photos.get(album_id: album.aid)
+					photos=$vk.photos.get(album_id: album.id)
 					photos.each do |photo|
-						if !Product.find_by(vk_id2: photo.pid)
-							puts "Фото с id #{photo.pid} не найдено, удаляем"
+						if !Product.find_by(vk_id2: photo.id)
+							puts "Фото с id #{photo.id} не найдено, удаляем"
 							# puts photo.inspect
-							$vk.photos.delete(photo_id: photo.pid)
+							$vk.photos.delete(photo_id: photo.id)
 							sleep(1);
 						else
-							puts "Фото с id #{photo.pid} найдено"
+							puts "Фото с id #{photo.id} найдено"
 						end
 					end
 				else
@@ -200,7 +200,7 @@ namespace :export do
 						# end
 					else
 						try_n_times(5) do
-							$vk.photos.delete(photo_id: prod.vk_id2)
+							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: )
 							prod.vk_id2=nil
 							prod.save
 							sleep(1.0)
@@ -223,7 +223,7 @@ namespace :export do
 		end
 		if !cat.vk_id2 && (Settings.theme == 'mama40' || Rails.env.development?)
 			res=$vk.photos.createAlbum(title: cat_name)
-			cat.vk_id2=res[:aid]
+			cat.vk_id2=res[:id]
 			cat.save
 			sleep(1.0)
 		end
