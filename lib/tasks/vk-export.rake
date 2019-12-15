@@ -200,7 +200,7 @@ namespace :export do
 						# end
 					else
 						try_n_times(5) do
-							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: )
+							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id2=nil
 							prod.save
 							sleep(1.0)
