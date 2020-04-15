@@ -1,5 +1,6 @@
 class DeliveryMethod < ActiveRecord::Base
 
+  default_scope -> {order(sort_order: :asc)}
   scope :enabled, -> { where(enabled: 't') }
   has_and_belongs_to_many :payment_methods
 

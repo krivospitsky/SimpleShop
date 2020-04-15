@@ -1,0 +1,24 @@
+= paginate @delivery_methods
+
+%table.table.table-striped
+  %thead
+    %tr
+      - @index_attributes.each do |attr|
+        %th= @class_obj.human_attribute_name(attr)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody.sortable{id: "#{controller_name}_list"}
+    - @delivery_methods.each do |dm|
+      %tr{id: dm.id, :'data-sort-order' => dm.sort_order}      
+        -@index_attributes.each do |attr|
+          -if dm.class.columns_hash[attr.to_s].type == :boolean
+            %td
+              -if dm.attributes[attr.to_s]
+                %i.glyphicon.glyphicon-ok
+          -else
+            %td= dm.attributes[attr.to_s]
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), send("edit_admin_#{controller_name.singularize}_path", dm), :class => 'btn btn-xs btn-default'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), send("admin_#{controller_name.singularize}_path", dm), :method => :delete, :data => { :confirm => t('.confirm', name: dm.name, :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= paginate @delivery_methods
+
