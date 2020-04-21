@@ -82,9 +82,15 @@ namespace :import do
 
 				variant=product.variants.find_or_initialize_by(sku: sku)
 				variant.sku=sku
-				variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
-				variant.enabled = true
-				variant.availability='Доставка 2-3 дня'
+				if (prod.xpath('//span[@class="price"]'))
+					variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
+					variant.enabled = true
+					variant.availability='Доставка 2-3 дня'
+				else
+					variant.price=0
+					variant.enabled = false
+					variant.availability='Нет в наличии'
+				end
 				variant.save
 
 				if product.images.count == 0 
