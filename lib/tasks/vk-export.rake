@@ -86,7 +86,7 @@ namespace :export do
 			rescue Exception => e  
 				puts "API error #{e.error_code} !!!"
 				# puts e.to_s
-				sleep(15)
+				sleep(3)
 				counter+=1
 				return e.error_code if counter==n
 			end
@@ -199,7 +199,7 @@ namespace :export do
 						# 	prod.save						
 						# end
 					else
-						res=try_n_times(5) do
+						res=try_n_times(2) do
 							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id2=nil
 							prod.save
