@@ -6,6 +6,7 @@
 
 require 'action_view'
 require 'uri'
+require 'json'
 
 $vk
 $vk_cat_id
@@ -143,8 +144,10 @@ namespace :export do
 							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[:items][0][:photos][0][:id], deleted: prod.enabled ? 0 : 1)
 							$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
 							sleep(1.0)
-							else
+						else
 							puts 'not found, delete product'
+							puts JSON.pretty_generate(vk_prod)
+							raise
 							# vk не нашел товара, удалить
 							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id=nil
