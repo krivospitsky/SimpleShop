@@ -140,7 +140,7 @@ namespace :export do
 					res=try_n_times(5) do
 						vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
 						sleep(1.0)
-						if vk_prod[1]
+						if vk_prod[:items][0]
 							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[:items][0][:photos][0][:id], deleted: prod.enabled ? 0 : 1)
 							$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
 							sleep(1.0)
