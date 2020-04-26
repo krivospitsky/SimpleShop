@@ -51,6 +51,8 @@ namespace :export do
 			$vk_cat_id=1
 		end
 
+		Rails.logger.level = :error
+
 		case Settings.theme
 			when 'sling'
 				cats=[1, 7, 13, 28, 17, 20]									
@@ -59,7 +61,7 @@ namespace :export do
 				cats=[331, 2253, 395, 423, 426, 433, 445, 448, 477, 478, 488, 504, 505, 516, 538, 546, 547, 553, 554, 564, 566,      254, 270, 293, 294, 295, 566, 2341, 2346, 2349, 2647, 3030, 3031, 3032, 3033, 301]
 			when 'mama40'
 				$vk_cat_id=1
-				cats=[18, 17, 14, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}, {cats: [6, 8, 9, 10], name: "Детские товары"}, {cats: [20, 21, 22], name: "Подгузники, пеленки и трусики GlorYes!"}]
+				cats=[40, 36, {cats: [39, 54], name: "Белье"}, 18, 17, 14, {cats: [55, 13], name: "Прокладки и трусики послеродовые"}, 31, 37, 36, 35, 30, 29, 28, 27, {cats: [24, 57], name: "Шорты и юбки"}, {cats: [46, 48], name: "Слинг-рюкзаки и май-слинги"}, 40, 53, 45, 47, 42, {cats: [38, 26], name: "Брюки, комбинезоны и костюмы"}, {cats: [43, 44], name: "Слинги-шарфы"}, {cats: [6, 8, 9, 10], name: "Детские товары"}, {cats: [20, 21, 22], name: "Подгузники, пеленки и трусики GlorYes!"}]
 		end 
 
 		cats.each do |cat_item|
@@ -95,6 +97,7 @@ namespace :export do
 
 	def proc_cat(cat_id, album=nil, user_album=nil)	
 		cat=Category.find(cat_id)
+		puts "Process cat " + cat.name
 		album=cat.vk_id unless album
 		user_album=cat.vk_id2 unless user_album
 		Product.in_categories(cat.all_sub_cats).each do |prod|
@@ -103,14 +106,14 @@ namespace :export do
 				name=prod.name[0, 95]+'...'
 				name=name.encode( "windows-1251")
 			end
+			
+			puts "Process prod " + name + ' id ' + prod.id
 
 			if !prod.vk_id
 				if prod.enabled					
 					next if prod.images.empty?
 					next if prod.description.length<10
-
-					puts prod.id
-
+					puts 'create product'
 					# создать новый товар
 					try_n_times(5) do
 						img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -131,6 +134,7 @@ namespace :export do
 				end
 			else
 				if prod.enabled
+					puts 'update product'
 					# обновить
 					res=try_n_times(5) do
 						vk_prod=$vk.market.getById(item_ids: "-#{Settings.vk_group_id}_#{prod.vk_id}", extended: 1)
@@ -138,6 +142,7 @@ namespace :export do
 						if vk_prod[1]
 							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[:items][0][:photos][0][:id], deleted: prod.enabled ? 0 : 1)
 						else
+							puts 'not found, delete product'
 							# vk не нашел товара, удалить
 							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id=nil
@@ -154,6 +159,7 @@ namespace :export do
 		
 				else
 					# товар есть в VK но нет в магазини - удалить из VK
+					puts 'delete product'
 					try_n_times(5) do
 						$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
 						sleep(1.0)						
@@ -169,6 +175,7 @@ namespace :export do
 					if prod.enabled					
 						# создаем новую фоту
 						next if prod.images.empty?
+						puts 'create photo'
 
 						try_n_times(5) do
 							img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
@@ -188,6 +195,7 @@ namespace :export do
 				else
 					# редактируем или удаляем
 					if prod.enabled
+						puts 'update product'
 						res=try_n_times(5) do
 							caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
 							$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
@@ -199,6 +207,7 @@ namespace :export do
 						# 	prod.save						
 						# end
 					else
+						puts 'delete product'
 						res=try_n_times(2) do
 							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id2=nil
