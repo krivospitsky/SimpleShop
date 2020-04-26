@@ -149,7 +149,6 @@ namespace :export do
 						else
 							puts 'not found, delete product'
 							puts JSON.pretty_generate(vk_prod)
-							raise
 							# vk не нашел товара, удалить
 							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
 							prod.vk_id=nil
@@ -177,58 +176,58 @@ namespace :export do
 			end
 
 
-			if (Settings.theme == 'mama40' || Rails.env.development?)
-				if !prod.vk_id2 
-					if prod.enabled					
-						# создаем новую фоту
-						next if prod.images.empty?
-						puts 'create photo'
+			# if (Settings.theme == 'mama40' || Rails.env.development?)
+			# 	if !prod.vk_id2 
+			# 		if prod.enabled					
+			# 			# создаем новую фоту
+			# 			next if prod.images.empty?
+			# 			puts 'create photo'
 
-						try_n_times(5) do
-							img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
-							upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
-							sleep(1.0)
-							upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
-							sleep(1.0)
-							caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-							photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
-							sleep(1.0)
-							puts photo
-							prod.vk_id2=photo[0][:id]
-							prod.save
-							puts  prod.vk_id2
-						end
-					end
-				else
-					# редактируем или удаляем
-					if prod.enabled
-						puts 'update product'
-						res=try_n_times(5) do
-							caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
-							$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
-							sleep(1.0)
-						end
-						# if res == 1111
-						# 	puts 'не поулчилось отредактировать, наверное уже удалено в VK'
-						# 	prod.vk_id2=nil
-						# 	prod.save						
-						# end
-					else
-						puts 'delete product'
-						res=try_n_times(2) do
-							$vk.photos.delete(photo_id: prod.vk_id2, owner_id: "-#{Settings.vk_group_id}")
-							prod.vk_id2=nil
-							prod.save
-							sleep(1.0)
-						end
-						if res == 100
-							puts 'не поулчилось отредактировать, наверное уже удалено в VK'
-							prod.vk_id2=nil
-							prod.save						
-						end
-					end
-				end
-			end
+			# 			try_n_times(5) do
+			# 				img_path=prod.images.present? ? prod.images.first.image.vk.path : asset_path("product_list_no_photo_#{Settings.theme}.png")
+			# 				upload_url=$vk.photos.getUploadServer(album_id: user_album).upload_url
+			# 				sleep(1.0)
+			# 				upload=VkontakteApi.upload(url: upload_url, photo: [img_path, 'image/jpeg'])
+			# 				sleep(1.0)
+			# 				caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+			# 				photo=$vk.photos.save(album_id: user_album, photos_list: upload[:photos_list], server: upload[:server], hash: upload[:hash], caption: caption)
+			# 				sleep(1.0)
+			# 				puts photo
+			# 				prod.vk_id2=photo[0][:id]
+			# 				prod.save
+			# 				puts  prod.vk_id2
+			# 			end
+			# 		end
+			# 	else
+			# 		# редактируем или удаляем
+			# 		if prod.enabled
+			# 			puts 'update product'
+			# 			res=try_n_times(5) do
+			# 				caption="#{prod.name}\n#{prod.variants.first.price} руб.\n#{strip_tags(prod.description)}"
+			# 				$vk.photos.edit(photo_id: prod.vk_id2, caption: caption)
+			# 				sleep(1.0)
+			# 			end
+			# 			# if res == 1111
+			# 			# 	puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+			# 			# 	prod.vk_id2=nil
+			# 			# 	prod.save						
+			# 			# end
+			# 		else
+			# 			puts 'delete product'
+			# 			res=try_n_times(2) do
+			# 				$vk.photos.delete(photo_id: prod.vk_id2, owner_id: "-#{Settings.vk_group_id}")
+			# 				prod.vk_id2=nil
+			# 				prod.save
+			# 				sleep(1.0)
+			# 			end
+			# 			if res == 100
+			# 				puts 'не поулчилось отредактировать, наверное уже удалено в VK'
+			# 				prod.vk_id2=nil
+			# 				prod.save						
+			# 			end
+			# 		end
+			# 	end
+			# end
 		end
 	end
 
