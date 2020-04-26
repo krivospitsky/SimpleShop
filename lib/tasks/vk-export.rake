@@ -107,7 +107,7 @@ namespace :export do
 				name=name.encode( "windows-1251")
 			end
 			
-			puts "Process prod " + name + ' id ' + prod.id
+			puts "Process prod " + name + ' id ' + prod.id.to_s
 
 			if !prod.vk_id
 				if prod.enabled					
