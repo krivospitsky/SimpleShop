@@ -141,7 +141,9 @@ namespace :export do
 						sleep(1.0)
 						if vk_prod[1]
 							$vk.market.edit(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}", name: name, description: strip_tags(prod.description), category_id: $vk_cat_id, price: prod.variants.first.price, main_photo_id: vk_prod[:items][0][:photos][0][:id], deleted: prod.enabled ? 0 : 1)
-						else
+							$vk.market.addToAlbum(owner_id: "-#{Settings.vk_group_id}", item_id: prod.vk_id, album_ids: album)
+							sleep(1.0)
+							else
 							puts 'not found, delete product'
 							# vk не нашел товара, удалить
 							$vk.market.delete(item_id: prod.vk_id, owner_id: "-#{Settings.vk_group_id}")
