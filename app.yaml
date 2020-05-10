@@ -1,0 +1,18 @@
+runtime: ruby25
+
+entrypoint: bundle exec puma -C ./puma.rb
+
+instance_class: F2
+
+env_variables:
+  APP_ENV: production
+  THREAD_COUNT: 16
+
+handlers:
+- url: /images
+  static_dir: public/uploads
+  secure: always
+
+- url: /.*
+  script: auto
+  secure: always
