@@ -132,7 +132,7 @@ namespace :import do
 		end
 
 		
-		Category.alenabled.each do |cat|
+		Category.enabled.each do |cat|
 			if Product.in_categories(cat.all_sub_cats).enabled.empty?
 			# if cat.products.enabled.empty? and cat.categories.enabled.empty?
 				puts "категория #{cat.name} отключена"
