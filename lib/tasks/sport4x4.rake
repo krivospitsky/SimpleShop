@@ -88,8 +88,9 @@ namespace :import do
 				if (prod.xpath('//span[@class="price"]').first)
 					variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
 					variant.enabled = true
-					variant.availability='Доставка 2-3 дня'
+					variant.availability='Доставка 2-3 дня'					
 					availability=prod.xpath('//div[@class="itemparams"]/h3').first
+					puts prod.xpath('//div[@class="itemparams"]/h3')
 					if (availability == 'Нет в наличии')
 						variant.enabled = false
 						variant.availability='Нет в наличии'
