@@ -53,7 +53,7 @@ namespace :import do
 				# sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
 				sku=prod.xpath('//div[@class="code"]').first.content.strip
 				puts sku
-				sku='s4x4_'+(/\:\s(\d+)/.match(sku)[1])
+				sku='s4x4_'+(/\:\s(.+)/.match(sku)[1])
 
 				product=Product.find_or_initialize_by(sku: sku)
 
