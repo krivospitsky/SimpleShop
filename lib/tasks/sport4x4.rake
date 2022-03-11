@@ -89,8 +89,8 @@ namespace :import do
 					variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
 					variant.enabled = true
 					variant.availability='Доставка 2-3 дня'					
-					availability=prod.xpath('//div[@class="itemparams"]/h3').first
-					puts prod.xpath('//div[@class="itemparams"]/h3')
+					availability=prod.xpath('//div[@class="itemparams"]/h3').first.content.strip
+					puts availability
 					if (availability == 'Нет в наличии')
 						variant.enabled = false
 						variant.availability='Нет в наличии'
@@ -120,10 +120,10 @@ namespace :import do
 
 	task :finalize_sport4x4 => :environment  do |task, args|
 		# like_str=args.like_str || '%'
-		c=Variant.where("updated_at < ?", 5.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
+		c=Variant.enabled.where("updated_at < ?", 5.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
 		puts "Нет в наличии #{c}"
 
-		Product.all.each do |prod|
+		Product.enabled.each do |prod|
 			if prod.variants.enabled.empty?
 				puts "товар #{prod.name} недоступен"
 				prod.enabled=false
@@ -132,7 +132,7 @@ namespace :import do
 		end
 
 		
-		Category.all.each do |cat|
+		Category.alenabled.each do |cat|
 			if Product.in_categories(cat.all_sub_cats).enabled.empty?
 			# if cat.products.enabled.empty? and cat.categories.enabled.empty?
 				puts "категория #{cat.name} отключена"
