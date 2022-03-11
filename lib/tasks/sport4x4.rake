@@ -51,7 +51,9 @@ namespace :import do
 				puts prod_link
 				prod = Nokogiri::HTML(open('http://www.4x4sport.ru'+prod_link), nil)
 				# sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
-				sku='s4x4_'+(/\:\s(\d+)/.match(prod.xpath('//div[@class="code"]').first.content.strip)[1])
+				sku=prod.xpath('//div[@class="code"]').first.content.strip
+				puts sku
+				sku='s4x4_'+(/\:\s(\d+)/.match(sku)[1])
 
 				product=Product.find_or_initialize_by(sku: sku)
 
