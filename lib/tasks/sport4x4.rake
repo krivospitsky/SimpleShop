@@ -52,7 +52,7 @@ namespace :import do
 				prod = Nokogiri::HTML(open('http://www.4x4sport.ru'+prod_link), nil)
 				# sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
 				sku=prod.xpath('//div[@class="code"]').first.content.strip
-				puts sku
+				# puts sku
 				sku='s4x4_'+(/\:\s(.+)/.match(sku)[1])
 
 				product=Product.find_or_initialize_by(sku: sku)
@@ -134,6 +134,7 @@ namespace :import do
 		Category.all.each do |cat|
 			if Product.in_categories(cat.all_sub_cats).enabled.empty?
 			# if cat.products.enabled.empty? and cat.categories.enabled.empty?
+				puts "категория #{cat.name} отключена"
 				cat.enabled=false
 				cat.save			
 			end
