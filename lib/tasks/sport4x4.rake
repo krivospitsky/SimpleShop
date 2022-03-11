@@ -50,7 +50,8 @@ namespace :import do
 			cat.xpath('//div[@class="item"]/a/@href').each do |prod_link|
 				puts prod_link
 				prod = Nokogiri::HTML(open('http://www.4x4sport.ru'+prod_link), nil)
-				sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
+				# sku='s4x4_'+prod.xpath('//div[@class="itemparams"][1]/p[1]/span').first.content.strip
+				sku='s4x4_'+(/\:\s(\d+)/.match(prod.xpath('//div[@class="code"]').first.content.strip)[1])
 
 				product=Product.find_or_initialize_by(sku: sku)
 
@@ -59,7 +60,7 @@ namespace :import do
 			 	product.categories.clear
 			 	product.categories << Category.find(id)
 			 	product.sku=sku				
-			 	if descr=prod.xpath('//div[@id="divdesc"]').first
+			 	if descr=prod.xpath('//div[@id="pagediv"]/div[@class="text"][2]').first
 					descr.css('img').each do |img|
 						url=img.attr('src')
 						unless image=DescriptionImage.find_by(original_url: url)
@@ -74,8 +75,8 @@ namespace :import do
 					prod.xpath("//h1").each { |div|  div.name= "p" }
 
 					product.description=descr.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
-				else
-					product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
+				# else
+				# 	product.description=prod.xpath('//div[@class="desc"]/p').first.to_s.encode('UTF-8', :invalid => :replace, :undef => :replace)
 				end
 				product.enabled=true
 				product.save
@@ -86,6 +87,11 @@ namespace :import do
 					variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
 					variant.enabled = true
 					variant.availability='Доставка 2-3 дня'
+					availability=prod.xpath('//div[@class="itemparams"]/h3').first
+					if (availability == 'Нет в наличии')
+						variant.enabled = false
+						variant.availability='Нет в наличии'
+					end
 				else
 					variant.price=0
 					variant.enabled = false
@@ -109,6 +115,26 @@ namespace :import do
 		end
 	end
 
-	def Sport4x4ProcessProduct(url)
+	task :finalize_sport4x4 => :environment  do |task, args|
+		# like_str=args.like_str || '%'
+		c=Variant.where("updated_at < ?", 5.day.ago).update_all(availability: 'Нет в наличии', enabled: false)
+		puts "Нет в наличии #{c}"
+
+		Product.all.each do |prod|
+			if prod.variants.enabled.empty?
+				puts "товар #{prod.name} недоступен"
+				prod.enabled=false
+				prod.save
+			end
+		end
+
+		
+		Category.all.each do |cat|
+			if Product.in_categories(cat.all_sub_cats).enabled.empty?
+			# if cat.products.enabled.empty? and cat.categories.enabled.empty?
+				cat.enabled=false
+				cat.save			
+			end
+		end
 	end
 end
