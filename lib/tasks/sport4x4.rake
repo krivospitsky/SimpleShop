@@ -89,12 +89,17 @@ namespace :import do
 					variant.price=prod.xpath('//span[@class="price"]').first.content.delete(' ').delete("руб.").to_i
 					variant.enabled = true
 					variant.availability='Доставка 2-3 дня'					
-					availability=prod.xpath('//div[@class="itemparams"]/h3').first.content.strip
-					puts availability
-					if (availability == 'Нет в наличии')
+					availability=prod.xpath('//div[@class="itemparams"]/h3').first
+					if (availability)
+						if (availability == 'Нет в наличии')
+							variant.enabled = false
+							variant.availability='Нет в наличии'
+						end
+					else
+						variant.price=0
 						variant.enabled = false
 						variant.availability='Нет в наличии'
-					end
+						end
 				else
 					variant.price=0
 					variant.enabled = false
