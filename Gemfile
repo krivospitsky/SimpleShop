@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-#ruby '2.6.5'
+ruby '2.6.5'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Bundle edge Rails instead: gem 'rails', git: 'https://github.com/rails/rails'
 gem 'rails', '~>4.2.0'
 
 gem 'pg'
@@ -50,18 +50,18 @@ gem 'haml-rails' #, :github => 'indirect/haml-rails'
 
 
 gem 'nokogiri'
-gem "ckeditor", github: 'galetahub/ckeditor' 
+gem "ckeditor", git: 'https://github.com/galetahub/ckeditor' 
 
 # gem 'airbrake'
 #gem 'friendly_id', '~> 5.0.0'
-gem 'state_machine' #, github:'huoxito/state_machine', branch:'activerecord-4.2-upgrade'
+gem 'state_machine' #, git: 'https://github.com/huoxito/state_machine', branch:'activerecord-4.2-upgrade'
 #gem 'thin'
 
 #gem 'inherited_resources'
 #gem 'responders'
 gem 'responders'
-gem 'simple_form' #, github: 'plataformatec/simple_form'
-#gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
+gem 'simple_form' #, git: 'https://github.com/plataformatec/simple_form'
+#gem 'simple_form_fancy_uploads', git: 'https://github.com/krivospitsky/simple_form_fancy_uploads'
 gem "nested_form"
 gem 'carrierwave'
 gem 'mini_magick'
@@ -105,8 +105,8 @@ gem 'amoeba'
 
 gem 'delayed_job_active_record'
 
-gem 'vkontakte_api', github: '7even/vkontakte_api'
-gem 'school_friend', github:'krivospitsky/school_friend'
+gem 'vkontakte_api', git: 'https://github.com/7even/vkontakte_api'
+gem 'school_friend', git: 'https://github.com/krivospitsky/school_friend'
 
 gem 'rest-client'
 
@@ -116,7 +116,7 @@ gem 'coffee-script-source'
 
 gem 'bb-ruby'
 
-gem 'blogo', github: 'krivospitsky/blogo'
+gem 'blogo', git: 'https://github.com/krivospitsky/blogo'
 #gem 'blogo', path: '/blogo' , group: :development
  
 gem 'omniauth-odnoklassniki'
