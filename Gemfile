@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.6.5'
+ruby '2.6.9'
 
 # Bundle edge Rails instead: gem 'rails', git: 'https://github.com/rails/rails'
 gem 'rails', '~>4.2.0'
