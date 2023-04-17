@@ -133,14 +133,14 @@ namespace :import do
 						variant.name=var.xpath('td[1]').first.content.strip
 						variant.enabled=true
 						variant.availability='Доставка 2-3 дня'
-						variant.price=var.xpath('td[4]').first.content.strip.delete(' ').delete("руб").to_i
+						variant.price=var.xpath('td[4]').first.content.strip.delete(' ').delete("руб").delete("₽").to_i
 						process_attrs(variant.name, variant)
 						variant.save
 					end
 				else
 					variant=product.variants.find_or_initialize_by(sku: sku)
 					variant.sku=sku
-					variant.price=prod.xpath('//span[@class="catalog_element_price_value"]/b').first.content.delete(' ').delete("руб").to_i
+					variant.price=prod.xpath('//span[@class="catalog_element_price_value"]/b').first.content.delete(' ').delete("руб").delete("₽").to_i
 					variant.enabled = true
 					variant.availability='Доставка 2-3 дня'
 
